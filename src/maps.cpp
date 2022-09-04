@@ -20,7 +20,7 @@ void tale::mapinit()
     map1.position = Vec2(0,0);
     map2.mode = SpriteMode::MODE_STRETCH;
     map2.size = Vec2(512, 512);
-    map2.position = Vec2(512,0);
+    map2.position = Vec2(1024,0);
     
     }
     auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
@@ -34,7 +34,5 @@ void tale::mapinit()
     texture4->addLink(map4.id);
     texture5->addLink(map5.id);
 }
-
-
 
 }

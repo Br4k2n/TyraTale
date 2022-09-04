@@ -1,7 +1,6 @@
 #pragma once
 
 #include <tyra>
-#include "mapsinfo.hpp"
 
 namespace tale {
 

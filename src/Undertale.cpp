@@ -17,10 +17,6 @@ tale::~tale()
 
 void tale::init() 
 { 
-    auto Pathp1 = FileUtils::fromCwd("sprites/spr_maincharau_2.png");
-    auto Pathp2 = FileUtils::fromCwd("sprites/spr_maincharar_0.png");
-    auto Pathp3 = FileUtils::fromCwd("sprites/spr_maincharad_2.png");
-    auto Pathp4 = FileUtils::fromCwd("sprites/spr_maincharal_0.png");
     engine->renderer.setClearScreenColor(Color(0.32F,0.32F,0.32F));
     startplayer();
     mapinit();
