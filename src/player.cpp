@@ -11,7 +11,8 @@ void tale::reloadplayer()
     const auto pad = engine->pad.getPressed();
     const auto Presspad = engine->pad.getClicked();
 
-    if (Presspad.Cross) {TYRA_LOG("apertado");}
+
+    if (Presspad.Cross) {TYRA_LOG(Xpos, Ypos);}
 
     if (pad.DpadLeft)
     {
@@ -27,14 +28,109 @@ void tale::reloadplayer()
     if (pad.DpadDown)
     {
         Ypos -= vel;
-        direction = 1;
+        direction = 3;
 
     }else if (pad.DpadUp)
     {
         Ypos += vel;
-        direction = 3;
+        direction = 1;
 
     }
+
+    if (pad.DpadUp || pad.DpadDown || pad.DpadLeft || pad.DpadRight)
+    {
+        moving = true;
+    } else 
+    {
+        moving = false;
+        anm = 0;
+    }
+    
+    if (moving)
+    {
+        anm += 2;
+        if (anm > 100) {anm = 0;}
+        
+        if (direction == 1)
+        {
+            if (dircons != 1 && anm < 50) {anmt=false;}
+            if (dircons != 1 && anm > 50) {anmt=true;}
+        if (anm < 50 && !anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex1->addLink(player.id);
+            anmt = true;
+        }
+        if (anm > 50 && anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex2->addLink(player.id);
+            anmt = false;
+        }
+        }
+        if (direction == 2)
+        {
+            if (dircons != 2 && anm < 50) {anmt=false;}
+            if (dircons != 2 && anm > 50) {anmt=true;}
+        if (anm < 50 && !anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex3->addLink(player.id);
+            anmt = true;
+        }
+        if (anm > 50 && anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex4->addLink(player.id);
+            anmt = false;
+        }
+        }
+        if (direction == 3)
+        {
+            if (dircons != 3 && anm < 50) {anmt=false;}
+            if (dircons != 3 && anm > 50) {anmt=true;}
+        if (anm < 50 && !anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex5->addLink(player.id);
+            anmt = true;
+        }
+        if (anm > 50 && anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex6->addLink(player.id);
+            anmt = false;
+        }
+        }
+        if (direction == 4)
+        {
+            if (dircons != 4 && anm < 50) {anmt=false;}
+            if (dircons != 4 && anm > 50) {anmt=true;}
+        if (anm < 50 && !anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex7->addLink(player.id);
+            anmt = true;
+        }
+        if (anm > 50 && anmt) 
+        {
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+            textremove->removeLinkById(player.id);
+            pmtex8->addLink(player.id);
+            anmt = false;
+        }
+        }
+        
+
+    }else{
+
     if (direction != dircons){
     auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
     textremove->removeLinkById(player.id);
@@ -44,6 +140,7 @@ void tale::reloadplayer()
     else if(direction == 4){ptex4->addLink(player.id);}
     }
     player.position = Vec2(256,256);
+    }
     dircons = direction;
     
     
@@ -52,9 +149,9 @@ void tale::reloadplayer()
     
 void tale::startplayer()
 {
-    auto Pathp1 = FileUtils::fromCwd("sprites/spr_maincharau_2.png");
+    auto Pathp3 = FileUtils::fromCwd("sprites/spr_maincharau_2.png");
     auto Pathp2 = FileUtils::fromCwd("sprites/spr_maincharal_0.png");
-    auto Pathp3 = FileUtils::fromCwd("sprites/spr_maincharad_2.png");
+    auto Pathp1 = FileUtils::fromCwd("sprites/spr_maincharad_2.png");
     auto Pathp4 = FileUtils::fromCwd("sprites/spr_maincharar_0.png");
 
     Tyra::Texture* Ptex[4] = {
@@ -63,12 +160,44 @@ void tale::startplayer()
         engine->renderer.getTextureRepository().add(Pathp3),
         engine->renderer.getTextureRepository().add(Pathp4)
     };
+
+    auto Pathm1 = FileUtils::fromCwd("sprites/spr_maincharad_1.png");
+    auto Pathm2 = FileUtils::fromCwd("sprites/spr_maincharad_3.png");
+
+    auto Pathm3 = FileUtils::fromCwd("sprites/spr_maincharal_1.png");
+    auto Pathm4 = FileUtils::fromCwd("sprites/spr_maincharal_0.png");
+
+    auto Pathm5 = FileUtils::fromCwd("sprites/spr_maincharau_1.png");
+    auto Pathm6 = FileUtils::fromCwd("sprites/spr_maincharau_3.png");
+
+    auto Pathm7 = FileUtils::fromCwd("sprites/spr_maincharar_1.png");
+    auto Pathm8 = FileUtils::fromCwd("sprites/spr_maincharar_0.png");
+
+    Tyra::Texture* PtexM[8] = {
+        engine->renderer.getTextureRepository().add(Pathm1),
+        engine->renderer.getTextureRepository().add(Pathm2),
+        engine->renderer.getTextureRepository().add(Pathm3),
+        engine->renderer.getTextureRepository().add(Pathm4),
+        engine->renderer.getTextureRepository().add(Pathm5),
+        engine->renderer.getTextureRepository().add(Pathm6),
+        engine->renderer.getTextureRepository().add(Pathm7),
+        engine->renderer.getTextureRepository().add(Pathm8)
+    };
     
     
     ptex1 = Ptex[0];
     ptex2 = Ptex[1];
     ptex3 = Ptex[2];
     ptex4 = Ptex[3];
+
+    pmtex1 = PtexM[0];
+    pmtex2 = PtexM[1];
+    pmtex3 = PtexM[2];
+    pmtex4 = PtexM[3];
+    pmtex5 = PtexM[4];
+    pmtex6 = PtexM[5];
+    pmtex7 = PtexM[6];
+    pmtex8 = PtexM[7];
     
 
     player.mode = SpriteMode::MODE_STRETCH;
