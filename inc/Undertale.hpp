@@ -15,9 +15,10 @@ class tale : public Tyra::Game {
  private:
   Tyra::Engine* engine;
   Tyra::Sprite player, map1, map2, map3, map4, map5;
-  float Xpos = 0, Ypos = 0, vel = 2, anm = 0;
-  int direction = 1, dircons = 1, mapid = 0;
-  bool moving, texset = false, anmt = false;
+  Tyra::Vec2 Ppos = Tyra::Vec2(0,0);
+  float  vel = 2, anm = 0;
+  int direction = 1, dircons = 1, mapid = 0, mapcons = 0 , GameState = 0;
+  bool moving, texset = false, anmt = false, standing = true, mapinited = false;
   
   void loadsprites();
   void loadtextures();
@@ -45,7 +46,7 @@ class tale : public Tyra::Game {
 int NumOfCol = 0;
 Tyra::Vec4 colpos[100] = {};
 
-void setcolissioninmap(float a, float b, float c, float d, bool e) 
+void setcolissioninmap(float a, float b, float c, float d) 
     {
       colpos[NumOfCol] = Tyra::Vec4(a,b,c,d);
       NumOfCol++;
@@ -60,16 +61,14 @@ bool colcheck()
   for (int i = 0; i < NumOfCol; i++ )
     {
         if (
-          ((colpos[NumOfCol].x > Xpos && colpos[NumOfCol].z < Xpos)
-          || (colpos[NumOfCol].x < Xpos && colpos[NumOfCol].z > Xpos))
-          &&
-          ((colpos[NumOfCol].y > Ypos && colpos[NumOfCol].w < Ypos)
-          || (colpos[NumOfCol].y < Ypos && colpos[NumOfCol].w > Ypos))
-            )
+          ((colpos[NumOfCol].x < Ppos.x && colpos[NumOfCol].z > Ppos.x))
+          )
             {
               return(true);
             }
     }
+    
+  return(false);
 }
 
 };

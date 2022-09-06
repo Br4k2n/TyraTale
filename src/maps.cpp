@@ -11,7 +11,8 @@ void tale::mapinit()
     auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
     auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
     auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
-    if (mapid == 0)
+    
+    if (mapid == 0 && mapid == mapcons)
     {
     PPath1 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
     PPath2 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
@@ -21,6 +22,7 @@ void tale::mapinit()
     map2.mode = SpriteMode::MODE_STRETCH;
     map2.size = Vec2(512, 512);
     map2.position = Vec2(1024,0);
+    setcolissioninmap(-300,300,300,-300);
     
     }
     auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);

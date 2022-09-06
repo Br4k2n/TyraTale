@@ -12,27 +12,28 @@ void tale::reloadplayer()
     const auto Presspad = engine->pad.getClicked();
 
 
-    if (Presspad.Cross) {TYRA_LOG(Xpos, Ypos);}
+
+    if (Presspad.Cross) {TYRA_LOG(Ppos.x, Ppos.y);}
 
     if (pad.DpadLeft)
     {
          
-        Xpos += vel;
+        Ppos.x += vel;
         direction = 4;
 
     }else if (pad.DpadRight)
     {
-        Xpos -= vel;
+        Ppos.x -= vel;
         direction = 2;
     }
     if (pad.DpadDown)
     {
-        Ypos -= vel;
+        Ppos.y -= vel;
         direction = 3;
 
     }else if (pad.DpadUp)
     {
-        Ypos += vel;
+        Ppos.y += vel;
         direction = 1;
 
     }
@@ -40,10 +41,22 @@ void tale::reloadplayer()
     if (pad.DpadUp || pad.DpadDown || pad.DpadLeft || pad.DpadRight)
     {
         moving = true;
+        standing = false;
     } else 
     {
         moving = false;
         anm = 0;
+    }
+
+    if (moving == false && standing == false)
+    {
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(player.id);
+        textremove->removeLinkById(player.id);
+        if (direction == 1){ptex1->addLink(player.id);}
+        else if (direction == 2){ptex2->addLink(player.id);}
+        else if(direction == 3){ptex3->addLink(player.id);}
+        else if(direction == 4){ptex4->addLink(player.id);}
+        standing = true;
     }
     
     if (moving)
@@ -202,7 +215,7 @@ void tale::startplayer()
 
     player.mode = SpriteMode::MODE_STRETCH;
     player.size = Vec2(32, 32);
-    player.position = Vec2(Xpos,Ypos);
+    player.position = Vec2(Ppos.x,Ppos.y);
     Ptex[0]->addLink(player.id);
 }
 
