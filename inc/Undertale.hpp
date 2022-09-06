@@ -65,6 +65,7 @@ bool colcheck()
           )
             {
               return(true);
+              TYRA_LOG(colpos[NumOfCol].x, " ", colpos[NumOfCol].y);
             }
     }
     
