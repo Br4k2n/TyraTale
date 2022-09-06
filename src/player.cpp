@@ -13,7 +13,7 @@ void tale::reloadplayer()
 
 
 
-    if (Presspad.Cross) {TYRA_LOG(Ppos.x, Ppos.y);}
+    if (Presspad.Cross) {TYRA_LOG(Ppos.x+ 10, Ppos.y + 25);}
 
     if (pad.DpadLeft)
     {
