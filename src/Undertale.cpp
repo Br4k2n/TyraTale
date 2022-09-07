@@ -7,12 +7,19 @@ using namespace Tyra;
 tale::tale(Engine* t_engine) { engine = t_engine; }
 tale::~tale()
 {
-    engine->renderer.getTextureRepository().freeBySprite(player);
-    engine->renderer.getTextureRepository().freeBySprite(map1);
-    engine->renderer.getTextureRepository().freeBySprite(map2);
-    engine->renderer.getTextureRepository().freeBySprite(map3);
-    engine->renderer.getTextureRepository().freeBySprite(map4);
-    engine->renderer.getTextureRepository().freeBySprite(map5);
+    engine->renderer.getTextureRepository().free(ptex1);
+    engine->renderer.getTextureRepository().free(ptex2);
+    engine->renderer.getTextureRepository().free(ptex3);
+    engine->renderer.getTextureRepository().free(ptex4);
+    engine->renderer.getTextureRepository().free(pmtex1);
+    engine->renderer.getTextureRepository().free(pmtex2);
+    engine->renderer.getTextureRepository().free(pmtex3);
+    engine->renderer.getTextureRepository().free(pmtex4);
+    engine->renderer.getTextureRepository().free(pmtex5);
+    engine->renderer.getTextureRepository().free(pmtex6);
+    engine->renderer.getTextureRepository().free(pmtex7);
+    engine->renderer.getTextureRepository().free(pmtex8);
+
 }
 
 void tale::init() 
@@ -25,9 +32,12 @@ void tale::init()
 
 void tale::loop() 
 { 
+    if (GameState == 0)
+    {
     auto& ren = engine->renderer;
     reloadplayer();
     camupdate();
+    colcheck();
     ren.beginFrame();
     ren.renderer2D.render(map1);
     ren.renderer2D.render(map2);
@@ -36,7 +46,7 @@ void tale::loop()
     ren.renderer2D.render(map5);
     ren.renderer2D.render(player);
     ren.endFrame();
-
+    }
 }
 
 }  // namespace Racer
