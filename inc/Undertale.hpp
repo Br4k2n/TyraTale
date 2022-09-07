@@ -16,6 +16,7 @@ class tale : public Tyra::Game {
   Tyra::Engine* engine;
   Tyra::Sprite player, map1, map2, map3, map4, map5;
   Tyra::Vec2 Ppos = Tyra::Vec2(0,0);
+  Tyra::Vec2 Pposcons = Tyra::Vec2(0,0);
   float  vel = 2, anm = 0;
   int direction = 1, dircons = 1, mapid = 0, mapcons = 0 , GameState = 0;
   bool moving, texset = false, anmt = false, standing = true, mapinited = false;
@@ -46,32 +47,9 @@ class tale : public Tyra::Game {
 int NumOfCol = 0;
 Tyra::Vec4 colpos[100] = {};
 
-void setcolissioninmap(float a, float b, float c, float d) 
-    {
-      colpos[NumOfCol] = Tyra::Vec4(a,b,c,d);
-      NumOfCol++;
-    };
-void resetcolissioninmap()
-{
-  std::fill_n(colpos, 100, Tyra::Vec4(0,0,0,0));
-  NumOfCol = 0;
-}
-bool colcheck()
-{
-  for (int i = 0; i < NumOfCol; i++ )
-    {
-        if (
-          ((colpos[NumOfCol].x < Ppos.x && colpos[NumOfCol].z > Ppos.x))
-          )
-            {
-              return(true);
-              TYRA_LOG(colpos[NumOfCol].x, " ", colpos[NumOfCol].y);
-            }
-    }
-    
-  return(false);
-}
-
+void setcolissioninmap(float X1, float Y1, float X2, float Y2);
+void resetcolissioninmap();
+void colcheck();
 };
 
 }  // namespace Racer

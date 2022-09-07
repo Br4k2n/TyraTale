@@ -37,7 +37,7 @@ void tale::loop()
     auto& ren = engine->renderer;
     reloadplayer();
     camupdate();
-    TYRA_LOG("X: " ,Ppos.x, "     Y: ", Ppos.y);
+    colcheck();
     ren.beginFrame();
     ren.renderer2D.render(map1);
     ren.renderer2D.render(map2);
