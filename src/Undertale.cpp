@@ -26,6 +26,7 @@ void tale::init()
 { 
     engine->renderer.setClearScreenColor(Color(0.32F,0.32F,0.32F));
     startplayer();
+    resetcolissioninmap();
     mapinit();
     
 }
@@ -38,6 +39,7 @@ void tale::loop()
     reloadplayer();
     camupdate();
     colcheck();
+    mapchange();
     ren.beginFrame();
     ren.renderer2D.render(map1);
     ren.renderer2D.render(map2);
