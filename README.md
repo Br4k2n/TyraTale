@@ -3,3 +3,5 @@
 
 TyraTale is the codename of an port of the Undertale to the Sony's Playstation2. 
 The main objective of this project is to have an full experience of the original Undertale on the pc.
+
+Powered by TYRA!
