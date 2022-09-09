@@ -28,7 +28,7 @@ class tale : public Tyra::Game {
   void mapinit();
   void camupdate();
   
-
+  Tyra::Texture* colview;
 
   Tyra::Texture* ptex1;
   Tyra::Texture* ptex2;
@@ -46,10 +46,12 @@ class tale : public Tyra::Game {
 
 int NumOfCol = 0;
 Tyra::Vec4 colpos[100] = {};
+int colact[100] = {};
 
 void setcolissioninmap(float X1, float Y1, float X2, float Y2);
 void resetcolissioninmap();
 void colcheck();
+void mapchange();
 };
 
 }  // namespace Racer
