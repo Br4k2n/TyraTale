@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-  <a href="https://github.com/h4570/tyra">
+  <a href="https://github.com/Br4k2n/TyraTale">
     <img src="https://user-images.githubusercontent.com/109167964/188335499-80d1b0c8-2412-4461-af12-f389f0c111d0.jpg" alt="Logo" width="100%" height="auto">
   </a>
 
@@ -16,4 +16,14 @@ The main objective of this project is to have an full experience of the original
 ### Features
 Planned features for now are the hole ruins ported, battle system, love system, etc;
 
- <h3 align="center">## Powered by TYRA!</h3>
+ ### Credits
+  
+  Thanks to:
+  
+  [Black Ranger](https://github.com/BlackR4nger) - Helping me with the maps.
+ 
+<br />
+<p align="center">
+  <a href="https://github.com/Br4k2n/TyraTale">
+    Powered by TYRA!
+  </a>
