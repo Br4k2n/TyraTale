@@ -18,8 +18,6 @@ Planned features for now are the hole ruins ported, battle system, love system, 
 
  ### Credits
   
-  Thanks to:
-  
   [Black Ranger](https://github.com/BlackR4nger) - Helping me with the maps.
  
 <br />
