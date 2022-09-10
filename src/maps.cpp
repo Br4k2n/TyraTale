@@ -6,7 +6,6 @@ using namespace Tyra;
 
 void tale::mapinit()
 {
-    auto colpath = FileUtils::fromCwd("sprites/colision.png");
         if (mapid == 0 && mapid == mapcons)
         {
         auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
@@ -21,23 +20,83 @@ void tale::mapinit()
         map2.size = Vec2(512, 512);
         map2.position = Vec2(1024,0);
 
-        setcolissioninmap(-248, -268, 26, -216);
-        setcolissioninmap(-28, -226, 20, -194);
-        setcolissioninmap(8, -200, 26, -122);
-        setcolissioninmap(26, -136, 330, -122);
-        setcolissioninmap(370, -140, 416, -114);
-        setcolissioninmap(388, -132, 410, -72);
-        setcolissioninmap(-10, -86, 398, -74);
-        setcolissioninmap(-256, -270, -206, -200);
-        setcolissioninmap(-262, -210, -236, -84);
-        setcolissioninmap(-252, -110, -218, -88);
-        setcolissioninmap(-234, -88, -196, -66);
-        setcolissioninmap(-214, -66, -174, -46);
-        setcolissioninmap(-196, -48, -36, -36);
-        setcolissioninmap(-50, -68, -24, -42);
-        setcolissioninmap(-32, -84, 12, -60);
+        setcolissioninmap(-248, -268, 26, -216);//0
+        setcolissioninmap(-28, -226, 20, -194);//1
+        setcolissioninmap(8, -200, 26, -122);//2
+        setcolissioninmap(26, -136, 340, -122);//3
+        setcolissioninmap(370, -140, 416, -114);//4
+        setcolissioninmap(388, -132, 410, -72);//5
+        setcolissioninmap(-10, -86, 398, -74);//6
+        setcolissioninmap(-256, -270, -206, -200);//7
+        setcolissioninmap(-262, -210, -236, -84);//8
+        setcolissioninmap(-252, -110, -218, -88);//9
+        setcolissioninmap(-234, -88, -196, -66);//10
+        setcolissioninmap(-214, -66, -174, -46);//11
+        setcolissioninmap(-196, -48, -36, -36);//12
+        setcolissioninmap(-50, -68, -24, -42);//13
+        setcolissioninmap(-32, -84, 12, -60);//14
+        setcolissioninmap(334, -134, 374, -134);
+        
+        for (int i = 0; i < 15; i++){ colact[i].x = 0; }
+        colact[15].x = 1;
+        colact[15].y = 1;
+        colact[15].z = 0;
 
-        Ppos = Vec2(-116, -134);
+        if (mapspawn == 0){ Ppos = Vec2(-116, -134); }
+        if (mapspawn == 1){ Ppos = Vec2(354, -118); }
+
+    
+    
+        auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
+        auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
+        auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
+        auto* texture4 = engine->renderer.getTextureRepository().add(PPath4);
+        auto* texture5 = engine->renderer.getTextureRepository().add(PPath5);
+        texture1->addLink(map1.id);
+        texture2->addLink(map2.id);
+        texture3->addLink(map3.id);
+        texture4->addLink(map4.id);
+        texture5->addLink(map5.id);
+    }
+
+    if (mapid == 1 && mapid == mapcons)
+        {
+        auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
+        auto PPath2 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
+        auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
+        auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
+        auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
+        map1.mode = SpriteMode::MODE_STRETCH;
+        map1.size = Vec2(512, 512);
+        map1.position = Vec2(0,0);
+
+        setcolissioninmap(-170, 124, -24, 142);//0
+        setcolissioninmap(-142, -148, -60, -124);//1
+        //setcolissioninmap(8, -200, 26, -122);//2
+        //setcolissioninmap(26, -136, 330, -122);//3
+        //setcolissioninmap(370, -140, 416, -114);//4
+        //setcolissioninmap(388, -132, 410, -72);//5
+        //setcolissioninmap(-10, -86, 398, -74);//6
+        //setcolissioninmap(-256, -270, -206, -200);//7
+        //setcolissioninmap(-262, -210, -236, -84);//8
+        //setcolissioninmap(-252, -110, -218, -88);//9
+        //setcolissioninmap(-234, -88, -196, -66);//10
+        //setcolissioninmap(-214, -66, -174, -46);//11
+        //setcolissioninmap(-196, -48, -36, -36);//12
+        //setcolissioninmap(-50, -68, -24, -42);//13
+        //setcolissioninmap(-32, -84, 12, -60);//14
+        
+        colact[0].x = 1;
+        colact[0].y = 0;
+        colact[0].z = 1;
+        
+        colact[1].x = 1;
+        colact[1].y = 2;
+        colact[1].z = 0;
+
+
+        if (mapspawn == 0){Ppos = Vec2(-106, 116);}
+        if (mapspawn == 1){Ppos = Vec2(-104, -98);}
 
     
     
@@ -53,6 +112,140 @@ void tale::mapinit()
         texture5->addLink(map5.id);
     }
     
+    if (mapid == 2 && mapid == mapcons)
+        {
+        auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
+        auto PPath2 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
+        auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
+        auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
+        auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
+        map1.mode = SpriteMode::MODE_STRETCH;
+        map1.size = Vec2(512, 512);
+        map1.position = Vec2(0,0);
+
+        setcolissioninmap(-144, 164, -32, 204);//0
+        //setcolissioninmap(-28, -226, 20, -194);//1
+        
+        colact[0].x = 1;
+        colact[0].y = 1;
+        colact[0].z = 1;
+
+        if (mapspawn == 0){Ppos = Vec2(-106, 148);}
+
+    
+    
+        auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
+        auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
+        auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
+        auto* texture4 = engine->renderer.getTextureRepository().add(PPath4);
+        auto* texture5 = engine->renderer.getTextureRepository().add(PPath5);
+        texture1->addLink(map1.id);
+        texture2->addLink(map2.id);
+        texture3->addLink(map3.id);
+        texture4->addLink(map4.id);
+        texture5->addLink(map5.id);
+    }
+
+    if (mapid == 3 && mapid == mapcons)
+        {
+        auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        auto PPath2 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
+        auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
+        auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        map1.mode = SpriteMode::MODE_STRETCH;
+        map1.size = Vec2(512, 512);
+        map1.position = Vec2(0,0);
+        map2.mode = SpriteMode::MODE_STRETCH;
+        map2.size = Vec2(512, 512);
+        map2.position = Vec2(1024,0);
+
+        setcolissioninmap(-248, -268, 26, -216);//0
+        setcolissioninmap(-28, -226, 20, -194);//1
+        setcolissioninmap(8, -200, 26, -122);//2
+        setcolissioninmap(26, -136, 330, -122);//3
+        setcolissioninmap(370, -140, 416, -114);//4
+        setcolissioninmap(388, -132, 410, -72);//5
+        setcolissioninmap(-10, -86, 398, -74);//6
+        setcolissioninmap(-256, -270, -206, -200);//7
+        setcolissioninmap(-262, -210, -236, -84);//8
+        setcolissioninmap(-252, -110, -218, -88);//9
+        setcolissioninmap(-234, -88, -196, -66);//10
+        setcolissioninmap(-214, -66, -174, -46);//11
+        setcolissioninmap(-196, -48, -36, -36);//12
+        setcolissioninmap(-50, -68, -24, -42);//13
+        setcolissioninmap(-32, -84, 12, -60);//14
+        
+        for (int i = 0; i < 15; i++){ colact[i].x = 0; }
+        colact[15].x = 0;
+        colact[15].y = 1;
+        colact[15].z = 0;
+
+        if (mapspawn == 0){Ppos = Vec2(-116, -134);}
+
+    
+    
+        auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
+        auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
+        auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
+        auto* texture4 = engine->renderer.getTextureRepository().add(PPath4);
+        auto* texture5 = engine->renderer.getTextureRepository().add(PPath5);
+        texture1->addLink(map1.id);
+        texture2->addLink(map2.id);
+        texture3->addLink(map3.id);
+        texture4->addLink(map4.id);
+        texture5->addLink(map5.id);
+    }
+    if (mapid == 4 && mapid == mapcons)
+        {
+        auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        auto PPath2 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
+        auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
+        auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
+        map1.mode = SpriteMode::MODE_STRETCH;
+        map1.size = Vec2(512, 512);
+        map1.position = Vec2(0,0);
+        map2.mode = SpriteMode::MODE_STRETCH;
+        map2.size = Vec2(512, 512);
+        map2.position = Vec2(1024,0);
+
+        setcolissioninmap(-248, -268, 26, -216);//0
+        setcolissioninmap(-28, -226, 20, -194);//1
+        setcolissioninmap(8, -200, 26, -122);//2
+        setcolissioninmap(26, -136, 330, -122);//3
+        setcolissioninmap(370, -140, 416, -114);//4
+        setcolissioninmap(388, -132, 410, -72);//5
+        setcolissioninmap(-10, -86, 398, -74);//6
+        setcolissioninmap(-256, -270, -206, -200);//7
+        setcolissioninmap(-262, -210, -236, -84);//8
+        setcolissioninmap(-252, -110, -218, -88);//9
+        setcolissioninmap(-234, -88, -196, -66);//10
+        setcolissioninmap(-214, -66, -174, -46);//11
+        setcolissioninmap(-196, -48, -36, -36);//12
+        setcolissioninmap(-50, -68, -24, -42);//13
+        setcolissioninmap(-32, -84, 12, -60);//14
+        
+        for (int i = 0; i < 15; i++){ colact[i].x = 0; }
+        colact[15].x = 0;
+        colact[15].y = 1;
+        colact[15].z = 0;
+
+        if (mapspawn == 0){Ppos = Vec2(-116, -134);}
+
+    
+    
+        auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
+        auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
+        auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
+        auto* texture4 = engine->renderer.getTextureRepository().add(PPath4);
+        auto* texture5 = engine->renderer.getTextureRepository().add(PPath5);
+        texture1->addLink(map1.id);
+        texture2->addLink(map2.id);
+        texture3->addLink(map3.id);
+        texture4->addLink(map4.id);
+        texture5->addLink(map5.id);
+    }
 }
 
 void tale::setcolissioninmap(float X1, float Y1, float X2, float Y2) 
@@ -64,6 +257,9 @@ void tale::resetcolissioninmap()
 {
     for (int i = 0; i <= 100; i++){
   colpos[i] = Tyra::Vec4(0,0,0,0);
+    }
+    for (int i = 0; i <= 100; i++){
+  colact[i] = Vec4(0,0,0,0);
     }
   NumOfCol = 0;
 }
@@ -91,11 +287,13 @@ void tale::colcheck()
 
         if (xcol && ycol && !pxcol && pycol)
         {
-            Ppos.x = Pposcons.x;
+            if (colact[i].x == 0) { Ppos.x = Pposcons.x; }
+            if (colact[i].x == 1) { mapid = colact[i].y;  mapspawn = colact[i].z;}
         }
         if (xcol && ycol && pxcol && !pycol)
         {
-            Ppos.y = Pposcons.y;
+            if (colact[i].x == 0) { Ppos.y = Pposcons.y; }
+            if (colact[i].x == 1) { mapid = colact[i].y; mapspawn = colact[i].z;}
         }
         
 
@@ -107,15 +305,17 @@ void tale::colcheck()
     {
         if (mapid != mapcons)
     {
-        engine->renderer.getTextureRepository().free(map1.id);
-        engine->renderer.getTextureRepository().free(map2.id);
-        engine->renderer.getTextureRepository().free(map3.id);
-        engine->renderer.getTextureRepository().free(map4.id);
-        engine->renderer.getTextureRepository().free(map5.id);
+        engine->renderer.getTextureRepository().freeBySprite(map1);
+        engine->renderer.getTextureRepository().freeBySprite(map2);
+        engine->renderer.getTextureRepository().freeBySprite(map3);
+        engine->renderer.getTextureRepository().freeBySprite(map4);
+        engine->renderer.getTextureRepository().freeBySprite(map5);
         resetcolissioninmap();
         Ppos.x = 0;
         Ppos.y = 0;
         mapcons = mapid;
+        mapinit();
+        
     }
     }
 }
