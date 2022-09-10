@@ -24,6 +24,6 @@ Planned features for now are the hole ruins ported, battle system, love system, 
  
 <br />
 <p align="center">
-  <a href="https://github.com/Br4k2n/TyraTale">
+  <a href="https://github.com/h4570/tyra">
     Powered by TYRA!
   </a>
