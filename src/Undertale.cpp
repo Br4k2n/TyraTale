@@ -5,22 +5,7 @@ namespace tale {
 using namespace Tyra;
 
 tale::tale(Engine* t_engine) { engine = t_engine; }
-tale::~tale()
-{
-    engine->renderer.getTextureRepository().free(ptex1);
-    engine->renderer.getTextureRepository().free(ptex2);
-    engine->renderer.getTextureRepository().free(ptex3);
-    engine->renderer.getTextureRepository().free(ptex4);
-    engine->renderer.getTextureRepository().free(pmtex1);
-    engine->renderer.getTextureRepository().free(pmtex2);
-    engine->renderer.getTextureRepository().free(pmtex3);
-    engine->renderer.getTextureRepository().free(pmtex4);
-    engine->renderer.getTextureRepository().free(pmtex5);
-    engine->renderer.getTextureRepository().free(pmtex6);
-    engine->renderer.getTextureRepository().free(pmtex7);
-    engine->renderer.getTextureRepository().free(pmtex8);
-
-}
+tale::~tale(){}
 
 void tale::init() 
 { 
@@ -35,6 +20,7 @@ void tale::loop()
 { 
     if (GameState == 0)
     {
+    transition();
     auto& ren = engine->renderer;
     reloadplayer();
     camupdate();
@@ -47,6 +33,7 @@ void tale::loop()
     ren.renderer2D.render(map4);
     ren.renderer2D.render(map5);
     ren.renderer2D.render(player);
+    ren.renderer2D.render(trans);
     ren.endFrame();
     }
 }

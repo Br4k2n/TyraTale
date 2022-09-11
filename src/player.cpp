@@ -7,7 +7,7 @@ using namespace Tyra;
 
 void tale::reloadplayer()
 {
-
+    if (!Tbool && !mapdone){
     const auto pad = engine->pad.getPressed();
     const auto Presspad = engine->pad.getClicked();
 
@@ -156,12 +156,20 @@ void tale::reloadplayer()
     }
     dircons = direction;
     
-    
+    }
     
 }
     
 void tale::startplayer()
 {
+    auto PPath1 = FileUtils::fromCwd("sprites/transition.png");
+    auto* tex = engine->renderer.getTextureRepository().add(PPath1);
+    tex->addLink(trans.id);
+
+    trans.position = Vec2(0, 0);
+    trans.size = Vec2(512,512);
+    trans.color.a = 0;
+
     auto Pathp3 = FileUtils::fromCwd("sprites/spr_maincharau_2.png");
     auto Pathp2 = FileUtils::fromCwd("sprites/spr_maincharal_0.png");
     auto Pathp1 = FileUtils::fromCwd("sprites/spr_maincharad_2.png");
