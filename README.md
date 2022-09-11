@@ -4,13 +4,10 @@
     <img src="https://user-images.githubusercontent.com/109167964/188335499-80d1b0c8-2412-4461-af12-f389f0c111d0.jpg" alt="Logo" width="100%" height="auto">
   </a>
   
-  
-  <br />
-<p align="center">
+
 * [Description](#description)
 * [Features](#features) 
 * [Credits](#credits) 
-  </a>
 
 
 ### Description
