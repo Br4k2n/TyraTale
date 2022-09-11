@@ -14,12 +14,13 @@ class tale : public Tyra::Game {
 
  private:
   Tyra::Engine* engine;
-  Tyra::Sprite player, map1, map2, map3, map4, map5;
+  Tyra::Sprite player, map1, map2, map3, map4, map5, trans;
   Tyra::Vec2 Ppos = Tyra::Vec2(0,0);
   Tyra::Vec2 Pposcons = Tyra::Vec2(0,0);
   float  vel = 2, anm = 0;
-  int direction = 1, dircons = 1, mapid = 0, mapcons = 0 , GameState = 0;
-  bool moving, texset = false, anmt = false, standing = true, mapinited = false;
+  int direction = 1, dircons = 1, mapid = 0, mapcons = 0 , GameState = 0, mapspawn = 0;
+  bool moving, texset = false, anmt = false, standing = true , Tbool = false;
+  bool mapdone = false;
   
   void loadsprites();
   void loadtextures();
@@ -27,6 +28,7 @@ class tale : public Tyra::Game {
   void startplayer();
   void mapinit();
   void camupdate();
+  void transition();
   
   Tyra::Texture* colview;
 
@@ -46,7 +48,7 @@ class tale : public Tyra::Game {
 
 int NumOfCol = 0;
 Tyra::Vec4 colpos[100] = {};
-int colact[100] = {};
+Tyra::Vec4 colact[100] = {};
 
 void setcolissioninmap(float X1, float Y1, float X2, float Y2);
 void resetcolissioninmap();
