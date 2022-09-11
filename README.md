@@ -3,11 +3,15 @@
   <a href="https://github.com/Br4k2n/TyraTale">
     <img src="https://user-images.githubusercontent.com/109167964/188335499-80d1b0c8-2412-4461-af12-f389f0c111d0.jpg" alt="Logo" width="100%" height="auto">
   </a>
-
-* [About the project](#about-the-project) 
-  * [Description](#description)
-  * [Features](#features) 
+  
+  
+  <br />
+<p align="center">
+* [Description](#description)
+* [Features](#features) 
 * [Credits](#credits) 
+  </a>
+
 
 ### Description
 TyraTale is the codename of an port of the Undertale to the Sony's Playstation2. 
