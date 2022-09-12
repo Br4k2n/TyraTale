@@ -11,8 +11,8 @@
 
 
 ### Description
-TyraTale is the codename of an port of the Undertale to the Sony's Playstation2. 
-The main objective of this project is to have an full experience of the original Undertale on the pc.
+TyraTale is the codename for a port of Undertale to Sony's Playstation2.  
+The main objective of this project is to have the full experience of the original Undertale on the pc.
 
 ### Features
 Planned features for now are the hole ruins ported, battle system, love system, etc;
