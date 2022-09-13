@@ -20,6 +20,7 @@ void tale::loop()
 { 
     if (GameState == 0)
     {
+    if (event) {chatnumb++;}
     transition();
     auto& ren = engine->renderer;
     reloadplayer();
@@ -34,6 +35,7 @@ void tale::loop()
     ren.renderer2D.render(map5);
     ren.renderer2D.render(player);
     ren.renderer2D.render(trans);
+    if(event){drawtext(str, chatnumb, hom);}
     ren.endFrame();
     }
 }
