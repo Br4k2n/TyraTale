@@ -4,7 +4,7 @@ namespace tale
 {
 using namespace Tyra;
 
-bool tale::dialogue(Vec4 vec, int dialogue)
+void tale::dialogue(Vec4 vec, int dialogue)
 {
 std::string str;
 std::string form = "$#";
@@ -14,7 +14,7 @@ int ident = 0;
 if (dialogue == 0)
 {
     str = "Howdy!$I'm FLOWEY.$FLOWEY the FLOWER!#Hm...#You're new to the$UNDERGROUND, aren'tcha?#Golly, you must be$so confused.#Someone ought to teach$you how things work around here!#I guess little old me have to do.#Ready?$Here we go!";
-    for (int i = 0; i <= std::size(str); i ++)
+    for (int i = 0; i <= 0; i ++)
     {
         if (str.at(i) == form.at(0))
         {
@@ -36,14 +36,14 @@ if (dialogue == 0)
 
 }
 
-void tale::drawtext(std::string str, int dialogetype, int hom)
+void tale::drawtext()
 {
     auto& ren = engine->renderer.renderer2D;
-
-    if (dialogetype == 0)
+    if (tipechat == 0)
     {
         ren.render(Spritebox);
-        
+        Spritebox.size = Vec2(800, 200);
+        Spritebox.position = Vec2(10, 10);
 
     }
 }
@@ -59,11 +59,11 @@ void tale::fontunload()
 }
 void tale::fontload(int num)
 {
-    auto pathdialo = FileUtils::fromCwd("sprites/fonts/default/a.png");
+    auto pathdialo = FileUtils::fromCwd("sprites/dialoguebox.png");
     dialogebox = engine->renderer.getTextureRepository().add(pathdialo);
     dialogebox->addLink(Spritebox.id);
-    Spritebox.position = Vec2(10, 10);
-    Spritebox.size = Vec2(492, 300);
+    
+    Spritebox.mode = MODE_STRETCH;
     
  if (num == 0)
  {
@@ -142,5 +142,6 @@ std::string str2 = "abcdefghijklmnopqrstuvwxyz.,!?";
 for (int i = 0; i < 40; i++){
 if (str.at(0) == str2.at(i)) {return(letters[i]);}
 }
+return(letters[1]);
 }
 }

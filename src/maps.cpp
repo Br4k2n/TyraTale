@@ -6,6 +6,11 @@ using namespace Tyra;
 
 void tale::mapinit()
 {
+    map1.mode = SpriteMode::MODE_STRETCH;
+    map2.mode = SpriteMode::MODE_STRETCH;
+    map3.mode = SpriteMode::MODE_STRETCH;
+    map4.mode = SpriteMode::MODE_STRETCH;
+    map5.mode = SpriteMode::MODE_STRETCH;
         if (mapid == 0)
         {
         auto PPath1 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
@@ -13,12 +18,6 @@ void tale::mapinit()
         auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
-        map1.mode = SpriteMode::MODE_STRETCH;
-        map1.size = Vec2(512, 512);
-        map1.position = Vec2(0,0);
-        map2.mode = SpriteMode::MODE_STRETCH;
-        map2.size = Vec2(512, 512);
-        map2.position = Vec2(1024,0);
 
         setcolissioninmap(-248, -268, 26, -216);//0
         setcolissioninmap(-28, -226, 20, -194);//1
@@ -72,13 +71,13 @@ void tale::mapinit()
 
         setcolissioninmap(-170, 124, -24, 142);//0
         setcolissioninmap(-142, -148, -60, -124);//1
-        //setcolissioninmap(8, -200, 26, -122);//2
-        //setcolissioninmap(26, -136, 330, -122);//3
-        //setcolissioninmap(370, -140, 416, -114);//4
-        //setcolissioninmap(388, -132, 410, -72);//5
-        //setcolissioninmap(-10, -86, 398, -74);//6
-        //setcolissioninmap(-256, -270, -206, -200);//7
-        //setcolissioninmap(-262, -210, -236, -84);//8
+        setcolissioninmap(-84, -178, 40, 184);//2
+        setcolissioninmap(-214, -168, -124, 188);//3
+        if (TEvent == 0){setcolissioninmap(-122, 46, 86, 56);}//4
+        // setcolissioninmap(4, 68, -54, 106);//5
+        // setcolissioninmap(108, -166, -14, 96);//6
+        // setcolissioninmap(-348, -162, -190, 136);//7
+        // setcolissioninmap(10, -186, -78, -110);//8
         //setcolissioninmap(-252, -110, -218, -88);//9
         //setcolissioninmap(-234, -88, -196, -66);//10
         //setcolissioninmap(-214, -66, -174, -46);//11
@@ -94,7 +93,13 @@ void tale::mapinit()
         colact[1].y = 2;
         colact[1].z = 0;
 
+        colact[2].x = 0;
+        colact[3].x = 0;
 
+        colact[4].x = 2;
+        colact[4].y = 0;
+        
+        
         if (mapspawn == 0){Ppos = Vec2(-106, 116);}
         if (mapspawn == 1){Ppos = Vec2(-104, -98);}
 
@@ -309,11 +314,13 @@ void tale::colcheck()
         {
             if (colact[i].x == 0) { Ppos.x = Pposcons.x; }
             if (colact[i].x == 1) { mapid = colact[i].y;  mapspawn = colact[i].z;}
+            if (colact[i].x == 2 && !action) { event(colact[i].y);}
         }
         if (xcol && ycol && pxcol && !pycol)
         {
             if (colact[i].x == 0) { Ppos.y = Pposcons.y; }
             if (colact[i].x == 1) { mapid = colact[i].y; mapspawn = colact[i].z;}
+            if (colact[i].x == 2 && !action) { event(colact[i].y);}
         }
         
 

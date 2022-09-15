@@ -7,7 +7,7 @@ using namespace Tyra;
 
 void tale::reloadplayer()
 {
-    if (!Tbool && !mapdone){
+    if (!Tbool && !mapdone && !action){
     const auto pad = engine->pad.getPressed();
     const auto Presspad = engine->pad.getClicked();
 
@@ -225,7 +225,7 @@ void tale::startplayer()
     player.size = Vec2(32, 32);
     player.position = Vec2(Ppos.x,Ppos.y);
     Ptex[0]->addLink(player.id);
+
+    fontload(0);
 }
-
-
 }
