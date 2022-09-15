@@ -21,7 +21,7 @@ class tale : public Tyra::Game {
   int direction = 1, dircons = 1, mapid = 0, mapcons = 0 , GameState = 0, mapspawn = 0;
   int TEvent = 0;
   bool moving, texset = false, anmt = false, standing = true , Tbool = false;
-  bool mapdone = false, event = false;
+  bool mapdone = false, action = false;
   
   void loadsprites();
   void loadtextures();
@@ -31,7 +31,7 @@ class tale : public Tyra::Game {
   void camupdate();
   void transition();
   void battlestart(int, int);
-  bool dialogue(Tyra::Vec4, int);
+  void dialogue(Tyra::Vec4, int);
   void event(int);
   
   Tyra::Texture* colview;
@@ -66,8 +66,8 @@ Tyra::Texture* getletter(std::string);
 void fontunload();
 void fontload(int);
 std::string str;
-Tyra::Vec2 texformat[100] = {};
-int chatnumb = 0, hom = 0;
-void drawtext(std::string, int, int);
+Tyra::Vec2 texformat[200] = {};
+int chatnumb = 0, hom = 0, tipechat = 0;
+void drawtext();
   };
 }  // namespace Racer
