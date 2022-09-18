@@ -38,13 +38,103 @@ if (dialogue == 0)
 
 void tale::drawtext()
 {
+    std::string str2 = "#$@";
     auto& ren = engine->renderer.renderer2D;
+    float border;
+    int len = str.length();
+    const auto& padpress = engine->pad.getClicked();
+
     if (tipechat == 0)
     {
-        ren.render(Spritebox);
-        Spritebox.size = Vec2(800, 200);
-        Spritebox.position = Vec2(10, 10);
-
+        ren.render(UI_ChatboxSprite);
+        if (hom == 0) { border = 0; } else { border = 100; }
+        if (hom == 1)
+        {
+            ren.render(UI_FaceboxSprite);
+        }
+        for (int i = lbp; i < chatnumb; i++)
+        {
+            if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
+            if (i < blt1){
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2( border + 15 * (i - lbp), 20);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i < blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2( border + 15 * (i - blt1), 60);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i > blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2( border + 15 * (blt2 + i - lbp), 100);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            
+            }
+            if (str2.at(0) == str.at(i) && i != blt1 && i != blt2)
+            {
+                if (blt1 < blt2)
+                {
+                    blt2 = i;
+                }
+                if (blt1 == blt2)
+                {
+                    blt1 = i;
+                }
+                
+            }
+            if (str.at(i) == str2.at(1) && i > bdp)
+            {
+                breakdialoge = true;
+                bdp = i;
+            }
+            if (str.at(i) == str2.at(1) && i < bdp)
+            {
+                blt1 = 9999;
+                blt2 = 9999;
+                lbp = i;
+            }
+            if (breakdialoge && padpress.Cross)
+            {
+                blt1 = 9999;
+                blt2 = 9999;
+                lbp = i;
+                breakdialoge = false;
+            }
+            if (len == chatnumb && padpress.Cross)
+            {
+                blt1 = 9999;
+                blt2 = 9999;
+                lbp = 0;
+                action = false;
+                chatnumb = 0;
+                if (TEvent == 0)
+                {
+                    engine->audio.song.stop();
+                    engine->audio.song.load(FileUtils::fromCwd("Sounds/Fallen-Down.wav"));
+                    engine->audio.song.inLoop = true;
+                    engine->audio.song.setVolume(60);
+                    engine->audio.song.play();
+                    GameState = 0;
+                    TEvent = 2;
+                }
+            }
+        }
+    }
+    if (len > chatnumb && !breakdialoge){
+    chatnumb++;
     }
 }
 
@@ -61,9 +151,16 @@ void tale::fontload(int num)
 {
     auto pathdialo = FileUtils::fromCwd("sprites/dialoguebox.png");
     dialogebox = engine->renderer.getTextureRepository().add(pathdialo);
-    dialogebox->addLink(Spritebox.id);
-    
-    Spritebox.mode = MODE_STRETCH;
+    dialogebox->addLink(UI_ChatboxSprite.id);
+    letters[0]->addLink(UI_LetterSprite.id);
+
+    UI_ChatboxSprite.size = Vec2(800, 200);
+    UI_ChatboxSprite.position = Vec2(10, 10);
+    UI_FaceboxSprite.size = Vec2(120, 120);
+    UI_FaceboxSprite.position = Vec2(20, 20);
+    UI_ChatboxSprite.mode = MODE_STRETCH;
+    UI_FaceboxSprite.mode = MODE_STRETCH;
+    UI_LetterSprite.mode = MODE_STRETCH;
     
  if (num == 0)
  {
@@ -98,6 +195,33 @@ void tale::fontload(int num)
     auto pathveg = FileUtils::fromCwd("sprites/fonts/default/virg.png");
     auto pathexc = FileUtils::fromCwd("sprites/fonts/default/exc.png");
     auto pathint = FileUtils::fromCwd("sprites/fonts/default/question.png");
+    auto patham = FileUtils::fromCwd("sprites/fonts/default/am.png");
+    auto pathbm = FileUtils::fromCwd("sprites/fonts/default/bm.png");
+    auto pathcm = FileUtils::fromCwd("sprites/fonts/default/cm.png");
+    auto pathdm = FileUtils::fromCwd("sprites/fonts/default/dm.png");
+    auto pathem = FileUtils::fromCwd("sprites/fonts/default/em.png");
+    auto pathfm = FileUtils::fromCwd("sprites/fonts/default/fm.png");
+    auto pathgm = FileUtils::fromCwd("sprites/fonts/default/gm.png");
+    auto pathhm = FileUtils::fromCwd("sprites/fonts/default/hm.png");
+    auto pathim = FileUtils::fromCwd("sprites/fonts/default/im.png");
+    auto pathjm = FileUtils::fromCwd("sprites/fonts/default/jm.png");
+    auto pathkm = FileUtils::fromCwd("sprites/fonts/default/km.png");
+    auto pathlm = FileUtils::fromCwd("sprites/fonts/default/lm.png");
+    auto pathmm = FileUtils::fromCwd("sprites/fonts/default/mm.png");
+    auto pathnm = FileUtils::fromCwd("sprites/fonts/default/nm.png");
+    auto pathom = FileUtils::fromCwd("sprites/fonts/default/om.png");
+    auto pathpm = FileUtils::fromCwd("sprites/fonts/default/pm.png");
+    auto pathqm = FileUtils::fromCwd("sprites/fonts/default/qm.png");
+    auto pathrm = FileUtils::fromCwd("sprites/fonts/default/rm.png");
+    auto pathsm = FileUtils::fromCwd("sprites/fonts/default/sm.png");
+    auto pathtm = FileUtils::fromCwd("sprites/fonts/default/tm.png");
+    auto pathum = FileUtils::fromCwd("sprites/fonts/default/um.png");
+    auto pathvm = FileUtils::fromCwd("sprites/fonts/default/vm.png");
+    auto pathwm = FileUtils::fromCwd("sprites/fonts/default/wm.png");
+    auto pathxm = FileUtils::fromCwd("sprites/fonts/default/xm.png");
+    auto pathym = FileUtils::fromCwd("sprites/fonts/default/ym.png");
+    auto pathzm = FileUtils::fromCwd("sprites/fonts/default/zm.png");
+    auto pathspace = FileUtils::fromCwd("sprites/fonts/default/space.png");
 
     letters[0] = engine->renderer.getTextureRepository().add(patha);
     letters[1] = engine->renderer.getTextureRepository().add(pathb);
@@ -129,19 +253,45 @@ void tale::fontload(int num)
     letters[27] = engine->renderer.getTextureRepository().add(pathveg);
     letters[28] = engine->renderer.getTextureRepository().add(pathexc);
     letters[29] = engine->renderer.getTextureRepository().add(pathint);
+    letters[30] = engine->renderer.getTextureRepository().add(patham);
+    letters[31] = engine->renderer.getTextureRepository().add(pathbm);
+    letters[32] = engine->renderer.getTextureRepository().add(pathcm);
+    letters[33] = engine->renderer.getTextureRepository().add(pathdm);
+    letters[34] = engine->renderer.getTextureRepository().add(pathem);
+    letters[35] = engine->renderer.getTextureRepository().add(pathfm);
+    letters[36] = engine->renderer.getTextureRepository().add(pathgm);
+    letters[37] = engine->renderer.getTextureRepository().add(pathhm);
+    letters[38] = engine->renderer.getTextureRepository().add(pathim);
+    letters[39] = engine->renderer.getTextureRepository().add(pathjm);
+    letters[40] = engine->renderer.getTextureRepository().add(pathkm);
+    letters[41] = engine->renderer.getTextureRepository().add(pathlm);
+    letters[42] = engine->renderer.getTextureRepository().add(pathmm);
+    letters[43] = engine->renderer.getTextureRepository().add(pathnm);
+    letters[44] = engine->renderer.getTextureRepository().add(pathom);
+    letters[45] = engine->renderer.getTextureRepository().add(pathpm);
+    letters[46] = engine->renderer.getTextureRepository().add(pathqm);
+    letters[47] = engine->renderer.getTextureRepository().add(pathrm);
+    letters[48] = engine->renderer.getTextureRepository().add(pathsm);
+    letters[49] = engine->renderer.getTextureRepository().add(pathtm);
+    letters[50] = engine->renderer.getTextureRepository().add(pathum);
+    letters[51] = engine->renderer.getTextureRepository().add(pathvm);
+    letters[52] = engine->renderer.getTextureRepository().add(pathwm);
+    letters[53] = engine->renderer.getTextureRepository().add(pathxm);
+    letters[54] = engine->renderer.getTextureRepository().add(pathym);
+    letters[55] = engine->renderer.getTextureRepository().add(pathzm);
+    letters[56] = engine->renderer.getTextureRepository().add(pathspace);
 
     
  }
 }
 
 
-Texture* tale::getletter(std::string str)
+Texture* tale::getletter(std::string str, int wich)
 {
-std::string str2 = "abcdefghijklmnopqrstuvwxyz.,!?"; 
-
-for (int i = 0; i < 40; i++){
-if (str.at(0) == str2.at(i)) {return(letters[i]);}
+std::string str2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?abcdefghijklmnopqrstuvwxyz "; 
+for (int i = 0; i < 57; i++){
+if (str.at(wich) == str2.at(i)) {return(letters[i]);}
 }
-return(letters[1]);
+return(0);
 }
 }

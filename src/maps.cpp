@@ -98,6 +98,7 @@ void tale::mapinit()
 
         colact[4].x = 2;
         colact[4].y = 0;
+        colact[4].z = 0;
         
         
         if (mapspawn == 0){Ppos = Vec2(-106, 116);}
@@ -312,13 +313,13 @@ void tale::colcheck()
 
         if (xcol && ycol && !pxcol && pycol)
         {
-            if (colact[i].x == 0) { Ppos.x = Pposcons.x; }
+            if (colact[i].x == 0) { Ppos.x = Pposcons.x;}
             if (colact[i].x == 1) { mapid = colact[i].y;  mapspawn = colact[i].z;}
             if (colact[i].x == 2 && !action) { event(colact[i].y);}
         }
         if (xcol && ycol && pxcol && !pycol)
         {
-            if (colact[i].x == 0) { Ppos.y = Pposcons.y; }
+            if (colact[i].x == 0) { Ppos.y = Pposcons.y;}
             if (colact[i].x == 1) { mapid = colact[i].y; mapspawn = colact[i].z;}
             if (colact[i].x == 2 && !action) { event(colact[i].y);}
         }
@@ -334,4 +335,24 @@ if (mapid != mapcons && !mapdone)
    Tbool = true;
 }
 }
+
+void tale::maptheme()
+{
+        if (mapid >= 2 && music != 0)
+        {
+        music = 0;
+        engine->audio.song.load(FileUtils::fromCwd("Sounds/Ruins.wav"));
+        engine->audio.song.inLoop = true;
+        engine->audio.song.setVolume(60);
+        engine->audio.song.play();
+        TYRA_WARN("activated.");
+        }
+        if (mapid == 0 || mapid == 1)
+        {
+        engine->audio.song.stop();
+        music = 99999;
+        TYRA_WARN("stoped.");
+        }
+        
+    }
 }

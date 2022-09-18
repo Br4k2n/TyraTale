@@ -25,7 +25,6 @@ void tale::loop()
     reloadplayer();
     colcheck();
     mapchange();
-    TYRA_LOG(engine->info.getAvailableRAM());
     ren.beginFrame();
     camupdate();
     ren.renderer2D.render(player);

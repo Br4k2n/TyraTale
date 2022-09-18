@@ -24,6 +24,7 @@ namespace tale
         mapcons = mapid;
         mapinit();
         mapdone = true;
+        maptheme();
         Tbool = false;
         }
         }

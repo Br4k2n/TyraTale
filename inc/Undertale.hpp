@@ -33,6 +33,7 @@ class tale : public Tyra::Game {
   void battlestart(int, int);
   void dialogue(Tyra::Vec4, int);
   void event(int);
+  void maptheme();
   
   Tyra::Texture* colview;
 
@@ -60,14 +61,17 @@ void colcheck();
 void mapchange();
 
 Tyra::Texture* dialogebox;
-Tyra::Sprite Spritebox;
-Tyra::Texture* letters[40] = {};
-Tyra::Texture* getletter(std::string);
+Tyra::Sprite UI_ChatboxSprite, UI_FaceboxSprite, UI_LetterSprite;
+Tyra::Texture* letters[57] = {};
+Tyra::Texture* getletter(std::string, int);
 void fontunload();
 void fontload(int);
 std::string str;
 Tyra::Vec2 texformat[200] = {};
-int chatnumb = 0, hom = 0, tipechat = 0;
+int chatnumb = 0, hom = 0, tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
 void drawtext();
+bool breakdialoge = false;
+
+int music = 99999;
   };
 }  // namespace Racer
