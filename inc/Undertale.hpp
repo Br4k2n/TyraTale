@@ -95,9 +95,10 @@ Texture* fight2;
 Texture* act1;
 Texture* act2;
 Texture* itens1; 
-Texture* itens2; 
+Texture* itens2;
 Texture* mercy1; 
-Texture* mercy2;
+Texture* mercy2;  
+audsrv_adpcm_t* e;
 
   };
 }
