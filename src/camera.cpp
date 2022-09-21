@@ -15,7 +15,7 @@ void tale::camupdate()
          map2.size = Vec2(512, 512);
          ren.render(map1);
          ren.render(map2);
-
+         
     }
     if (mapid == 1 && mapcons == mapid)
     {
@@ -48,7 +48,9 @@ void tale::camupdate()
          ren.render(map1);
     }
     
-   
+     
+
+
 }
 
 

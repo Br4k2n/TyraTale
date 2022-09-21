@@ -61,7 +61,7 @@ void tale::reloadplayer()
     
     if (moving)
     {
-        anm += 2;
+        anm += 4;
         if (anm > 100) {anm = 0;}
         
         if (direction == 1)
@@ -163,8 +163,9 @@ void tale::reloadplayer()
 void tale::startplayer()
 {
     auto PPath1 = FileUtils::fromCwd("sprites/transition.png");
-    auto* tex = engine->renderer.getTextureRepository().add(PPath1);
-    tex->addLink(trans.id);
+    auto* transtexture = engine->renderer.getTextureRepository().add(PPath1);
+    transtexture->addLink(trans.id);
+    
 
     trans.position = Vec2(0, 0);
     trans.size = Vec2(512,512);

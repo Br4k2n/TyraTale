@@ -46,6 +46,10 @@ void tale::drawtext()
 
     if (tipechat == 0)
     {
+        UI_ChatboxSprite.size = Vec2(800, 200);
+        UI_ChatboxSprite.position = Vec2(10, 10);
+        UI_FaceboxSprite.size = Vec2(120, 120);
+        UI_FaceboxSprite.position = Vec2(20, 20);
         ren.render(UI_ChatboxSprite);
         if (hom == 0) { border = 0; } else { border = 100; }
         if (hom == 1)
@@ -133,8 +137,60 @@ void tale::drawtext()
             }
         }
     }
+    if (tipechat == 10)
+    {
+        UI_ChatboxSprite.size = Vec2(800, 200);
+        UI_ChatboxSprite.position = Vec2(30, 250);
+        ren.render(UI_ChatboxSprite);
+
+        for (int i = lbp; i < chatnumb; i++)
+        {
+            if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
+            if (i < blt1){
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(40 + 15 * (i - lbp), 260);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i < blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(40 + 15 * (i - blt1), 300);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i > blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(40 + 15 * (blt2 + i - lbp), 340);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            
+            }
+            if (str2.at(0) == str.at(i) && i != blt1 && i != blt2)
+            {
+                if (blt1 < blt2)
+                {
+                    blt2 = i;
+                }
+                if (blt1 == blt2)
+                {
+                    blt1 = i;
+                }
+                
+            }
+        }
+    }
+
     if (len > chatnumb && !breakdialoge){
-    chatnumb++;
+    chatnumb+= 0.5F;
     }
 }
 
@@ -153,11 +209,6 @@ void tale::fontload(int num)
     dialogebox = engine->renderer.getTextureRepository().add(pathdialo);
     dialogebox->addLink(UI_ChatboxSprite.id);
     letters[0]->addLink(UI_LetterSprite.id);
-
-    UI_ChatboxSprite.size = Vec2(800, 200);
-    UI_ChatboxSprite.position = Vec2(10, 10);
-    UI_FaceboxSprite.size = Vec2(120, 120);
-    UI_FaceboxSprite.position = Vec2(20, 20);
     UI_ChatboxSprite.mode = MODE_STRETCH;
     UI_FaceboxSprite.mode = MODE_STRETCH;
     UI_LetterSprite.mode = MODE_STRETCH;

@@ -10,7 +10,7 @@ namespace tale
         {
         if (trans.color.a < 128)
         {
-        trans.color.a += 2;
+        trans.color.a += 6;
         }
         if (trans.color.a >= 128 && !mapdone)
         {
@@ -31,7 +31,7 @@ namespace tale
 
         if (mapdone)
         {
-                trans.color.a -= 2;
+                trans.color.a -= 6;
             if (trans.color.a < 0)
             {
                 trans.color.a = 0;
