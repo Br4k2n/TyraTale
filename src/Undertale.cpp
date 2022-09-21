@@ -23,6 +23,7 @@ void tale::loop()
     enf.neutral1 = "Dummy stands around absentmindedly.";
     enf.neutral2 = "Dummy looks like it's about to fall over.";
     enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
+    enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
     if (GameState == 0)
     {
     transition();

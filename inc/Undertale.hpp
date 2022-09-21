@@ -15,6 +15,7 @@ public:
   std::string neutral1 = "...";
   std::string neutral2 = "...";
   std::string textpath = "...";
+  std::string musicpath = "...";
 
 };
 

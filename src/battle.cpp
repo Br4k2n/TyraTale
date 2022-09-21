@@ -40,6 +40,11 @@ void tale::Battle(Enemyinfo Enemy)
         mercy2 = engine->renderer.getTextureRepository().add(Path8);
 
         UI_battleicons.size = Vec2(128, 64);
+        engine->audio.song.stop();
+        engine->audio.song.load(Enemy.musicpath);
+        engine->audio.song.inLoop = true;
+        engine->audio.song.setVolume(60);
+        engine->audio.song.play();
 
         GameStatecons = 1;
     }
