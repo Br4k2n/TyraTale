@@ -54,6 +54,8 @@ void tale::drawtext()
         if (hom == 0) { border = 0; } else { border = 100; }
         if (hom == 1)
         {
+            texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/effects/snd_flowey1.adpcm"));
+            engine->audio.adpcm.setVolume(60,1);
             ren.render(UI_FaceboxSprite);
         }
         for (int i = lbp; i < chatnumb; i++)
@@ -190,8 +192,11 @@ void tale::drawtext()
     }
 
     if (len > chatnumb && !breakdialoge){
+    if (sontiming == true) {engine->audio.adpcm.tryPlay(texnoise); sontiming = false;}
+    else {sontiming = true;}
     chatnumb+= 0.5F;
     }
+    
 }
 
 
@@ -345,4 +350,6 @@ if (str.at(wich) == str2.at(i)) {return(letters[i]);}
 }
 return(0);
 }
+
+
 }

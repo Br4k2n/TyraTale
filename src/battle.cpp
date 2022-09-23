@@ -45,11 +45,56 @@ void tale::Battle(Enemyinfo Enemy)
         engine->audio.song.inLoop = true;
         engine->audio.song.setVolume(60);
         engine->audio.song.play();
+        
 
         GameStatecons = 1;
     }
 
     ren.render(UI_FaceboxSprite);
+    ren.render(UI_ChatboxSprite);
+    if (Ppad.DpadLeft){option -= 1;}
+    if (Ppad.DpadRight){option += 1;}
+    if (Ppad.Cross)
+    {
+        engine->audio.adpcm.tryPlay(menuoptionoise);
+        if (option == 1)
+        {
+            BattleMenuState = 1;
+        }
+        if (option == 2)
+        {
+            BattleMenuState = 2;
+        }
+        if (option == 3)
+        {
+            BattleMenuState = 3;
+        }
+        if (option == 4)
+        {
+            BattleMenuState = 4;
+        }
+    }
+    if (Ppad.Square)
+    {
+        engine->audio.adpcm.tryPlay(menuoptionoise);
+        option = 1;
+        if (BattleMenuState == 1)
+        {
+            BattleMenuState = 0;
+        }
+        if (BattleMenuState == 2)
+        {
+            BattleMenuState = 0;
+        }
+        if (BattleMenuState == 3)
+        {
+            BattleMenuState = 0;
+        }
+        if (BattleMenuState == 4)
+        {
+            BattleMenuState = 0;
+        }
+    }
 
     if (BattleMenuState == 0)
     {
@@ -58,12 +103,11 @@ void tale::Battle(Enemyinfo Enemy)
     else
     { 
     int random = rand() % 100;
+    TYRA_ASSERT(true,random);
     if (random >= 50){str = Enemy.neutral1;}
     if (random < 50){str = Enemy.neutral2;}
     }
     drawtext();
-    if (Ppad.DpadLeft){option -= 1;}
-    if (Ppad.DpadRight){option += 1;}
     if (option < 1){option = 4;}
     if (option > 4){option = 1;}
     if (option == 1)
@@ -121,6 +165,16 @@ void tale::Battle(Enemyinfo Enemy)
         mercy1->removeLinkById(UI_battleicons.id);
     }
     }
+
+if (BattleMenuState != BattleMenuStatecons)
+{
+    blt1 = 9999;
+    blt2 = 9999;
+    lbp = 0;
+    action = false;
+    chatnumb = 0;
+    BattleMenuStatecons = BattleMenuState;
+}
 
 }
 

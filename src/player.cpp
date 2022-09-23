@@ -227,6 +227,8 @@ void tale::startplayer()
     player.position = Vec2(Ppos.x,Ppos.y);
     Ptex[0]->addLink(player.id);
 
+    menuoptionoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_select.adpcm"));
+
     fontload(0);
 }
 }

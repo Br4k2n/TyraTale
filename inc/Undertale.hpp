@@ -80,14 +80,13 @@ std::string str;
 Vec2 texformat[200] = {};
 int hom = 0, tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
 void drawtext();
-bool breakdialoge = false;
-
+bool breakdialoge = false, sontiming = false;
 int music = 99999;
 
 //Battle system
 
 void Battle(Enemyinfo);
-int BattleMenuState = 0;
+int BattleMenuState = 0, BattleMenuStatecons = 0;
 int turns = 0, option = 1;
 Sprite UI_battleicons;
 Texture* fight1;
@@ -98,7 +97,8 @@ Texture* itens1;
 Texture* itens2;
 Texture* mercy1; 
 Texture* mercy2;  
-audsrv_adpcm_t* e;
+audsrv_adpcm_t* texnoise;
+audsrv_adpcm_t* menuoptionoise;
 
   };
 }
