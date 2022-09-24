@@ -228,6 +228,8 @@ void tale::startplayer()
     Ptex[0]->addLink(player.id);
 
     menuoptionoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_select.adpcm"));
+    texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));
+    
 
     fontload(0);
 }

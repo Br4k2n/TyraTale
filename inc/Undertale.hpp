@@ -72,7 +72,7 @@ void mapchange();
 
 Texture* dialogebox;
 Sprite UI_ChatboxSprite, UI_FaceboxSprite, UI_LetterSprite;
-Texture* letters[57] = {};
+Texture* letters[100] = {};
 Texture* getletter(std::string, int);
 void fontunload();
 void fontload(int);
@@ -87,8 +87,8 @@ int music = 99999;
 
 void Battle(Enemyinfo);
 int BattleMenuState = 0, BattleMenuStatecons = 0;
-int turns = 0, option = 1;
-Sprite UI_battleicons;
+int turns = 0, option = 1, suboption = 1;
+Sprite UI_battleicons, UI_HealthBar;
 Texture* fight1;
 Texture* fight2;
 Texture* act1;
@@ -97,8 +97,18 @@ Texture* itens1;
 Texture* itens2;
 Texture* mercy1; 
 Texture* mercy2;  
+Texture* YHbox;
+Texture* RHbox;
 audsrv_adpcm_t* texnoise;
 audsrv_adpcm_t* menuoptionoise;
+
+//Status
+
+std::string Pname = "Frisk";
+int LOVE = 1;
+int EXP = 0;
+int Maxhp = 20;
+int currenthp = 20;
 
   };
 }

@@ -19,7 +19,7 @@ void tale::loop()
 { 
     auto& ren = engine->renderer;
     Enemyinfo enf;
-    enf.encountertex = "You encountered the Dummy.";
+    enf.encountertex = "*You encountered the Dummy.";
     enf.neutral1 = "Dummy stands around absentmindedly.";
     enf.neutral2 = "Dummy looks like it's about to fall over.";
     enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
