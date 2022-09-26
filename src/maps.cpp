@@ -345,13 +345,11 @@ void tale::maptheme()
         engine->audio.song.inLoop = true;
         engine->audio.song.setVolume(60);
         engine->audio.song.play();
-        TYRA_WARN("activated.");
         }
         if (mapid == 0 || mapid == 1)
         {
         engine->audio.song.stop();
         music = 99999;
-        TYRA_WARN("stoped.");
         }
         
     }

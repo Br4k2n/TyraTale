@@ -12,18 +12,20 @@ void tale::init()
     startplayer();
     resetcolissioninmap();
     mapinit();
+    Enemyinfo enf;
+    enf.encountertex = "*You encountered the Dummy.";
+    enf.neutral1 = "*Dummy stands around #absentmindedly.";
+    enf.neutral2 = "*Dummy looks like it's #about to fall over.";
+    enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
+    enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
+    enf.check = "*A cotton heart and a button eye. #*You are the apple of my eye.";
+    Enemy = enf;
     
 }
 
 void tale::loop() 
 { 
     auto& ren = engine->renderer;
-    Enemyinfo enf;
-    enf.encountertex = "*You encountered the Dummy.";
-    enf.neutral1 = "Dummy stands around absentmindedly.";
-    enf.neutral2 = "Dummy looks like it's about to fall over.";
-    enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
-    enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
     if (GameState == 0)
     {
     transition();
@@ -41,7 +43,7 @@ void tale::loop()
     if (GameState == 1)
     {
         ren.beginFrame();
-        Battle(enf);
+        Battle();
         ren.endFrame();
     }
 }

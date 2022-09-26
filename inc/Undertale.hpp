@@ -8,15 +8,23 @@ namespace tale {
 class Enemyinfo
 {
 public:
-  int att = 0;
-  int def = 0;
+  int att = 0;int def = 0;
+  Vec2 Epos = Vec2(200 ,96);
+  int mtion1 = 9999; bool mtiongreat1 = true;
+  int mtion2 = 9999; bool mtiongreat2 = true;
+  bool mercy = false;
   std::string encountertex = "...";
   std::string check = "...";
-  std::string neutral1 = "...";
-  std::string neutral2 = "...";
-  std::string textpath = "...";
-  std::string musicpath = "...";
-
+  std::string neutral1 = "..."; std::string neutral2 = "...";
+  std::string spech1 = "...", spech2 = "...", spech3 = "...";
+  std::string textpath = "..."; std::string musicpath = "...";
+  int specialcontition = 0;
+  int numactoptions = 0;
+  std::string actoption[5] = {"...","...","...","...","..."};
+  int actoptionchange[5] = {};
+  
+  
+  
 };
 
 
@@ -48,7 +56,6 @@ class tale : public Game {
   void camupdate();
   void transition();
   void battlestart(int, int);
-  void dialogue(Vec4, int);
   void event(int);
   void maptheme();
 
@@ -85,20 +92,19 @@ int music = 99999;
 
 //Battle system
 
-void Battle(Enemyinfo);
+void Battle();
+void SpareEnemy();
 int BattleMenuState = 0, BattleMenuStatecons = 0;
 int turns = 0, option = 1, suboption = 1;
-Sprite UI_battleicons, UI_HealthBar;
-Texture* fight1;
-Texture* fight2;
-Texture* act1;
-Texture* act2;
-Texture* itens1; 
-Texture* itens2;
-Texture* mercy1; 
-Texture* mercy2;  
-Texture* YHbox;
-Texture* RHbox;
+bool spareable;
+Enemyinfo Enemy;
+Sprite UI_battleicons, UI_HealthBar, PlayerHeart;
+Texture* fight1;Texture* fight2;
+Texture* act1;  Texture* act2;
+Texture* itens1;Texture* itens2;
+Texture* mercy1;Texture* mercy2;  
+Texture* YHbox; Texture* RHbox;
+Texture* heart1;Texture* heart2;
 audsrv_adpcm_t* texnoise;
 audsrv_adpcm_t* menuoptionoise;
 

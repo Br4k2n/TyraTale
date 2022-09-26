@@ -4,8 +4,9 @@ namespace tale
 {
 using namespace Tyra;
 
-void tale::Battle(Enemyinfo Enemy)
+void tale::Battle()
 {   
+    bool battlestatechanged = false;
     const auto& Ppad = engine->pad.getClicked();
     auto& ren = engine->renderer.renderer2D;
     if (GameStatecons != 1)
@@ -57,6 +58,9 @@ void tale::Battle(Enemyinfo Enemy)
 
         GameStatecons = 1;
     }
+    ren.render(UI_FaceboxSprite);
+    ren.render(UI_ChatboxSprite);
+
     std::string status, Healthtext;
     status = Pname + "  LV " + std::to_string(LOVE) + "    HP   ";
     Healthtext = std::to_string(currenthp) + "/" + std::to_string(Maxhp);
@@ -145,13 +149,41 @@ void tale::Battle(Enemyinfo Enemy)
         ren.render(UI_battleicons);
         mercy1->removeLinkById(UI_battleicons.id);
     }
-    ren.render(UI_FaceboxSprite);
-    ren.render(UI_ChatboxSprite);
+    
+
+
     if (BattleMenuState != -1){
     if (Ppad.Cross)
     {
         engine->audio.adpcm.tryPlay(menuoptionoise);
-        if (BattleMenuState == 0){
+        if (BattleMenuState == 4 && !battlestatechanged)
+        {
+            battlestatechanged = true;
+            if (suboption == 1) 
+            {
+            SpareEnemy();
+            }
+            if (suboption == 2) 
+            {
+            
+            }
+        }
+        if (BattleMenuState == 2 && !battlestatechanged)
+        {
+            battlestatechanged = true;
+            if (suboption == 1) 
+            {
+            turns++;
+            BattleMenuState = 21;
+            }
+            if (suboption == 2) 
+            {
+            
+            }
+        }
+        
+        if (BattleMenuState == 0 && !battlestatechanged){
+            battlestatechanged = true;
             if (option == 1)
             {
             BattleMenuState = 1;
@@ -172,6 +204,7 @@ void tale::Battle(Enemyinfo Enemy)
     }
     if (Ppad.Square)
     {
+
         if (BattleMenuState == 1)
         {
             BattleMenuState = 0;
@@ -190,35 +223,226 @@ void tale::Battle(Enemyinfo Enemy)
         }
     }
     }
-
     if (BattleMenuState == 0)
     {
+        if (option == 1)
+            {
+            PlayerHeart.position = Vec2(25, 410);
+            ren.render(PlayerHeart);
+            }
+            if (option == 2)
+            {
+            PlayerHeart.position = Vec2(25 + 130, 410);
+            ren.render(PlayerHeart);
+            }
+         if (option == 3)
+            {
+            PlayerHeart.position = Vec2(25 + 130*2, 410);
+            ren.render(PlayerHeart);
+            }
+            if (option == 4)
+            {
+            PlayerHeart.position = Vec2(25 + 130*3, 410);
+            ren.render(PlayerHeart);
+            }
+
     if (Ppad.DpadLeft){option -= 1;}
     if (Ppad.DpadRight){option += 1;}
     tipechat = 10;
     if (turns == 0){str = Enemy.encountertex;}
-    else
-    { 
-    int random = rand() % 100;
-    TYRA_ASSERT(true,random);
-    if (random >= 50){str = Enemy.neutral1;}
-    if (random < 50){str = Enemy.neutral2;}
-    }
     drawtext();
     if (option < 1){option = 4;}
     if (option > 4){option = 1;}
     }
 
+    if (BattleMenuState == 4)
+    {
+    std::string op1, op2;
+    op1 = "* Spare";
+    op2 = "* Flee";
+    int len1 = op1.length();
+    int len2 = op2.length();
+    if (Ppad.DpadUp){suboption -= 1;}
+    if (Ppad.DpadDown){suboption += 1;}
+    if (suboption < 1){ suboption = 2; }
+    if (suboption > 2){ suboption = 1; }
+
+    for (int i = 0; i < len1; i++)
+    {
+        auto* e = getletter(op1, i);
+        e->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 280);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+    }
+    for (int i = 0; i < len2; i++)
+    {
+        auto* e = getletter(op2, i);
+        e->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 310);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+    }
+
+    if (suboption == 1) 
+            {
+            PlayerHeart.position = Vec2(70, 280);
+            ren.render(PlayerHeart);
+            }
+            if (suboption == 2) 
+            {
+            PlayerHeart.position = Vec2(70, 310);
+            ren.render(PlayerHeart);
+            }
+    
+    }
+    if (BattleMenuState == 2)
+    {
+    std::string op1;
+    op1 = "* Check";
+    int len1 = op1.length();
+    int alen1 = Enemy.actoption[0].length();
+    int alen2 = Enemy.actoption[1].length();
+    int alen3 = Enemy.actoption[2].length();
+    int alen4 = Enemy.actoption[3].length();
+    int alen5 = Enemy.actoption[4].length();
+    if (Ppad.DpadUp){suboption -= 2;}
+    if (Ppad.DpadDown){suboption += 2;}
+    if (Ppad.DpadLeft){suboption -= 1;}
+    if (Ppad.DpadRight){suboption += 1;}
+    if (suboption < 1){ suboption = Enemy.numactoptions + 1; }
+    if (suboption > Enemy.numactoptions + 1){ suboption = 1; }
+
+    for (int i = 0; i < len1; i++)
+    {
+        auto* e = getletter(op1, i);
+        e->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 280);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+    }
+    if (Enemy.numactoptions >= 1)
+    {
+        for (int i = 0; i < alen1; i++){
+        auto* z = getletter(Enemy.actoption[0], i);
+        z->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(300 + 10 * i, 280);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+        }
+    }
+    if (Enemy.numactoptions >= 2)
+    {
+        for (int i = 0; i < alen2; i++){
+        auto* z = getletter(Enemy.actoption[1], i);
+        z->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 300);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+        }
+    }
+    if (Enemy.numactoptions >= 3)
+    {
+        for (int i = 0; i < alen3; i++){
+        auto* z = getletter(Enemy.actoption[2], i);
+        z->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(300 + 10 * i, 300);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+        }
+    }
+    if (Enemy.numactoptions >= 4)
+    {
+        for (int i = 0; i < alen4; i++){
+        auto* z = getletter(Enemy.actoption[3], i);
+        z->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 320);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+        }
+    }
+    if (Enemy.numactoptions >= 5)
+    {
+        for (int i = 0; i < alen5; i++){
+        auto* z = getletter(Enemy.actoption[4], i);
+        z->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(300 + 10 * i, 320);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+        }
+    }
+
+    if (suboption == 1) 
+    {
+    PlayerHeart.position = Vec2(70, 280);
+    ren.render(PlayerHeart);
+    }
+    if (suboption == 2) 
+    {
+    PlayerHeart.position = Vec2(270, 280);
+    ren.render(PlayerHeart);
+    }
+    if (suboption == 3) 
+    {
+    PlayerHeart.position = Vec2(70, 300);
+    ren.render(PlayerHeart);
+    }
+    if (suboption == 4) 
+    {
+    PlayerHeart.position = Vec2(270, 300);
+    ren.render(PlayerHeart);
+    }
+    if (suboption == 5) 
+    {
+    PlayerHeart.position = Vec2(70, 320);
+    ren.render(PlayerHeart);
+    }
+    if (suboption == 6) 
+    {
+    PlayerHeart.position = Vec2(270, 320);
+    ren.render(PlayerHeart);
+    }
+    
+    }
+    if (BattleMenuState == 21) 
+    {
+    str = Enemy.check;
+    drawtext();
+    }
+
 if (BattleMenuState != BattleMenuStatecons)
 {
+    TYRA_ERROR(BattleMenuState);
     blt1 = 9999;
     blt2 = 9999;
     lbp = 0;
+    bdp = 0;
     action = false;
     chatnumb = 0;
+    suboption = 1;
     BattleMenuStatecons = BattleMenuState;
 }
 
 }
 
+
+void tale::SpareEnemy()
+{
+    if (!Enemy.mercy) 
+    {
+        turns++; 
+        BattleMenuState = 0;
+        int random = rand() % 100;
+        if (random >= 50){str = Enemy.neutral1;}
+        if (random < 50){str = Enemy.neutral2;}
+    }
+}
 }
