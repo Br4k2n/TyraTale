@@ -1,4 +1,3 @@
-[![Discord](https://img.shields.io/badge/discord-Tyra-brightgreen?logo=discord)](https://discord.gg/NhhTmg3Gm5)
 [Discord server](https://discord.gg/KFYQKbJg8Z)
 
 <br />
