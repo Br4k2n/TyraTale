@@ -1,9 +1,5 @@
 [![Discord](https://img.shields.io/badge/discord-Tyra-brightgreen?logo=discord)](https://discord.gg/NhhTmg3Gm5)
-<br />
-<p align="center">
-  <a href="ttps://discord.gg/KFYQKbJg8Z">
-    Discord server
-  </a>
+[Discord server](https://discord.gg/KFYQKbJg8Z)
 
 <br />
 <p align="center">
