@@ -1,3 +1,10 @@
+[![Discord](https://img.shields.io/badge/discord-Tyra-brightgreen?logo=discord)](https://discord.gg/NhhTmg3Gm5)
+<br />
+<p align="center">
+  <a href="https://github.com/h4570/tyra">
+    Discord server
+  </a>
+
 <br />
 <p align="center">
   <a href="https://github.com/Br4k2n/TyraTale">
