@@ -1,3 +1,5 @@
+[Discord server](https://discord.gg/KFYQKbJg8Z)
+
 <br />
 <p align="center">
   <a href="https://github.com/Br4k2n/TyraTale">
