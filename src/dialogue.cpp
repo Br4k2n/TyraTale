@@ -3,13 +3,14 @@
 namespace tale
 {
 using namespace Tyra;
+using namespace std;
 
 void tale::drawtext()
 {
-    std::string str2 = "#$*";
+    string str2 = "#$*";
     auto& ren = engine->renderer.renderer2D;
     float border;
-    int len = str.length();
+    int len = 0;
     const auto& padpress = engine->pad.getClicked();
 
     if (tipechat == 0)
@@ -23,11 +24,11 @@ void tale::drawtext()
         if (hom == 1)
         {
             texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/effects/snd_flowey1.adpcm"));
-            engine->audio.adpcm.setVolume(60,1);
             ren.render(UI_FaceboxSprite);
         }
         for (int i = lbp; i < chatnumb; i++)
         {
+            len = str.length();
             if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
             if (i < blt1){
             auto* e = getletter(str, i);
@@ -50,7 +51,7 @@ void tale::drawtext()
             {
             auto* e = getletter(str, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( border + 10 * (blt2 + i - lbp), 100);
+            UI_LetterSprite.position = Vec2( border + 10 * (i - blt2), 100);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -133,6 +134,7 @@ void tale::drawtext()
     }
     if (tipechat == 10)
     {
+        len = str.length();
         UI_ChatboxSprite.size = Vec2(800, 200);
         UI_ChatboxSprite.position = Vec2(30, 250);
 
@@ -160,7 +162,7 @@ void tale::drawtext()
             {
             auto* e = getletter(str, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2(80 + 10 * (blt2 + i - lbp), 320);
+            UI_LetterSprite.position = Vec2(80 + 10 * (i - blt2), 320);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -204,40 +206,43 @@ void tale::drawtext()
                 }
             }
         }
-        if (tipechat == 11)
+    }
+    if (tipechat == 11)
         {
+            string str3 = "* " + Enemy.name + " - ATK " + to_string(Enemy.att) + " DEF " + to_string(Enemy.def) + "#" + str;
+            len = str3.length();
             for (int i = lbp; i < chatnumb; i++)
         {
-            if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
+            if (str3.at(i) != str2.at(0) && str3.at(i) != str2.at(1) && str3.at(i) != str2.at(2)){
             if (i < blt1){
-            auto* e = getletter(str, i);
+            auto* e = getletter(str3, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( 80 + 10 * (i - lbp), 20);
+            UI_LetterSprite.position = Vec2( 80 + 10 * (i - lbp), 280);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
             }
             if (i > blt1 && i < blt2)
             {
-            auto* e = getletter(str, i);
+            auto* e = getletter(str3, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( 80 + 10 * (i - blt1), 60);
+            UI_LetterSprite.position = Vec2( 80 + 10 * (i - blt1), 300);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
             }
             if (i > blt1 && i > blt2)
             {
-            auto* e = getletter(str, i);
+            auto* e = getletter(str3, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( 80 + 10 * (blt2 + i - lbp), 100);
+            UI_LetterSprite.position = Vec2( 80 + 10 * (i - blt2), 320);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
             }
             
             }
-            if (str2.at(0) == str.at(i) && i != blt1 && i != blt2)
+            if (str2.at(0) == str3.at(i) && i != blt1 && i != blt2)
             {
                 if (blt1 < blt2)
                 {
@@ -249,18 +254,18 @@ void tale::drawtext()
                 }
                 
             }
-            if (str.at(i) == str2.at(1) && i > bdp)
+            if (str3.at(i) == str2.at(1) && i > bdp)
             {
                 breakdialoge = true;
                 bdp = i;
             }
-            if (str.at(i) == str2.at(1) && i < bdp)
+            if (str3.at(i) == str2.at(1) && i < bdp)
             {
                 blt1 = 9999;
                 blt2 = 9999;
                 lbp = i;
             }
-            if (str2.at(2) == str.at(i))
+            if (str2.at(2) == str3.at(i))
             {
                 if (i < blt1)
                 {
@@ -293,20 +298,20 @@ void tale::drawtext()
             }
             if (len == chatnumb && padpress.Cross)
             {
-                BattleMenuState = 0;
+                skipturn();
             }
         }
         }
-    }
 
     if (len > chatnumb && !breakdialoge){
+    chatnumb+= 0.5F;
     if (sontiming == true) 
     {
-    engine->audio.adpcm.setVolume(60,2);
+    engine->audio.adpcm.setVolume(30,getavailablechanel());
     engine->audio.adpcm.tryPlay(texnoise);
-    sontiming = false;}
+    sontiming = false;
+    }
     else {sontiming = true;}
-    chatnumb+= 0.5F;
     }
     
 }
@@ -412,7 +417,9 @@ void tale::fontload(int num)
     auto path0 = FileUtils::fromCwd("sprites/fonts/default/0.png");
     auto pathslash = FileUtils::fromCwd("sprites/fonts/default/slash.png");
     auto pathasp = FileUtils::fromCwd("sprites/fonts/default/asps.png");
-    auto pathdasp = FileUtils::fromCwd("sprites/fonts/default/dobleasps.png");
+    auto pathtrac = FileUtils::fromCwd("sprites/fonts/default/-.png");
+    auto pathhashtag = FileUtils::fromCwd("sprites/fonts/default/#.png");
+    auto pathmoney = FileUtils::fromCwd("sprites/fonts/default/$.png");
     
 
     letters[0] = engine->renderer.getTextureRepository().add(patha);
@@ -485,21 +492,33 @@ void tale::fontload(int num)
     letters[67] = engine->renderer.getTextureRepository().add(path0);
     letters[68] = engine->renderer.getTextureRepository().add(pathslash);
     letters[69] = engine->renderer.getTextureRepository().add(pathasp);
-    letters[70] = engine->renderer.getTextureRepository().add(pathdasp);
+    letters[70] = engine->renderer.getTextureRepository().add(pathtrac);
+    letters[71] = engine->renderer.getTextureRepository().add(pathhashtag);
+    letters[72] = engine->renderer.getTextureRepository().add(pathmoney);
 
     
  }
 }
 
 
-Texture* tale::getletter(std::string str, int wich)
+Texture* tale::getletter(string str, int wich)
 {
-std::string str2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?abcdefghijklmnopqrstuvwxyz *1234567890/'"; 
-for (int i = 0; i < 70; i++){
+string str2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?abcdefghijklmnopqrstuvwxyz *1234567890/'-#$";
+for (int i = 0; i < 73; i++){
 if (str.at(wich) == str2.at(i)) {return(letters[i]);}
 }
 return(0);
 }
 
+int tale::getavailablechanel()
+{
+    return(currentchannel);
+    currentchannel++;
+    if (currentchannel > 23)
+    {
+        currentchannel = 0;
+    }
+    
+}
 
 }

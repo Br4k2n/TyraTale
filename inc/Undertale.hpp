@@ -8,7 +8,8 @@ namespace tale {
 class Enemyinfo
 {
 public:
-  int att = 0;int def = 0;
+  std::string name = "Dummy";
+  int att = 0;int def = 0, maxhp = 10, currhp = maxhp;
   Vec2 Epos = Vec2(200 ,96);
   int mtion1 = 9999; bool mtiongreat1 = true;
   int mtion2 = 9999; bool mtiongreat2 = true;
@@ -89,24 +90,32 @@ int hom = 0, tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
 void drawtext();
 bool breakdialoge = false, sontiming = false;
 int music = 99999;
+int getavailablechanel();
+int currentchannel = 0;
 
 //Battle system
 
+void skipturn();
 void Battle();
 void SpareEnemy();
 int BattleMenuState = 0, BattleMenuStatecons = 0;
-int turns = 0, option = 1, suboption = 1;
-bool spareable;
+int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 = 0;
+bool attacked = false;
 Enemyinfo Enemy;
-Sprite UI_battleicons, UI_HealthBar, PlayerHeart;
+Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite;
 Texture* fight1;Texture* fight2;
 Texture* act1;  Texture* act2;
 Texture* itens1;Texture* itens2;
 Texture* mercy1;Texture* mercy2;  
-Texture* YHbox; Texture* RHbox;
+Texture* YHbox; Texture* RHbox; Texture* GHbox;
+Texture* damageindicator; Texture* dmgpointer1; Texture* dmgpointer2;
 Texture* heart1;Texture* heart2;
 audsrv_adpcm_t* texnoise;
 audsrv_adpcm_t* menuoptionoise;
+audsrv_adpcm_t* attacknoise;
+audsrv_adpcm_t* hitnoise;
+Texture* anm_attack1;Texture* anm_attack2;
+Texture* anm_attack3;Texture* anm_attack4;
 
 //Status
 

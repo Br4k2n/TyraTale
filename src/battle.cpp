@@ -25,6 +25,30 @@ void tale::Battle()
 
         auto pathyellow = FileUtils::fromCwd("sprites/solidcol/yellow.png");
         auto pathred= FileUtils::fromCwd("sprites/solidcol/Red.png");
+        auto green = FileUtils::fromCwd("sprites/solidcol/green.png");
+
+        auto dmgin = FileUtils::fromCwd("sprites/battle/damageindicator.png");
+        auto dmgpoin1 = FileUtils::fromCwd("sprites/battle/dmgpointer1.png");
+        auto dmgpoin2 = FileUtils::fromCwd("sprites/battle/dmgpointer2.png");
+
+        auto pathatt1 = FileUtils::fromCwd("sprites/battle/spr_strike_1.png");
+        auto pathatt2 = FileUtils::fromCwd("sprites/battle/spr_strike_2.png");
+        auto pathatt3 = FileUtils::fromCwd("sprites/battle/spr_strike_3.png");
+        auto pathatt4 = FileUtils::fromCwd("sprites/battle/spr_strike_4.png");
+
+        auto snd_attack1 = FileUtils::fromCwd("Sounds/adpcm/snd_attack1.adpcm");
+        auto snd_hit = FileUtils::fromCwd("Sounds/adpcm/snd_hit.adpcm");
+        attacknoise = engine->audio.adpcm.load(snd_attack1);
+        hitnoise = engine->audio.adpcm.load(snd_hit);
+        
+        attanm_sprite.size = Vec2(100,100);
+        attanm_sprite.mode = MODE_STRETCH;
+        attanm_sprite.position = Enemy.Epos;
+        anm_attack1 = engine->renderer.getTextureRepository().add(pathatt1);
+        anm_attack2 = engine->renderer.getTextureRepository().add(pathatt2);
+        anm_attack3 = engine->renderer.getTextureRepository().add(pathatt3);
+        anm_attack4 = engine->renderer.getTextureRepository().add(pathatt4);
+        anm_attack1->addLink(attanm_sprite.id);
 
         auto* text = engine->renderer.getTextureRepository().add(Enemy.textpath);
         text->addLink(UI_FaceboxSprite.id);
@@ -45,6 +69,14 @@ void tale::Battle()
 
         YHbox = engine->renderer.getTextureRepository().add(pathyellow);
         RHbox = engine->renderer.getTextureRepository().add(pathred);
+        GHbox = engine->renderer.getTextureRepository().add(green);
+
+        damageindicator = engine->renderer.getTextureRepository().add(dmgin);
+        dmgpointer1 = engine->renderer.getTextureRepository().add(dmgpoin1);
+        dmgpointer2 = engine->renderer.getTextureRepository().add(dmgpoin2);
+        dmgpointer1->addLink(attpointer_sprite.id);
+        attpointer_sprite.size = Vec2(103, 103);
+        attpointer_sprite.mode = MODE_STRETCH;
 
         UI_battleicons.size = Vec2(100, 50);
         UI_battleicons.mode = MODE_STRETCH;
@@ -155,7 +187,11 @@ void tale::Battle()
     if (BattleMenuState != -1){
     if (Ppad.Cross)
     {
+        if (BattleMenuState != 11)
+        {
+        engine->audio.adpcm.setVolume(60 ,getavailablechanel());
         engine->audio.adpcm.tryPlay(menuoptionoise);
+        }
         if (BattleMenuState == 4 && !battlestatechanged)
         {
             battlestatechanged = true;
@@ -173,13 +209,21 @@ void tale::Battle()
             battlestatechanged = true;
             if (suboption == 1) 
             {
-            turns++;
             BattleMenuState = 21;
             }
             if (suboption == 2) 
             {
             
             }
+        }
+        if (BattleMenuState == 1 && !battlestatechanged)
+        {
+            battlestatechanged = true;
+            if (suboption == 1) 
+            {
+            BattleMenuState = 11;
+            }
+            
         }
         
         if (BattleMenuState == 0 && !battlestatechanged){
@@ -253,6 +297,135 @@ void tale::Battle()
     drawtext();
     if (option < 1){option = 4;}
     if (option > 4){option = 1;}
+    }
+
+
+    if (BattleMenuState == 1)
+    {
+    std::string op1 = Enemy.name, hash = "* ";
+    std::string op2 = hash + op1;
+    int porcent = Enemy.currhp / 100, hdisplay = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        if (porcent * i < Enemy.currhp)
+        {
+            hdisplay++;
+        }
+    }
+    int len1 = op2.length();
+        if (option == 1)
+        {
+            PlayerHeart.position = Vec2(80, 280);
+            ren.render(PlayerHeart);
+        }
+    
+    UI_HealthBar.size = Vec2(100,18);
+    UI_HealthBar.position = Vec2(150 + len1 * 10, 280);
+    RHbox->addLink(UI_HealthBar.id);
+    ren.render(UI_HealthBar);
+    RHbox->removeLinkById(UI_HealthBar.id);
+    UI_HealthBar.size = Vec2(hdisplay,18);
+    GHbox->addLink(UI_HealthBar.id);
+    ren.render(UI_HealthBar);
+    GHbox->removeLinkById(UI_HealthBar.id);
+
+    for (int i = 0; i < len1; i++)
+    {
+        auto* e = getletter(op2, i);
+        e->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 280);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+    }
+
+    }
+    if (BattleMenuState == 11)
+    {
+        auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(UI_ChatboxSprite.id);
+        remtex->removeLinkById(UI_ChatboxSprite.id);
+        damageindicator->addLink(UI_ChatboxSprite.id);
+        UI_ChatboxSprite.position = Vec2(40,260);
+        UI_ChatboxSprite.size = Vec2(430,120);
+        ren.render(UI_ChatboxSprite);
+        damageindicator->removeLinkById(UI_ChatboxSprite.id);
+        remtex->addLink(UI_ChatboxSprite.id);
+        UI_ChatboxSprite.size = Vec2(800, 200);
+        UI_ChatboxSprite.position = Vec2(30, 250);
+        
+        attpointer_sprite.position = Vec2(40 + attpointer, 260);
+        if (!attacked && !battlestatechanged)
+        {
+        ren.render(attpointer_sprite);
+        attpointer += 5;
+        if (Ppad.Cross)
+        { 
+            attacked = true; 
+            engine->audio.adpcm.setVolume(60, getavailablechanel());
+            engine->audio.adpcm.tryPlay(attacknoise);
+        }
+        }
+        else
+        {
+            if (attanm1 == 0)
+            {
+                dmgpointer1->removeLinkById(attpointer_sprite.id);
+                dmgpointer2->addLink(attpointer_sprite.id);
+            }
+            if (attanm1 == 10)
+            {
+                dmgpointer2->removeLinkById(attpointer_sprite.id);
+                dmgpointer1->addLink(attpointer_sprite.id);
+            }
+
+            if (attanm2 == 0)
+            {
+                attanm_sprite.position.y = Enemy.Epos.y - 50;
+            }
+            if (attanm2 == 10)
+            {
+                attanm_sprite.position.y = Enemy.Epos.y - 25;
+                anm_attack1->removeLinkById(attanm_sprite.id);
+                anm_attack2->addLink(attanm_sprite.id);
+            }
+            if (attanm2 == 20)
+            {
+                attanm_sprite.position.y = Enemy.Epos.y;
+                anm_attack2->removeLinkById(attanm_sprite.id);
+                anm_attack3->addLink(attanm_sprite.id);
+            }
+            if (attanm2 == 30)
+            {
+                attanm_sprite.position.y = Enemy.Epos.y + 25;
+                anm_attack3->removeLinkById(attanm_sprite.id);
+                anm_attack4->addLink(attanm_sprite.id);
+            }
+            ren.render(attpointer_sprite);
+            if (attanm2 < 40){ren.render(attanm_sprite);}
+            if (attanm2 == 50)
+            {
+                engine->audio.adpcm.setVolume(60, getavailablechanel());
+                engine->audio.adpcm.tryPlay(hitnoise);
+                UI_FaceboxSprite.position.x -= 10;
+            }
+            if (attanm2 == 55)
+            {
+                UI_FaceboxSprite.position.x += 20;
+            }
+            if (attanm2 == 60)
+            {
+                UI_FaceboxSprite.position.x -= 20;
+            }
+            if (attanm2 == 65)
+            {
+                UI_FaceboxSprite.position.x += 10;
+            }
+            attanm1 ++;
+            attanm2 ++;
+            if (attanm1 > 20){attanm1 = 0;}
+
+        }
+
     }
 
     if (BattleMenuState == 4)
@@ -412,8 +585,12 @@ void tale::Battle()
     }
     
     }
+
+
+
     if (BattleMenuState == 21) 
     {
+    tipechat = 11;
     str = Enemy.check;
     drawtext();
     }
@@ -438,11 +615,16 @@ void tale::SpareEnemy()
 {
     if (!Enemy.mercy) 
     {
-        turns++; 
-        BattleMenuState = 0;
-        int random = rand() % 100;
-        if (random >= 50){str = Enemy.neutral1;}
-        if (random < 50){str = Enemy.neutral2;}
+        skipturn();
     }
+}
+
+void tale::skipturn()
+{
+    turns++; 
+    BattleMenuState = 0;
+    int random = rand() % 100;
+    if (random >= 50){str = Enemy.neutral1;}
+    if (random < 50){str = Enemy.neutral2;}
 }
 }
