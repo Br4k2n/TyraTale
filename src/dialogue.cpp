@@ -420,6 +420,18 @@ void tale::fontload(int num)
     auto pathtrac = FileUtils::fromCwd("sprites/fonts/default/-.png");
     auto pathhashtag = FileUtils::fromCwd("sprites/fonts/default/#.png");
     auto pathmoney = FileUtils::fromCwd("sprites/fonts/default/$.png");
+
+    auto path1d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_1.png");
+    auto path2d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_2.png");
+    auto path3d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_3.png");
+    auto path4d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_4.png");
+    auto path5d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_5.png");
+    auto path6d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_6.png");
+    auto path7d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_7.png");
+    auto path8d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_8.png");
+    auto path9d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_9.png");
+    auto path0d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_0.png");
+    auto pathmiss = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgmiss.png");
     
 
     letters[0] = engine->renderer.getTextureRepository().add(patha);
@@ -495,6 +507,18 @@ void tale::fontload(int num)
     letters[70] = engine->renderer.getTextureRepository().add(pathtrac);
     letters[71] = engine->renderer.getTextureRepository().add(pathhashtag);
     letters[72] = engine->renderer.getTextureRepository().add(pathmoney);
+
+    letters[73] = engine->renderer.getTextureRepository().add(path1d);
+    letters[74] = engine->renderer.getTextureRepository().add(path2d);
+    letters[75] = engine->renderer.getTextureRepository().add(path3d);
+    letters[76] = engine->renderer.getTextureRepository().add(path4d);
+    letters[77] = engine->renderer.getTextureRepository().add(path5d);
+    letters[78] = engine->renderer.getTextureRepository().add(path6d);
+    letters[79] = engine->renderer.getTextureRepository().add(path7d);
+    letters[80] = engine->renderer.getTextureRepository().add(path8d);
+    letters[81] = engine->renderer.getTextureRepository().add(path9d);
+    letters[82] = engine->renderer.getTextureRepository().add(path0d);
+    letters[83] = engine->renderer.getTextureRepository().add(pathmiss);
 
     
  }

@@ -17,6 +17,7 @@ void tale::init()
     enf.neutral1 = "*Dummy stands around #absentmindedly.";
     enf.neutral2 = "*Dummy looks like it's #about to fall over.";
     enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
+    enf.dmgtextpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy_defeat.png");
     enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
     enf.check = "*A cotton heart and a button eye. #*You are the apple of my eye.";
     Enemy = enf;

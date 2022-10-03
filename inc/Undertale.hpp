@@ -19,15 +19,18 @@ public:
   std::string neutral1 = "..."; std::string neutral2 = "...";
   std::string spech1 = "...", spech2 = "...", spech3 = "...";
   std::string textpath = "..."; std::string musicpath = "...";
+  std::string dmgtextpath = "...";
   int specialcontition = 0;
   int numactoptions = 0;
   std::string actoption[5] = {"...","...","...","...","..."};
   int actoptionchange[5] = {};
-  
-  
-  
 };
-
+class Pweapown
+{
+public:
+std::string name = "...";
+int dmg = 0;
+};
 
 class tale : public Game {
  public:
@@ -82,6 +85,7 @@ Texture* dialogebox;
 Sprite UI_ChatboxSprite, UI_FaceboxSprite, UI_LetterSprite;
 Texture* letters[100] = {};
 Texture* getletter(std::string, int);
+Texture* getdmgletter(std::string, int);
 void fontunload();
 void fontload(int);
 std::string str;
@@ -96,11 +100,13 @@ int currentchannel = 0;
 //Battle system
 
 void skipturn();
+void battleexit();
 void Battle();
 void SpareEnemy();
 int BattleMenuState = 0, BattleMenuStatecons = 0;
-int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 = 0;
+int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 = 0, dmggiven = 0;
 bool attacked = false;
+int lastbended = 0;
 Enemyinfo Enemy;
 Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite;
 Texture* fight1;Texture* fight2;
@@ -114,16 +120,26 @@ audsrv_adpcm_t* texnoise;
 audsrv_adpcm_t* menuoptionoise;
 audsrv_adpcm_t* attacknoise;
 audsrv_adpcm_t* hitnoise;
+audsrv_adpcm_t* monsdiednoise;
 Texture* anm_attack1;Texture* anm_attack2;
 Texture* anm_attack3;Texture* anm_attack4;
+Texture* anm_attack5;
+Texture* enm_body1;
+Texture* enm_bodydmg;
 
 //Status
 
 std::string Pname = "Frisk";
 int LOVE = 1;
+int atk = 0;
+int def = 0;
 int EXP = 0;
 int Maxhp = 20;
 int currenthp = 20;
+Pweapown weap;
 
   };
+
+
+
 }

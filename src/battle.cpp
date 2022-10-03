@@ -35,6 +35,7 @@ void tale::Battle()
         auto pathatt2 = FileUtils::fromCwd("sprites/battle/spr_strike_2.png");
         auto pathatt3 = FileUtils::fromCwd("sprites/battle/spr_strike_3.png");
         auto pathatt4 = FileUtils::fromCwd("sprites/battle/spr_strike_4.png");
+        auto pathatt5 = FileUtils::fromCwd("sprites/battle/spr_strike_5.png");
 
         auto snd_attack1 = FileUtils::fromCwd("Sounds/adpcm/snd_attack1.adpcm");
         auto snd_hit = FileUtils::fromCwd("Sounds/adpcm/snd_hit.adpcm");
@@ -48,10 +49,12 @@ void tale::Battle()
         anm_attack2 = engine->renderer.getTextureRepository().add(pathatt2);
         anm_attack3 = engine->renderer.getTextureRepository().add(pathatt3);
         anm_attack4 = engine->renderer.getTextureRepository().add(pathatt4);
+        anm_attack5 = engine->renderer.getTextureRepository().add(pathatt5);
         anm_attack1->addLink(attanm_sprite.id);
 
-        auto* text = engine->renderer.getTextureRepository().add(Enemy.textpath);
-        text->addLink(UI_FaceboxSprite.id);
+        enm_body1 = engine->renderer.getTextureRepository().add(Enemy.textpath);
+        enm_bodydmg = engine->renderer.getTextureRepository().add(Enemy.dmgtextpath);
+        enm_body1->addLink(UI_FaceboxSprite.id);
         UI_FaceboxSprite.position = Vec2(200 ,224 - 128);
         UI_FaceboxSprite.size = Vec2(128, 128);
 
@@ -86,7 +89,7 @@ void tale::Battle()
         engine->audio.song.setVolume(60);
         engine->audio.song.play();
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT2.adpcm"));
-        
+        monsdiednoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_Mdeath.adpcm"));
 
         GameStatecons = 1;
     }
@@ -189,7 +192,7 @@ void tale::Battle()
     {
         if (BattleMenuState != 11)
         {
-        engine->audio.adpcm.setVolume(60 ,getavailablechanel());
+        engine->audio.adpcm.setVolume(10 ,getavailablechanel());
         engine->audio.adpcm.tryPlay(menuoptionoise);
         }
         if (BattleMenuState == 4 && !battlestatechanged)
@@ -224,6 +227,11 @@ void tale::Battle()
             BattleMenuState = 11;
             }
             
+        }
+        if (BattleMenuState == 10)
+        {
+            battlestatechanged = true;
+            battleexit();
         }
         
         if (BattleMenuState == 0 && !battlestatechanged){
@@ -267,6 +275,15 @@ void tale::Battle()
         }
     }
     }
+
+    if (BattleMenuState == 10)
+    {
+        str = "*YOU WON!#*You earned 3 EXP and 2 gold.";
+        tipechat = 10;
+        drawtext();
+    }
+    
+
     if (BattleMenuState == 0)
     {
         if (option == 1)
@@ -311,6 +328,10 @@ void tale::Battle()
         {
             hdisplay++;
         }
+        if (porcent * i > Enemy.currhp)
+        {
+            hdisplay--;
+        }
     }
     int len1 = op2.length();
         if (option == 1)
@@ -353,11 +374,11 @@ void tale::Battle()
         UI_ChatboxSprite.size = Vec2(800, 200);
         UI_ChatboxSprite.position = Vec2(30, 250);
         
-        attpointer_sprite.position = Vec2(40 + attpointer, 260);
+        attpointer_sprite.position = Vec2(40 + attpointer * 5, 260);
+        ren.render(attpointer_sprite);
         if (!attacked && !battlestatechanged)
         {
-        ren.render(attpointer_sprite);
-        attpointer += 5;
+        attpointer ++;
         if (Ppad.Cross)
         { 
             attacked = true; 
@@ -367,16 +388,57 @@ void tale::Battle()
         }
         else
         {
+            int porc = (atk + 20 + weap.dmg);
+            if (attpointer > 75 )
+            {
+                dmggiven = (porc / 10) * 5;
+            }
+            else if (attpointer > 64 )
+            {
+                dmggiven = (porc / 10) * 7;
+            }
+            else if (attpointer > 53 )
+            {
+                dmggiven = (porc / 10) * 8;
+            }
+            else if (attpointer > 43 )
+            {
+                dmggiven = (porc / 10) * 9;
+            }
+            else if (attpointer == 43 )
+            {
+                dmggiven = porc;
+            }
+            else if (attpointer < 10 )
+            {
+                dmggiven = (porc / 10) * 5;
+            }
+            else if (attpointer < 21 )
+            {
+                dmggiven = (porc / 10) * 7;
+            }
+            else if (attpointer < 32 )
+            {
+                dmggiven = (porc / 10) * 8;
+            }
+            else if (attpointer < 43 )
+            {
+                dmggiven = (porc / 10) * 9;
+            }
+
             if (attanm1 == 0)
             {
-                dmgpointer1->removeLinkById(attpointer_sprite.id);
+                auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(attpointer_sprite.id);
+                textremove->removeLinkById(attpointer_sprite.id);
                 dmgpointer2->addLink(attpointer_sprite.id);
             }
             if (attanm1 == 10)
             {
-                dmgpointer2->removeLinkById(attpointer_sprite.id);
+                auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(attpointer_sprite.id);
+                textremove->removeLinkById(attpointer_sprite.id);
                 dmgpointer1->addLink(attpointer_sprite.id);
             }
+            if (attanm1 > 20){attanm1 = 0;}
 
             if (attanm2 == 0)
             {
@@ -400,29 +462,105 @@ void tale::Battle()
                 anm_attack3->removeLinkById(attanm_sprite.id);
                 anm_attack4->addLink(attanm_sprite.id);
             }
-            ren.render(attpointer_sprite);
-            if (attanm2 < 40){ren.render(attanm_sprite);}
-            if (attanm2 == 50)
+            if (attanm2 == 40)
+            {
+                attanm_sprite.position.y = Enemy.Epos.y + 40;
+                anm_attack4->removeLinkById(attanm_sprite.id);
+                anm_attack5->addLink(attanm_sprite.id);
+            }
+            
+            
+            if (attanm2 < 50){ren.render(attanm_sprite);}
+            
+            if (attanm2 > 55)
+            { 
+            int porcent = Enemy.maxhp / 100, hdisplay = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                if (porcent * i < Enemy.currhp)
+                {
+                    hdisplay++;
+                }
+                if (porcent * i > Enemy.currhp)
+                {
+                    hdisplay--;
+                }
+            }
+            UI_HealthBar.size = Vec2(100,18);
+            UI_HealthBar.position = Vec2(Enemy.Epos.x, Enemy.Epos.y - 50);
+            RHbox->addLink(UI_HealthBar.id);
+            ren.render(UI_HealthBar);
+            RHbox->removeLinkById(UI_HealthBar.id);
+            UI_HealthBar.size = Vec2(hdisplay,18);
+            GHbox->addLink(UI_HealthBar.id);
+            ren.render(UI_HealthBar);
+            GHbox->removeLinkById(UI_HealthBar.id);
+
+            std::string strnum = "1234567890";
+            std::string strdmg = std::to_string(dmggiven);
+            int dmglen = strdmg.length();
+            for (int i = 0; i < 10; i++)
+            {
+            for (int e = 0; e < dmglen; e++)
+            if (strnum.at(i) == strdmg.at(e)) 
+            {
+            letters[i + 73]->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(Enemy.Epos.x + 10 * e, 50);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            
+            }           
+
+            }
+
+            if (attanm2 == 60)
             {
                 engine->audio.adpcm.setVolume(60, getavailablechanel());
                 engine->audio.adpcm.tryPlay(hitnoise);
+                enm_body1->removeLinkById(UI_FaceboxSprite.id);
+                enm_bodydmg->addLink(UI_FaceboxSprite.id);
+                if (Enemy.currhp <= dmggiven){Enemy.currhp = 0;}
+                if (Enemy.currhp > dmggiven){Enemy.currhp -= dmggiven;}
                 UI_FaceboxSprite.position.x -= 10;
-            }
-            if (attanm2 == 55)
-            {
-                UI_FaceboxSprite.position.x += 20;
-            }
-            if (attanm2 == 60)
-            {
-                UI_FaceboxSprite.position.x -= 20;
             }
             if (attanm2 == 65)
             {
-                UI_FaceboxSprite.position.x += 10;
+                UI_FaceboxSprite.position.x += 20;
+            }
+            if (attanm2 == 70)
+            {
+                UI_FaceboxSprite.position.x -= 20;
+            }
+            if (attanm2 == 75)
+            {
+                UI_FaceboxSprite.position.x += 20;
+            }
+            if (attanm2 == 80)
+            {
+                UI_FaceboxSprite.position.x -= 20;
+            }
+            if (attanm2 == 85)
+            {
+                UI_FaceboxSprite.position.x += 20;
+            }
+            if (attanm2 == 95)
+            {
+                UI_FaceboxSprite.position.x -= 10;
+                if (Enemy.currhp == 0)
+                {
+                    BattleMenuState = 10; 
+                    engine->audio.adpcm.setVolume(100, getavailablechanel());
+                    engine->audio.adpcm.tryPlay(monsdiednoise);
+                    UI_FaceboxSprite.color.a = 0;
+                    engine->audio.song.stop();
+                }
+                else {skipturn();}
             }
             attanm1 ++;
             attanm2 ++;
-            if (attanm1 > 20){attanm1 = 0;}
+            TYRA_WARN(attanm1);
 
         }
 
@@ -626,5 +764,48 @@ void tale::skipturn()
     int random = rand() % 100;
     if (random >= 50){str = Enemy.neutral1;}
     if (random < 50){str = Enemy.neutral2;}
+}
+
+void tale::battleexit()
+{
+    blt1 = 9999;
+    blt2 = 9999;
+    lbp = 0;
+    bdp = 0;
+    action = false;
+    chatnumb = 0;
+    suboption = 1;
+    BattleMenuState = 0;
+    GameState = 0;
+
+    engine->renderer.getTextureRepository().removeById(fight1->id);
+    engine->renderer.getTextureRepository().removeById(fight2->id);
+    engine->renderer.getTextureRepository().removeById(act1->id);
+    engine->renderer.getTextureRepository().removeById(act2->id);
+    engine->renderer.getTextureRepository().removeById(itens1->id);
+    engine->renderer.getTextureRepository().removeById(itens2->id);
+    engine->renderer.getTextureRepository().removeById(mercy1->id);
+    engine->renderer.getTextureRepository().removeById(mercy2->id);
+    engine->renderer.getTextureRepository().removeById(dmgpointer1->id);
+    engine->renderer.getTextureRepository().removeById(dmgpointer2->id);
+    engine->renderer.getTextureRepository().removeById(damageindicator->id);
+
+    engine->renderer.getTextureRepository().removeById(anm_attack1->id);
+    engine->renderer.getTextureRepository().removeById(anm_attack2->id);
+    engine->renderer.getTextureRepository().removeById(anm_attack3->id);
+    engine->renderer.getTextureRepository().removeById(anm_attack4->id);
+    engine->renderer.getTextureRepository().removeById(anm_attack5->id);
+
+    engine->renderer.getTextureRepository().removeById(YHbox->id);
+    engine->renderer.getTextureRepository().removeById(RHbox->id);
+    engine->renderer.getTextureRepository().removeById(GHbox->id);
+
+    engine->renderer.getTextureRepository().removeById(enm_body1->id);
+    engine->renderer.getTextureRepository().removeById(enm_bodydmg->id);
+
+    maptheme();
+
+    engine->audio.adpcm.reset();
+    
 }
 }
