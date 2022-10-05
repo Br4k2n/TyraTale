@@ -7,7 +7,7 @@ using namespace Tyra;
 tale::tale(Engine* t_engine) { engine = t_engine; }
 tale::~tale(){}
 void tale::init() 
-{ 
+{
     engine->renderer.setClearScreenColor(Color(0.32F,0.32F,0.32F));
     startplayer();
     resetcolissioninmap();

@@ -39,8 +39,10 @@ void tale::Battle()
 
         auto snd_attack1 = FileUtils::fromCwd("Sounds/adpcm/snd_attack1.adpcm");
         auto snd_hit = FileUtils::fromCwd("Sounds/adpcm/snd_hit.adpcm");
+        auto snd_escape = FileUtils::fromCwd("Sounds/adpcm/snd_escape.adpcm");
         attacknoise = engine->audio.adpcm.load(snd_attack1);
         hitnoise = engine->audio.adpcm.load(snd_hit);
+        runawaynoise = engine->audio.adpcm.load(snd_escape);
         
         attanm_sprite.size = Vec2(100,100);
         attanm_sprite.mode = MODE_STRETCH;
@@ -93,8 +95,11 @@ void tale::Battle()
 
         GameStatecons = 1;
     }
+    if (showenemy){
     ren.render(UI_FaceboxSprite);
+    }
     ren.render(UI_ChatboxSprite);
+    
 
     std::string status, Healthtext;
     status = Pname + "  LV " + std::to_string(LOVE) + "    HP   ";
@@ -204,7 +209,7 @@ void tale::Battle()
             }
             if (suboption == 2) 
             {
-            
+            BattleMenuState = 42;
             }
         }
         if (BattleMenuState == 2 && !battlestatechanged)
@@ -438,6 +443,7 @@ void tale::Battle()
                 textremove->removeLinkById(attpointer_sprite.id);
                 dmgpointer1->addLink(attpointer_sprite.id);
             }
+            attanm1 ++;
             if (attanm1 > 20){attanm1 = 0;}
 
             if (attanm2 == 0)
@@ -505,7 +511,7 @@ void tale::Battle()
             if (strnum.at(i) == strdmg.at(e)) 
             {
             letters[i + 73]->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2(Enemy.Epos.x + 10 * e, 50);
+            UI_LetterSprite.position = Vec2(Enemy.Epos.x + 20 * e, 50);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -553,14 +559,12 @@ void tale::Battle()
                     BattleMenuState = 10; 
                     engine->audio.adpcm.setVolume(100, getavailablechanel());
                     engine->audio.adpcm.tryPlay(monsdiednoise);
-                    UI_FaceboxSprite.color.a = 0;
+                    showenemy = false;
                     engine->audio.song.stop();
                 }
                 else {skipturn();}
             }
-            attanm1 ++;
             attanm2 ++;
-            TYRA_WARN(attanm1);
 
         }
 
@@ -609,6 +613,37 @@ void tale::Battle()
             }
     
     }
+
+    if (BattleMenuState == 42)
+    {
+    std::string op1;
+    op1 = "* Escaped...";
+    int len1 = op1.length();
+
+    for (int i = 0; i < len1; i++)
+    {
+        auto* e = getletter(op1, i);
+        e->addLink(UI_LetterSprite.id);
+        UI_LetterSprite.position = Vec2(100 + 10 * i, 280);
+        ren.render(UI_LetterSprite);
+        auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+        textremove->removeLinkById(UI_LetterSprite.id);
+    }
+    if (PlayerHeart.position.x == 70)
+    {
+    engine->audio.adpcm.setVolume(60, getavailablechanel());
+    engine->audio.adpcm.tryPlay(runawaynoise);
+    }
+    ren.render(PlayerHeart);
+    PlayerHeart.position.x--;
+    if (PlayerHeart.position.x < -50)
+    {
+    battleexit();
+    }
+
+    }
+
+
     if (BattleMenuState == 2)
     {
     std::string op1;
@@ -735,7 +770,6 @@ void tale::Battle()
 
 if (BattleMenuState != BattleMenuStatecons)
 {
-    TYRA_ERROR(BattleMenuState);
     blt1 = 9999;
     blt2 = 9999;
     lbp = 0;
@@ -800,8 +834,17 @@ void tale::battleexit()
     engine->renderer.getTextureRepository().removeById(RHbox->id);
     engine->renderer.getTextureRepository().removeById(GHbox->id);
 
+    auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(UI_FaceboxSprite.id);
+    remtex->removeLinkById(UI_FaceboxSprite.id);
     engine->renderer.getTextureRepository().removeById(enm_body1->id);
     engine->renderer.getTextureRepository().removeById(enm_bodydmg->id);
+    
+    
+    tipechat = 0;
+    attanm1 = 0;
+    attanm2 = 0;
+    attacked = false;
+    showenemy = true;
 
     maptheme();
 

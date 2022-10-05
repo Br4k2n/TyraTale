@@ -46,8 +46,8 @@ class tale : public Game {
   Sprite player, map1, map2, map3, map4, map5, trans;
   Vec2 Ppos = Vec2(0,0);
   Vec2 Pposcons = Vec2(0,0);
-  float chatnumb = 0, vel = 2, anm = 0;
-  int direction = 1, dircons = 1, mapid = 0, mapcons = 0, mapspawn = 0;
+  float  vel = 2, anm = 0;
+  int direction = 1, dircons = 1, mapid = 0, chatnumb = 0, mapcons = 0, mapspawn = 0;
   int TEvent = 0;
   bool moving, texset = false, anmt = false, standing = true , Tbool = false;
   bool mapdone = false, action = false;
@@ -105,7 +105,7 @@ void Battle();
 void SpareEnemy();
 int BattleMenuState = 0, BattleMenuStatecons = 0;
 int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 = 0, dmggiven = 0;
-bool attacked = false;
+bool attacked = false, showenemy = true;
 int lastbended = 0;
 Enemyinfo Enemy;
 Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite;
@@ -121,11 +121,13 @@ audsrv_adpcm_t* menuoptionoise;
 audsrv_adpcm_t* attacknoise;
 audsrv_adpcm_t* hitnoise;
 audsrv_adpcm_t* monsdiednoise;
+audsrv_adpcm_t* runawaynoise;
 Texture* anm_attack1;Texture* anm_attack2;
 Texture* anm_attack3;Texture* anm_attack4;
 Texture* anm_attack5;
 Texture* enm_body1;
 Texture* enm_bodydmg;
+Texture* facetexture1; Texture* facetexture2;
 
 //Status
 

@@ -15,23 +15,23 @@ void tale::reloadplayer()
 
     if (Presspad.Cross) {TYRA_LOG(Ppos.x, ", ", Ppos.y);}
 
-    if (pad.DpadLeft)
+    if (pad.DpadRight)
     {
          
         Ppos.x += vel;
         direction = 4;
 
-    }else if (pad.DpadRight)
+    }else if (pad.DpadLeft)
     {
         Ppos.x -= vel;
         direction = 2;
     }
-    if (pad.DpadDown)
+    if (pad.DpadUp)
     {
         Ppos.y -= vel;
         direction = 3;
 
-    }else if (pad.DpadUp)
+    }else if (pad.DpadDown)
     {
         Ppos.y += vel;
         direction = 1;
