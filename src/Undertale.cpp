@@ -20,6 +20,9 @@ void tale::init()
     enf.dmgtextpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy_defeat.png");
     enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
     enf.check = "*A cotton heart and a button eye. #*You are the apple of my eye.";
+    enf.spech1 = ". . . . .";
+    enf.spech2 = ". . . . .";
+    enf.hostile = false;
     Enemy = enf;
     
 }
@@ -27,6 +30,8 @@ void tale::init()
 void tale::loop() 
 { 
     auto& ren = engine->renderer;
+    if (engine->pad.getPressed().R1)
+    {TYRA_LOG(" " ,engine->info.getAvailableRAM());}
     if (GameState == 0)
     {
     transition();

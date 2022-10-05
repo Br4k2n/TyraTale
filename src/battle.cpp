@@ -37,6 +37,8 @@ void tale::Battle()
         auto pathatt4 = FileUtils::fromCwd("sprites/battle/spr_strike_4.png");
         auto pathatt5 = FileUtils::fromCwd("sprites/battle/spr_strike_5.png");
 
+        auto pathatt6 = FileUtils::fromCwd("sprites/battle/bubble_2.png");
+
         auto snd_attack1 = FileUtils::fromCwd("Sounds/adpcm/snd_attack1.adpcm");
         auto snd_hit = FileUtils::fromCwd("Sounds/adpcm/snd_hit.adpcm");
         auto snd_escape = FileUtils::fromCwd("Sounds/adpcm/snd_escape.adpcm");
@@ -52,7 +54,10 @@ void tale::Battle()
         anm_attack3 = engine->renderer.getTextureRepository().add(pathatt3);
         anm_attack4 = engine->renderer.getTextureRepository().add(pathatt4);
         anm_attack5 = engine->renderer.getTextureRepository().add(pathatt5);
+        chatbubble = engine->renderer.getTextureRepository().add(pathatt6);
         anm_attack1->addLink(attanm_sprite.id);
+        chatbubble->addLink(UI_chatbubble.id);
+        UI_chatbubble.mode = MODE_STRETCH;
 
         enm_body1 = engine->renderer.getTextureRepository().add(Enemy.textpath);
         enm_bodydmg = engine->renderer.getTextureRepository().add(Enemy.dmgtextpath);
@@ -192,13 +197,19 @@ void tale::Battle()
     
 
 
-    if (BattleMenuState != -1){
+    if (BattleMenuState != -10){
     if (Ppad.Cross)
     {
         if (BattleMenuState != 11)
         {
         engine->audio.adpcm.setVolume(10 ,getavailablechanel());
         engine->audio.adpcm.tryPlay(menuoptionoise);
+        }
+        if (BattleMenuState == -1 && !battlestatechanged)
+        {
+            battlestatechanged = true;
+            if (Enemy.hostile){BattleMenuState = -10;}
+            else {BattleMenuState = 0;}
         }
         if (BattleMenuState == 4 && !battlestatechanged)
         {
@@ -321,6 +332,12 @@ void tale::Battle()
     if (option > 4){option = 1;}
     }
 
+    if (BattleMenuState == -1)
+    {
+        tipechat = 15;
+        drawtext();
+        
+    }
 
     if (BattleMenuState == 1)
     {
@@ -381,6 +398,11 @@ void tale::Battle()
         
         attpointer_sprite.position = Vec2(40 + attpointer * 5, 260);
         ren.render(attpointer_sprite);
+        if (attpointer > 86)
+        {
+            BattleMenuState = -1;
+            attpointer = 0;
+        }
         if (!attacked && !battlestatechanged)
         {
         attpointer ++;
@@ -563,6 +585,7 @@ void tale::Battle()
                     engine->audio.song.stop();
                 }
                 else {skipturn();}
+                attpointer = 0;
             }
             attanm2 ++;
 
@@ -778,6 +801,18 @@ if (BattleMenuState != BattleMenuStatecons)
     chatnumb = 0;
     suboption = 1;
     BattleMenuStatecons = BattleMenuState;
+    if (BattleMenuState == 0)
+    {
+    int random = rand() % 100;
+    if (random >= 50){str = Enemy.neutral1;}
+    if (random < 50){str = Enemy.neutral2;}
+    }
+    if (BattleMenuState == -1)
+    {
+    int random = rand() % 100;
+    if (random >= 50){str = Enemy.spech1;}
+    if (random < 50){str = Enemy.spech2;}
+    }
 }
 
 }
@@ -794,10 +829,7 @@ void tale::SpareEnemy()
 void tale::skipturn()
 {
     turns++; 
-    BattleMenuState = 0;
-    int random = rand() % 100;
-    if (random >= 50){str = Enemy.neutral1;}
-    if (random < 50){str = Enemy.neutral2;}
+    BattleMenuState = -1;
 }
 
 void tale::battleexit()

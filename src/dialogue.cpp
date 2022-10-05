@@ -294,6 +294,89 @@ void tale::drawtext()
             }
         }
         }
+        if (tipechat == 15)
+        {
+        len = str.length();
+        UI_ChatboxSprite.size = Vec2(300, 200);
+        UI_ChatboxSprite.position = Vec2(200, 250);
+        UI_chatbubble.size = Vec2(200,200);
+        UI_chatbubble.position = Vec2(Enemy.Epos.x + 75, Enemy.Epos.y);
+        ren.render(UI_chatbubble);
+        Color originalcol;
+        originalcol = UI_LetterSprite.color;
+        UI_LetterSprite.color = Color(32,32,32);
+        for (int i = lbp; i < chatnumb; i++)
+        {
+            if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
+            if (i < blt1){
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(UI_chatbubble.position.x + 40 + 10 * (i - lbp), UI_chatbubble.position.y + 5);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i < blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(UI_chatbubble.position.x + 40 + 10 * (i - lbp), UI_chatbubble.position.y + 25);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i > blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(UI_chatbubble.position.x + 40 + 10 * (i - lbp), UI_chatbubble.position.y + 45);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            
+            }
+            if (str2.at(0) == str.at(i) && i != blt1 && i != blt2)
+            {
+                if (blt1 < blt2)
+                {
+                    blt2 = i;
+                }
+                if (blt1 == blt2)
+                {
+                    blt1 = i;
+                }
+                
+            }
+            if (str2.at(2) == str.at(i))
+            {
+                if (i < blt1)
+                {
+                    UI_LetterSprite.position = Vec2(60, 280);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+                if (i > blt1 && i < blt2)
+                {
+                    UI_LetterSprite.position = Vec2(60, 300);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+                if (i > blt1 && i > blt2)
+                {
+                    UI_LetterSprite.position = Vec2(60, 320);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+            }
+        }
+        UI_LetterSprite.color = originalcol;
+        }
+            
+    
 
     if (len > chatnumb && !breakdialoge){
     

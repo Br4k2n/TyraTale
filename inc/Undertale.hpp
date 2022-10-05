@@ -24,6 +24,8 @@ public:
   int numactoptions = 0;
   std::string actoption[5] = {"...","...","...","...","..."};
   int actoptionchange[5] = {};
+  bool hostile = true;
+  int attackid1, attackid2, attackid3;
 };
 class Pweapown
 {
@@ -108,7 +110,7 @@ int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 =
 bool attacked = false, showenemy = true;
 int lastbended = 0;
 Enemyinfo Enemy;
-Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite;
+Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite, UI_chatbubble;
 Texture* fight1;Texture* fight2;
 Texture* act1;  Texture* act2;
 Texture* itens1;Texture* itens2;
@@ -127,6 +129,7 @@ Texture* anm_attack3;Texture* anm_attack4;
 Texture* anm_attack5;
 Texture* enm_body1;
 Texture* enm_bodydmg;
+Texture* chatbubble;
 Texture* facetexture1; Texture* facetexture2;
 
 //Status
