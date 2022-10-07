@@ -402,6 +402,7 @@ void tale::Battle()
         {
             BattleMenuState = -1;
             attpointer = 0;
+            attacked = false;
         }
         if (!attacked && !battlestatechanged)
         {
@@ -793,6 +794,12 @@ void tale::Battle()
 
 if (BattleMenuState != BattleMenuStatecons)
 {
+    if (BattleMenuState == 0 && (BattleMenuStatecons == -10 || BattleMenuStatecons == -1) )
+    {
+    int random = rand() % 100;
+    if (random >= 50){str = Enemy.neutral1;}
+    if (random < 50){str = Enemy.neutral2;}
+    }
     blt1 = 9999;
     blt2 = 9999;
     lbp = 0;
@@ -801,13 +808,7 @@ if (BattleMenuState != BattleMenuStatecons)
     chatnumb = 0;
     suboption = 1;
     BattleMenuStatecons = BattleMenuState;
-    if (BattleMenuState == 0)
-    {
-    int random = rand() % 100;
-    if (random >= 50){str = Enemy.neutral1;}
-    if (random < 50){str = Enemy.neutral2;}
-    }
-    if (BattleMenuState == -1)
+    if (BattleMenuState == -1 || BattleMenuState == -10)
     {
     int random = rand() % 100;
     if (random >= 50){str = Enemy.spech1;}
@@ -830,6 +831,7 @@ void tale::skipturn()
 {
     turns++; 
     BattleMenuState = -1;
+    attacked = false;
 }
 
 void tale::battleexit()
@@ -844,32 +846,32 @@ void tale::battleexit()
     BattleMenuState = 0;
     GameState = 0;
 
-    engine->renderer.getTextureRepository().removeById(fight1->id);
-    engine->renderer.getTextureRepository().removeById(fight2->id);
-    engine->renderer.getTextureRepository().removeById(act1->id);
-    engine->renderer.getTextureRepository().removeById(act2->id);
-    engine->renderer.getTextureRepository().removeById(itens1->id);
-    engine->renderer.getTextureRepository().removeById(itens2->id);
-    engine->renderer.getTextureRepository().removeById(mercy1->id);
-    engine->renderer.getTextureRepository().removeById(mercy2->id);
-    engine->renderer.getTextureRepository().removeById(dmgpointer1->id);
-    engine->renderer.getTextureRepository().removeById(dmgpointer2->id);
-    engine->renderer.getTextureRepository().removeById(damageindicator->id);
+    engine->renderer.getTextureRepository().free(fight1);
+    engine->renderer.getTextureRepository().free(fight2);
+    engine->renderer.getTextureRepository().free(act1);
+    engine->renderer.getTextureRepository().free(act2);
+    engine->renderer.getTextureRepository().free(itens1);
+    engine->renderer.getTextureRepository().free(itens2);
+    engine->renderer.getTextureRepository().free(mercy1);
+    engine->renderer.getTextureRepository().free(mercy2);
+    engine->renderer.getTextureRepository().free(dmgpointer1);
+    engine->renderer.getTextureRepository().free(dmgpointer2);
+    engine->renderer.getTextureRepository().free(damageindicator);
 
-    engine->renderer.getTextureRepository().removeById(anm_attack1->id);
-    engine->renderer.getTextureRepository().removeById(anm_attack2->id);
-    engine->renderer.getTextureRepository().removeById(anm_attack3->id);
-    engine->renderer.getTextureRepository().removeById(anm_attack4->id);
-    engine->renderer.getTextureRepository().removeById(anm_attack5->id);
+    engine->renderer.getTextureRepository().free(anm_attack1);
+    engine->renderer.getTextureRepository().free(anm_attack2);
+    engine->renderer.getTextureRepository().free(anm_attack3);
+    engine->renderer.getTextureRepository().free(anm_attack4);
+    engine->renderer.getTextureRepository().free(anm_attack5);
 
-    engine->renderer.getTextureRepository().removeById(YHbox->id);
-    engine->renderer.getTextureRepository().removeById(RHbox->id);
-    engine->renderer.getTextureRepository().removeById(GHbox->id);
+    engine->renderer.getTextureRepository().free(YHbox);
+    engine->renderer.getTextureRepository().free(RHbox);
+    engine->renderer.getTextureRepository().free(GHbox);
 
     auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(UI_FaceboxSprite.id);
     remtex->removeLinkById(UI_FaceboxSprite.id);
-    engine->renderer.getTextureRepository().removeById(enm_body1->id);
-    engine->renderer.getTextureRepository().removeById(enm_bodydmg->id);
+    engine->renderer.getTextureRepository().free(enm_body1);
+    engine->renderer.getTextureRepository().free(enm_bodydmg);
     
     
     tipechat = 0;

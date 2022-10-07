@@ -12,28 +12,16 @@ void tale::init()
     startplayer();
     resetcolissioninmap();
     mapinit();
-    Enemyinfo enf;
-    enf.encountertex = "*You encountered the Dummy.";
-    enf.neutral1 = "*Dummy stands around #absentmindedly.";
-    enf.neutral2 = "*Dummy looks like it's #about to fall over.";
-    enf.textpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy.png");
-    enf.dmgtextpath = FileUtils::fromCwd("sprites/Characters/dummy/Dummy_defeat.png");
-    enf.musicpath = FileUtils::fromCwd("Sounds/Anticipation.wav");
-    enf.check = "*A cotton heart and a button eye. #*You are the apple of my eye.";
-    enf.spech1 = ". . . . .";
-    enf.spech2 = ". . . . .";
-    enf.hostile = false;
-    Enemy = enf;
-    
 }
 
 void tale::loop() 
 { 
     auto& ren = engine->renderer;
-    if (engine->pad.getPressed().R1)
-    {TYRA_LOG(" " ,engine->info.getAvailableRAM());}
+    if (engine->pad.getClicked().R1)
+    {TYRA_LOG(" " ,engine->info.getAvailableRAM()); mapid++;}
     if (GameState == 0)
     {
+    GameStatecons = 0;
     transition();
     reloadplayer();
     colcheck();

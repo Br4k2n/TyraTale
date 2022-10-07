@@ -8,7 +8,7 @@ namespace tale {
 class Enemyinfo
 {
 public:
-  std::string name = "Dummy";
+  std::string name = "...";
   int att = 0;int def = 0, maxhp = 10, currhp = maxhp;
   Vec2 Epos = Vec2(200 ,96);
   int mtion1 = 9999; bool mtiongreat1 = true;
@@ -43,7 +43,7 @@ class tale : public Game {
   void loop();
 
  private:
-  int GameState = 1, GameStatecons = 0;
+  int GameState = 0, GameStatecons = 0;
   Engine* engine;
   Sprite player, map1, map2, map3, map4, map5, trans;
   Vec2 Ppos = Vec2(0,0);
@@ -61,7 +61,7 @@ class tale : public Game {
   void mapinit();
   void camupdate();
   void transition();
-  void battlestart(int, int);
+  void battlestart(int);
   void event(int);
   void maptheme();
 
@@ -94,7 +94,7 @@ std::string str;
 Vec2 texformat[200] = {};
 int hom = 0, tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
 void drawtext();
-bool breakdialoge = false, sontiming = false;
+bool breakdialoge = false, sontiming = false, curtalk = true;
 int music = 99999;
 int getavailablechanel();
 int currentchannel = 0;
@@ -108,7 +108,7 @@ void SpareEnemy();
 int BattleMenuState = 0, BattleMenuStatecons = 0;
 int turns = 0, option = 1, suboption = 1, attpointer = 0, attanm1 = 0, attanm2 = 0, dmggiven = 0;
 bool attacked = false, showenemy = true;
-int lastbended = 0;
+int lastbended = 0, talkanm = 0;
 Enemyinfo Enemy;
 Sprite UI_battleicons, UI_HealthBar, PlayerHeart, attpointer_sprite, attanm_sprite, UI_chatbubble;
 Texture* fight1;Texture* fight2;

@@ -12,6 +12,7 @@ void tale::drawtext()
     float border;
     int len = str.length();
     const auto& padpress = engine->pad.getClicked();
+    int curhom = hom;
 
     if (tipechat == 0)
     {
@@ -22,7 +23,33 @@ void tale::drawtext()
         ren.render(UI_ChatboxSprite);
         
         if (hom == 0) { border = 80; } 
-        else { border = 160; ren.render(UI_FaceboxSprite); }
+        else{border = 160;}
+        if (hom != 0)
+        { 
+        if (curtalk){
+        curtalk = false;
+        
+        if (hom == 1)
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Flowey/neutral1.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Flowey/neutral2.png");
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_flowey1.adpcm"));
+        }
+        if (hom == 2)
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_0.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_1.png");
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(patha);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
+        }
+        }
+        ren.render(UI_FaceboxSprite);
+        }
             for (int i = lbp; i < chatnumb; i++)
         {
             if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
@@ -111,16 +138,13 @@ void tale::drawtext()
                 lbp = 0;
                 action = false;
                 chatnumb = 0;
-                if (TEvent == 0)
-                {
-                    engine->audio.song.stop();
-                    engine->audio.song.load(FileUtils::fromCwd("Sounds/Fallen-Down.wav"));
-                    engine->audio.song.inLoop = true;
-                    engine->audio.song.setVolume(60);
-                    engine->audio.song.play();
-                    GameState = 0;
-                    TEvent = 2;
-                }
+                curtalk = true;
+                talkanm = 0;
+                engine->renderer.getTextureRepository().free(facetexture1);
+                engine->renderer.getTextureRepository().free(facetexture2);
+                
+                event(1);
+                
             }
         
         }
@@ -380,22 +404,24 @@ void tale::drawtext()
 
     if (len > chatnumb && !breakdialoge){
     
-    if (hom != 0)
+    if (hom >= 1 && tipechat == 0 && curhom == hom && action)
     {
-        if (attanm1 == 0)
+        if (talkanm == 0)
         {
-            facetexture1->removeLinkById(UI_FaceboxSprite.id);
+            auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(UI_FaceboxSprite.id);
+            remtex->removeLinkById(UI_FaceboxSprite.id);
             facetexture2->addLink(UI_FaceboxSprite.id);
         }
-        if (attanm1 == 10)
+        if (talkanm == 10)
         {
-            facetexture2->removeLinkById(UI_FaceboxSprite.id);
+            auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(UI_FaceboxSprite.id);
+            remtex->removeLinkById(UI_FaceboxSprite.id);
             facetexture1->addLink(UI_FaceboxSprite.id);
         }
-        attanm1++;
-        if (attanm1 > 20)
+        talkanm++;
+        if (talkanm > 20)
         {
-            attanm1  = 0;
+            talkanm  = 0;
         }
     }
     if (sontiming == true) 
