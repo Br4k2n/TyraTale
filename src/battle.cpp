@@ -97,7 +97,7 @@ void tale::Battle()
         engine->audio.song.play();
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT2.adpcm"));
         monsdiednoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_Mdeath.adpcm"));
-
+        anm_attack1->addLink(attanm_sprite.id);
         GameStatecons = 1;
     }
     if (showenemy){
@@ -397,7 +397,6 @@ void tale::Battle()
         UI_ChatboxSprite.position = Vec2(30, 250);
         
         attpointer_sprite.position = Vec2(40 + attpointer * 5, 260);
-        ren.render(attpointer_sprite);
         if (attpointer > 86)
         {
             BattleMenuState = -1;
@@ -472,6 +471,9 @@ void tale::Battle()
             if (attanm2 == 0)
             {
                 attanm_sprite.position.y = Enemy.Epos.y - 50;
+                auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
+                remtex->removeLinkById(attanm_sprite.id);
+                anm_attack1->addLink(attanm_sprite.id);
             }
             if (attanm2 == 10)
             {
@@ -584,12 +586,18 @@ void tale::Battle()
                     engine->audio.adpcm.tryPlay(monsdiednoise);
                     showenemy = false;
                     engine->audio.song.stop();
+                    attanm1 = 0;
+                    attanm2 = 0;
                 }
-                else {skipturn();}
+                else {skipturn();
+                enm_bodydmg->removeLinkById(UI_FaceboxSprite.id);
+                enm_body1->addLink(UI_FaceboxSprite.id);
+                }
                 attpointer = 0;
             }
+            ren.render(attpointer_sprite);
             attanm2 ++;
-
+            
         }
 
     }
@@ -830,6 +838,8 @@ void tale::SpareEnemy()
 void tale::skipturn()
 {
     turns++; 
+    attanm1 = 0;
+    attanm2 = 0;
     BattleMenuState = -1;
     attacked = false;
 }

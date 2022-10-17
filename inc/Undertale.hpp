@@ -48,11 +48,14 @@ class tale : public Game {
   Sprite player, map1, map2, map3, map4, map5, trans;
   Vec2 Ppos = Vec2(0,0);
   Vec2 Pposcons = Vec2(0,0);
-  float  vel = 2, anm = 0;
-  int direction = 1, dircons = 1, mapid = 0, chatnumb = 0, mapcons = 0, mapspawn = 0;
+  float  vel = 4, anm = 0;
+  int direction = 1, dircons = 1, mapid = 7, chatnumb = 0, mapcons = 0, mapspawn = 0;
   int TEvent = 0;
   bool moving, texset = false, anmt = false, standing = true , Tbool = false;
   bool mapdone = false, action = false;
+  Vec4 camborder = Vec4(-9999, -9999, 9999, 9999);
+
+  bool widescreenmode = false;
   
   void loadsprites();
   void loadtextures();
@@ -73,6 +76,7 @@ class tale : public Game {
   Texture* ptex2;Texture* pmtex2;Texture* pmtex6;
   Texture* ptex3;Texture* pmtex3;Texture* pmtex7;
   Texture* ptex4;Texture* pmtex4;Texture* pmtex8;
+  
 
 int NumOfCol = 0;
 Vec4 colpos[100] = {};

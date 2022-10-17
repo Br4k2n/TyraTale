@@ -14,7 +14,7 @@ void tale::reloadplayer()
 
 
     if (Presspad.Cross) {TYRA_LOG(Ppos.x, ", ", Ppos.y);}
-
+    if (Presspad.Square) {TYRA_LOG("square");}
     if (pad.DpadRight)
     {
          
@@ -223,8 +223,8 @@ void tale::startplayer()
     
 
     player.mode = SpriteMode::MODE_STRETCH;
-    player.size = Vec2(32, 32);
-    player.position = Vec2(Ppos.x,Ppos.y);
+    player.size = Vec2(24, 32);
+    player.position = Vec2(256, 256);
     Ptex[0]->addLink(player.id);
 
     menuoptionoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_select.adpcm"));

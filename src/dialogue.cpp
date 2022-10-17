@@ -13,17 +13,34 @@ void tale::drawtext()
     int len = str.length();
     const auto& padpress = engine->pad.getClicked();
     int curhom = hom;
+    int letterspace = 0;
 
     if (tipechat == 0)
     {
+        if (!widescreenmode)
+        {
         UI_ChatboxSprite.size = Vec2(800, 200);
         UI_ChatboxSprite.position = Vec2(30, 10);
         UI_FaceboxSprite.size = Vec2(100, 100);
         UI_FaceboxSprite.position = Vec2(50, 30);
-        ren.render(UI_ChatboxSprite);
-        
+        UI_LetterSprite.size = Vec2(24,24);
+        letterspace = 10;
         if (hom == 0) { border = 80; } 
         else{border = 160;}
+        }
+        if (widescreenmode)
+        {
+        UI_ChatboxSprite.size = Vec2(600, 200);
+        UI_ChatboxSprite.position = Vec2(200, 10);
+        UI_FaceboxSprite.size = Vec2(75, 100);
+        UI_FaceboxSprite.position = Vec2(50, 30);
+        UI_LetterSprite.size = Vec2(18,24);
+        letterspace = 7;
+        if (hom == 0) { border = 220; } 
+        else{border = 300;}
+        }
+        ren.render(UI_ChatboxSprite);
+        
         if (hom != 0)
         { 
         if (curtalk){
@@ -42,8 +59,10 @@ void tale::drawtext()
         {
         auto patha = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_0.png");
         auto pathb = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_1.png");
+        UI_FaceboxSprite.position = Vec2(20, 20);
+        UI_LetterSprite.size = Vec2(18 * 1.5f,24 * 1.5f);
         facetexture1 = engine->renderer.getTextureRepository().add(patha);
-        facetexture2 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
         facetexture1->addLink(UI_FaceboxSprite.id);
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
         }
@@ -56,7 +75,7 @@ void tale::drawtext()
             if (i < blt1){
             auto* e = getletter(str, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( border + 10 * (i - lbp), 40);
+            UI_LetterSprite.position = Vec2( border + letterspace * (i - lbp), 40);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -65,7 +84,7 @@ void tale::drawtext()
             {
             auto* e = getletter(str, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( border + 10 * (i - blt1), 60);
+            UI_LetterSprite.position = Vec2( border + letterspace * (i - blt1), 60);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -74,7 +93,7 @@ void tale::drawtext()
             {
             auto* e = getletter(str, i);
             e->addLink(UI_LetterSprite.id);
-            UI_LetterSprite.position = Vec2( border + 10 * (i - blt2), 80);
+            UI_LetterSprite.position = Vec2( border + letterspace * (i - blt2), 80);
             ren.render(UI_LetterSprite);
             auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
             textremove->removeLinkById(UI_LetterSprite.id);
@@ -404,7 +423,7 @@ void tale::drawtext()
 
     if (len > chatnumb && !breakdialoge){
     
-    if (hom >= 1 && tipechat == 0 && curhom == hom && action)
+    if (hom != 0 && tipechat == 0 && curhom == hom && action)
     {
         if (talkanm == 0)
         {

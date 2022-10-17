@@ -19,6 +19,7 @@ void tale::loop()
     auto& ren = engine->renderer;
     if (engine->pad.getClicked().R1)
     {TYRA_LOG(" " ,engine->info.getAvailableRAM()); mapid++;}
+    if (engine->pad.getClicked().L1){mapid--;}
     if (GameState == 0)
     {
     GameStatecons = 0;
