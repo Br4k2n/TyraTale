@@ -57,6 +57,46 @@ if (TEvent == event)
         hom = 2;
         TEvent = 5;
     }
+    if (event == 5)
+    {   
+        battlestart(0);
+    }
+    if (event == 6)
+    {   
+        TL_Dummy = 0;
+        str = "*Ah, very good!#*You are very good.";
+        tipechat = 0;
+        action = true;
+        hom = 2;
+        TEvent = 10;
+    }
+    if (event == 7)
+    {   
+        TL_Dummy = 1;
+        str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
+        tipechat = 0;
+        action = true;
+        hom = 2;
+        TEvent = 10;
+    }
+    if (event == 8)
+    {   
+        TL_Dummy = 2;
+        str = "*...$*...$*The next room awaits.";
+        tipechat = 0;
+        action = true;
+        hom = 2;
+        TEvent = 10;
+    }
+    if (event == 9)
+    {   
+        TL_Dummy = 2;
+        str = "*...$*... you ran away...$*Truthfully, that was not#a poor choice.$*It is better to#avoid conflict#whenever possible.$*That... however, is#only a dummy.#*It cannot harm you,$*It is only made of cotton.#*It has no desire#for revenge...$*Nevermind.#*Stay close to me and#I will keep you safe.";
+        tipechat = 0;
+        action = true;
+        hom = 2;
+        TEvent = 10;
+    }
 
 }
 }

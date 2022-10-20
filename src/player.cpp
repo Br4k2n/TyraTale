@@ -14,7 +14,9 @@ void tale::reloadplayer()
 
 
     if (Presspad.Cross) {TYRA_LOG(Ppos.x, ", ", Ppos.y);}
-    if (Presspad.Square) {TYRA_LOG("square");}
+    if (Presspad.Square) {TEvent++;TYRA_LOG(TEvent);}
+    if (Presspad.Circle) {TEvent--;TYRA_LOG(TEvent);}
+    if (Presspad.Triangle) {action = true;}
     if (pad.DpadRight)
     {
          

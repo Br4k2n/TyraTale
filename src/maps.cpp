@@ -191,7 +191,19 @@ void tale::mapinit()
             camborder = Vec4(38, 40, 90, 504);
         setcolissioninmap(-10, 580, 118, 640);//0
         setcolissioninmap(-6, -112, 102, -72);//1
-        
+
+        setcolissioninmap(-250, -120, -174, 272);//2
+        setcolissioninmap(-242, 84, -138, 504);//3
+        setcolissioninmap(230, 84, 300, 504);//4
+
+        setcolissioninmap(-294, 444, -22, 548);//5
+        setcolissioninmap(106, 444, 362, 548);//6
+        setcolissioninmap(-50, 524, 26, 700);//7
+        setcolissioninmap(70, 524, 200, 700);//8
+        setcolissioninmap(270, -148, 374, 524);//9
+        setcolissioninmap(-170, -112, 314, -72);//10
+        setcolissioninmap(-126, -32, 218, 8);//10
+
         colact[0].x = 1;
         colact[0].y = 1;
         colact[0].z = 1;
@@ -253,21 +265,35 @@ void tale::mapinit()
         if (!widescreenmode)
         {
             camborder = Vec4(66, 24, 66, 24);
-        setcolissioninmap(-10, 140, 102, 164);//0
+        setcolissioninmap(-10, 124, 102, 164);//0
         setcolissioninmap(-34, -184, 54, -156);//1
         setcolissioninmap(-266, 48, 378, 84);//2
-        
+
+        setcolissioninmap(-246, -204, 362, -156);//3
+        setcolissioninmap(186, -180, 322, -104);//4
+        setcolissioninmap(226, -136, 362, -64);//5
+        setcolissioninmap(266, -144, 54, 184);//6
+        setcolissioninmap(-206, -192, -134, -108);//7
+        setcolissioninmap(-242, -172, -178, 168);//8
+        setcolissioninmap(-174, 123, 314, 164);//9
+        setcolissioninmap(266, -60, 358, 168);//10
+        setcolissioninmap(226, 44, 330, 84);//11
+        setcolissioninmap(190, 84, 298, 120);//12
+        setcolissioninmap(-174, 84, -58, 120);//13
+        setcolissioninmap(-110, -152, -74, -152);//14
+
         colact[0].x = 1;
         colact[0].y = 2;
         colact[0].z = 1;
 
         colact[1].x = 1;
         colact[1].y = 4;
-        colact[1].z = 0;
 
         colact[2].x = 2;
         colact[2].y = 2;
-        colact[2].z = 0;
+
+        colact[14].x = 4;
+        colact[14].y = 0;
 
         if (mapspawn == 0){Ppos = Vec2(42, 116);}
         if (mapspawn == 1){Ppos = Vec2(6, -140);}
@@ -319,6 +345,21 @@ void tale::mapinit()
             camborder = Vec4(70, 24, 962, 24);
         setcolissioninmap(-58, 144, 62, 176);//0
         setcolissioninmap(1174, -52, 1214, 80);//1
+
+        setcolissioninmap(-218, -188, 1154, -148);//2
+        setcolissioninmap(1106, -192, 1200, -24);//3
+        setcolissioninmap(1106, 44, 1238, 180);//4
+        setcolissioninmap(30, 120, 1206, 160);//5
+        setcolissioninmap(190, 40, 298, 160);//6
+        setcolissioninmap(190, -172, 298, -24);//7
+        setcolissioninmap(674, -164, 778, -24);//8
+        setcolissioninmap(674, 44, 778, 164);//9
+        setcolissioninmap(-30, -76, 42, -20);//10
+        setcolissioninmap(-35, -82, 46, -15);//11
+        setcolissioninmap(-70, -144, -26, -144);//12
+        setcolissioninmap(-262, 120, -18, 120);//13
+        setcolissioninmap(-270, -256, -174, 116);//14
+        
         event(3);
         
         colact[0].x = 1;
@@ -327,7 +368,12 @@ void tale::mapinit()
 
         colact[1].x = 1;
         colact[1].y = 5;
-        colact[1].z = 0;
+
+        colact[11].x = 4;
+        colact[11].y = 2;
+
+        colact[12].x = 4;
+        colact[12].y = 1;
 
         if (mapspawn == 0){Ppos = Vec2(6, 96);}
         if (mapspawn == 1){Ppos = Vec2 (1150, -4);}
@@ -367,11 +413,9 @@ void tale::mapinit()
 
         colact[1].x = 1;
         colact[1].y = 6;
-        colact[1].z = 0;
 
-        colact[2].x = 3;
-        colact[2].y = 0;
-        colact[2].z = 0;
+        colact[2].x = 2;
+        colact[2].y = 5;
 
         
 
@@ -415,7 +459,9 @@ void tale::mapinit()
         setcolissioninmap(-3588, -186, -3320, -62);//10
         setcolissioninmap(-4328, -198, -3524, -146);//11
         setcolissioninmap(-4340, -210, -4272, 162);//12
-        setcolissioninmap(-4364, 82, -3800, 106);//13
+        setcolissioninmap(-4364, 82, -4072, 106);//13
+
+        setcolissioninmap(-3228, 10, -3120, 24);//14
         
         
         colact[0].x = 1;
@@ -428,7 +474,9 @@ void tale::mapinit()
 
         colact[9].x = 3;
         colact[9].y = 1;
-        colact[9].z = 0;
+
+        colact[14].x = 4;
+        colact[14].y = 3;
 
         if (mapspawn == 0){Ppos = Vec2(-4052, 98);}
         if (mapspawn == 1){Ppos = Vec2(-2032, -86);}
@@ -636,6 +684,10 @@ void tale::colcheck()
             if (colact[i].x == 1) { mapid = colact[i].y; mapspawn = colact[i].z;}
             if (colact[i].x == 2 && !action) { event(colact[i].y);}
             if (colact[i].x == 3) {battlestart(colact[i].y);}
+        }
+        if (xcol && ycol && pxcol && pycol)
+        {
+            if (colact[i].x == 4 && !action) {if(engine->pad.getClicked().Cross){chatstart(colact[i].y);}}
         }
         
     }

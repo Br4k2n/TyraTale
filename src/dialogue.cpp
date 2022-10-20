@@ -14,7 +14,6 @@ void tale::drawtext()
     const auto& padpress = engine->pad.getClicked();
     int curhom = hom;
     int letterspace = 0;
-
     if (tipechat == 0)
     {
         if (!widescreenmode)
@@ -41,8 +40,6 @@ void tale::drawtext()
         }
         ren.render(UI_ChatboxSprite);
         
-        if (hom != 0)
-        { 
         if (curtalk){
         curtalk = false;
         
@@ -66,10 +63,13 @@ void tale::drawtext()
         facetexture1->addLink(UI_FaceboxSprite.id);
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
         }
+        if (hom == 0){texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));}
         }
-        ren.render(UI_FaceboxSprite);
-        }
-            for (int i = lbp; i < chatnumb; i++)
+        if (hom != 0) {ren.render(UI_FaceboxSprite);}
+        
+
+
+        for (int i = lbp; i < chatnumb; i++)
         {
             if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
             if (i < blt1){
@@ -159,14 +159,16 @@ void tale::drawtext()
                 chatnumb = 0;
                 curtalk = true;
                 talkanm = 0;
-                engine->renderer.getTextureRepository().free(facetexture1);
-                engine->renderer.getTextureRepository().free(facetexture2);
+                if (hom != 0)
+                {engine->renderer.getTextureRepository().free(facetexture1);
+                engine->renderer.getTextureRepository().free(facetexture2);}
                 
                 event(1);
                 
             }
         
         }
+        
     if (tipechat == 10)
     {
         len = str.length();
@@ -333,9 +335,100 @@ void tale::drawtext()
             }
             if (len == chatnumb && padpress.Cross)
             {
-                skipturn();
+                if (!placeholderfixtape1) {skipturn(); placeholderfixtape1 = true;}
             }
         }
+        }
+        if (tipechat == 12)
+        {
+        
+        for (int i = lbp; i < chatnumb; i++)
+        {
+            if (str.at(i) != str2.at(0) && str.at(i) != str2.at(1) && str.at(i) != str2.at(2)){
+            if (i < blt1){
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(80 + 10 * (i - lbp), 280);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i < blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(80 + 10 * (i - blt1), 300);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            if (i > blt1 && i > blt2)
+            {
+            auto* e = getletter(str, i);
+            e->addLink(UI_LetterSprite.id);
+            UI_LetterSprite.position = Vec2(80 + 10 * (i - blt2), 320);
+            ren.render(UI_LetterSprite);
+            auto* textremove = engine->renderer.getTextureRepository().getBySpriteId(UI_LetterSprite.id);
+            textremove->removeLinkById(UI_LetterSprite.id);
+            }
+            
+            }
+            if (str2.at(0) == str.at(i) && i != blt1 && i != blt2)
+            {
+                if (blt1 < blt2)
+                {
+                    blt2 = i;
+                }
+                if (blt1 == blt2)
+                {
+                    blt1 = i;
+                }
+                
+            }
+            if (str.at(chatnumb - 1) == str2.at(1))
+            {
+                breakdialoge = true;
+            }
+            
+            
+            if (str2.at(2) == str.at(i))
+            {
+                if (i < blt1)
+                {
+                    UI_LetterSprite.position = Vec2(60, 280);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+                if (i > blt1 && i < blt2)
+                {
+                    UI_LetterSprite.position = Vec2(60, 300);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+                if (i > blt1 && i > blt2)
+                {
+                    UI_LetterSprite.position = Vec2(60, 280);
+                    letters[57]->addLink(UI_LetterSprite.id);
+                    ren.render(UI_LetterSprite);
+                    letters[57]->removeLinkById(UI_LetterSprite.id);
+                }
+            }
+            if (breakdialoge && padpress.Cross)
+            {
+                lbp = i + 1;
+                blt1 = 9999;
+                blt2 = 9999;
+                breakdialoge = false;
+            }
+        }
+            if (len == chatnumb && padpress.Cross)
+            {
+                if (Enemy.specialcontition == 0){BattleMenuState = 10; TEvent = 6;}
+                else {skipturn();}
+            }
+        
         }
         if (tipechat == 15)
         {
@@ -474,9 +567,10 @@ void tale::fontload(int num)
     heart1->addLink(PlayerHeart.id);
     PlayerHeart.size = Vec2(12,12);
     PlayerHeart.mode = MODE_STRETCH;
+
+
     dialogebox = engine->renderer.getTextureRepository().add(pathdialo);
     dialogebox->addLink(UI_ChatboxSprite.id);
-    letters[0]->addLink(UI_LetterSprite.id);
     
     UI_LetterSprite.size = Vec2(24,24);
     UI_ChatboxSprite.mode = MODE_STRETCH;
@@ -485,7 +579,6 @@ void tale::fontload(int num)
     
  if (num == 0)
  {
-    
     auto patha = FileUtils::fromCwd("sprites/fonts/default/a.png");
     auto pathb = FileUtils::fromCwd("sprites/fonts/default/b.png");
     auto pathc = FileUtils::fromCwd("sprites/fonts/default/c.png");
@@ -571,7 +664,7 @@ void tale::fontload(int num)
     auto path9d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_9.png");
     auto path0d = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgnum_0.png");
     auto pathmiss = FileUtils::fromCwd("sprites/fonts/damage/spr_dmgmiss.png");
-    
+
 
     letters[0] = engine->renderer.getTextureRepository().add(patha);
     letters[1] = engine->renderer.getTextureRepository().add(pathb);
@@ -659,7 +752,6 @@ void tale::fontload(int num)
     letters[82] = engine->renderer.getTextureRepository().add(path0d);
     letters[83] = engine->renderer.getTextureRepository().add(pathmiss);
 
-    
  }
 }
 
@@ -682,6 +774,39 @@ int tale::getavailablechanel()
         currentchannel = 0;
     }
     
+}
+
+void tale::chatstart(int chatid)
+{
+    hom = 0;
+    tipechat = 0;
+    str = "Error!";
+    if (chatid == 0)
+    {
+        str = "*Only the fearless may proceed.#*Brave ones, foolish ones.#*Both walk not the middle road.";
+    }
+    if (chatid == 1)
+    {
+        str = "*Stay on the path.";
+    }
+    if (chatid == 2)
+    {
+        str = "*Press X to read signs!";
+    }
+    if (chatid == 3)
+    {
+        str = "*The western room is the#eastern room's blueprint.";
+    }
+    if (chatid == 4)
+    {
+        str = "*Ribbit. Ribbit.#*Excuse me, human$*I have some advice#for you about battling#monsters.$*If you ACT a certain way#or FIGHT util you#almost defeat them...$*They might not want to#battle anymore.$*If a monster does not#want to fight you, please...$*Use some MERCY, human.#*Ribbit.";
+    }
+    if (chatid == 5)
+    {
+        str = "*The western room is the#eastern room's blueprint.";
+    }
+    action = true;
+
 }
 
 }

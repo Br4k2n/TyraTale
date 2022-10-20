@@ -100,8 +100,10 @@ void tale::Battle()
         anm_attack1->addLink(attanm_sprite.id);
         GameStatecons = 1;
     }
-    if (showenemy){
-    ren.render(UI_FaceboxSprite);
+    if (showenemy)
+    {
+        UI_FaceboxSprite.position = Enemy.Epos;
+        ren.render(UI_FaceboxSprite);
     }
     ren.render(UI_ChatboxSprite);
     
@@ -230,9 +232,11 @@ void tale::Battle()
             {
             BattleMenuState = 21;
             }
-            if (suboption == 2) 
+            else
             {
-            
+                str = Enemy.actaction[suboption-2];
+                BattleMenuState = 29;
+                tipechat = 12;
             }
         }
         if (BattleMenuState == 1 && !battlestatechanged)
@@ -294,7 +298,7 @@ void tale::Battle()
 
     if (BattleMenuState == 10)
     {
-        str = "*YOU WON!#*You earned 3 EXP and 2 gold.";
+        str = "*YOU WON!#*You earned 0 EXP and 0 gold.";
         tipechat = 10;
         drawtext();
     }
@@ -334,6 +338,7 @@ void tale::Battle()
 
     if (BattleMenuState == -1)
     {
+        placeholderfixtape1 = false;
         tipechat = 15;
         drawtext();
         
@@ -395,6 +400,7 @@ void tale::Battle()
         remtex->addLink(UI_ChatboxSprite.id);
         UI_ChatboxSprite.size = Vec2(800, 200);
         UI_ChatboxSprite.position = Vec2(30, 250);
+        ren.render(attpointer_sprite);
         
         attpointer_sprite.position = Vec2(40 + attpointer * 5, 260);
         if (attpointer > 86)
@@ -470,7 +476,7 @@ void tale::Battle()
 
             if (attanm2 == 0)
             {
-                attanm_sprite.position.y = Enemy.Epos.y - 50;
+                attanm_sprite.position.y = Enemy.Epos.y - 40;
                 auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
                 remtex->removeLinkById(attanm_sprite.id);
                 anm_attack1->addLink(attanm_sprite.id);
@@ -588,6 +594,7 @@ void tale::Battle()
                     engine->audio.song.stop();
                     attanm1 = 0;
                     attanm2 = 0;
+                    if (Enemy.specialcontition == 0) TEvent = 7;
                 }
                 else {skipturn();
                 enm_bodydmg->removeLinkById(UI_FaceboxSprite.id);
@@ -595,7 +602,6 @@ void tale::Battle()
                 }
                 attpointer = 0;
             }
-            ren.render(attpointer_sprite);
             attanm2 ++;
             
         }
@@ -791,7 +797,22 @@ void tale::Battle()
     
     }
 
-
+    if (BattleMenuState == 29)
+    {
+        drawtext();
+        if (Enemy.specialcontition == 0) 
+        {
+            if (turns >= 8)
+            {
+                Enemy.Epos.y -= 2;
+                if (Enemy.Epos.y < -150)
+                {
+                    BattleMenuState = 10;
+                    TEvent = 8;
+                }
+            }
+        }
+    }
 
     if (BattleMenuState == 21) 
     {
@@ -807,6 +828,7 @@ if (BattleMenuState != BattleMenuStatecons)
     int random = rand() % 100;
     if (random >= 50){str = Enemy.neutral1;}
     if (random < 50){str = Enemy.neutral2;}
+    texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT2.adpcm"));
     }
     blt1 = 9999;
     blt2 = 9999;
@@ -818,6 +840,7 @@ if (BattleMenuState != BattleMenuStatecons)
     BattleMenuStatecons = BattleMenuState;
     if (BattleMenuState == -1 || BattleMenuState == -10)
     {
+    texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));
     int random = rand() % 100;
     if (random >= 50){str = Enemy.spech1;}
     if (random < 50){str = Enemy.spech2;}
@@ -840,8 +863,9 @@ void tale::skipturn()
     turns++; 
     attanm1 = 0;
     attanm2 = 0;
-    BattleMenuState = -1;
     attacked = false;
+    if (Enemy.specialcontition == 0 && turns >= 8){BattleMenuState = 29; str = Enemy.adcdiag; tipechat = 10;}
+    else {BattleMenuState = -1;}
 }
 
 void tale::battleexit()
@@ -889,10 +913,12 @@ void tale::battleexit()
     attanm2 = 0;
     attacked = false;
     showenemy = true;
-
+    turns = 0;
     maptheme();
-
+    event(6);
+    event(7);
+    event(8);
+    event(9);
     engine->audio.adpcm.reset();
-    
 }
 }

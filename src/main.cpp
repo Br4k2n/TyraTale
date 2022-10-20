@@ -4,10 +4,11 @@
 int main() {
   Tyra::EngineOptions options;
 
-  options.loadUsbDriver = true;
   options.writeLogsToFile = true;
+  options.loadUsbDriver = true;
+  
 
-  Tyra::Engine engine;
+  Tyra::Engine engine(options);
   tale::tale game(&engine);
   engine.run(&game);
   SleepThread();

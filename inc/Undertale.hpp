@@ -19,10 +19,11 @@ public:
   std::string neutral1 = "..."; std::string neutral2 = "...";
   std::string spech1 = "...", spech2 = "...", spech3 = "...";
   std::string textpath = "..."; std::string musicpath = "...";
-  std::string dmgtextpath = "...";
-  int specialcontition = 0;
+  std::string dmgtextpath = "...";std::string adcdiag = "...";
+  int specialcontition = -1;
   int numactoptions = 0;
   std::string actoption[5] = {"...","...","...","...","..."};
+  std::string actaction[5] = {"...","...","...","...","..."};
   int actoptionchange[5] = {};
   bool hostile = true;
   int attackid1, attackid2, attackid3;
@@ -49,12 +50,12 @@ class tale : public Game {
   Vec2 Ppos = Vec2(0,0);
   Vec2 Pposcons = Vec2(0,0);
   float  vel = 4, anm = 0;
-  int direction = 1, dircons = 1, mapid = 7, chatnumb = 0, mapcons = 0, mapspawn = 0;
   int TEvent = 0;
+  int direction = 1, dircons = 1, mapid = 3, chatnumb = 0, mapcons = 0, mapspawn = 0;
   bool moving, texset = false, anmt = false, standing = true , Tbool = false;
   bool mapdone = false, action = false;
   Vec4 camborder = Vec4(-9999, -9999, 9999, 9999);
-
+  bool placeholderfixtape1 = false;
   bool widescreenmode = false;
   
   void loadsprites();
@@ -67,6 +68,7 @@ class tale : public Game {
   void battlestart(int);
   void event(int);
   void maptheme();
+  void chatstart(int);
 
 
   Texture* colview;
@@ -146,6 +148,10 @@ int EXP = 0;
 int Maxhp = 20;
 int currenthp = 20;
 Pweapown weap;
+
+//Timeline
+
+int TL_Dummy = 0;
 
   };
 

@@ -20,7 +20,13 @@ if (monsid == 0)
     enf.check = "*A cotton heart and a button eye. #*You are the apple of my eye.";
     enf.spech1 = ". . . . .";
     enf.spech2 = ". . . . .";
+    enf.spech3 = ". . . . .";
+    enf.actaction[0] = "*You talk to the dummy.#*...$*It doesn't seem much for#conversation.$*TORIEL seems happy with you.";
     enf.hostile = false;
+    enf.numactoptions = 1;
+    enf.specialcontition = 0;
+    enf.adcdiag = "*Dummy tires of your aimless shenanigans.";
+    enf.actoption[0] = "*Talk";
 }
 if (monsid == 1)
 {
