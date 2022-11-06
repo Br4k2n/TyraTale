@@ -10,7 +10,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     tty: true
-    container_name: tyra-game-compiler
+    container_name: Tale-game-compiler
     volumes:
       - tyra-game-volume:/src
       - ./:/host

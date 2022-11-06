@@ -53,8 +53,7 @@ void tale::mapinit()
         setcolissioninmap(-212, 84,-136, 124);//10
         setcolissioninmap(-260, 36,-180, 80);//11
         setcolissioninmap(-288, -200,-216, 72);//12
-        setcolissioninmap(888, -88, 1032, -16);//13
-        
+        setcolissioninmap(888, -88, 1032, -16);//13     
         
         colact[13].x = 1;
         colact[13].y = 1;
@@ -118,8 +117,8 @@ void tale::mapinit()
         setcolissioninmap(-34, -32, 178, 8);//1
         setcolissioninmap(70, -16, 126, 756);//2
         setcolissioninmap(-70, -24, 26, 768);//3
-        setcolissioninmap(-110, 416, 270, 460);
-        
+        setcolissioninmap(-110, 400, 270, 420);
+        setinstance(Vec2(42, 315), 0);   
         
         colact[0].x = 1;
         colact[0].y = 0;

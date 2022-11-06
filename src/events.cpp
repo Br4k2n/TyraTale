@@ -10,7 +10,7 @@ if (TEvent == event)
 {
     if (event == 0)
     {   
-        str = "*Howdy!$*I'm FLOWEY.#FLOWEY the FLOWER!*$*Hm...$*You're new to the#UNDERGROUND, aren'tcha?$*Golly, you must be#so confused.$*Someone ought to teach#you how things work#around here!$*I guess little old me#have to do.$*Ready?#*Here we go!";
+        str = "*Howdy!$*I'm FLOWEY.#*FLOWEY the FLOWER!$*Hm...$*You're new to the#UNDERGROUND, aren'tcha?$*Golly, you must be#so confused.$*Someone ought to teach#you how things work#around here!$*I guess little old me#have to do.$*Ready?#*Here we go!";
         tipechat = 0;
         action = true;
         hom = 1;
@@ -23,6 +23,7 @@ if (TEvent == event)
     if (event == 1)
     {   
         str = "*What a terrible creature#torturing such a poor, #inocent youth...$*Ah, do not be afraid,#my child.$*I am TORIEL,#caretaker of the RUINS.$*I pass through here everyday#to see if anyone has fallen down.$*You are the first human#to come here in a#long time.$*Come!#I will guide you through the#catacombs.$*This way.";
+        setinstance(Vec2(46, 300), 1);
         tipechat = 0;
         action = true;
         hom = 2;
@@ -60,43 +61,28 @@ if (TEvent == event)
     if (event == 5)
     {   
         battlestart(0);
+        TEvent = 6;
     }
     if (event == 6)
     {   
-        TL_Dummy = 0;
-        str = "*Ah, very good!#*You are very good.";
+        if (TL_Dummy == 0) str = "*Ah, very good!#*You are very good.";
+        if (TL_Dummy == 1) str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
+        if (TL_Dummy == 2) str = "*...$*...$*The next room awaits.";
+        if (TL_Dummy == 3) str = "*...$*... you ran away...$*Truthfully, that was not#a poor choice.$*It is better to#avoid conflict#whenever possible.$*That... however, is#only a dummy.#*It cannot harm you,$*It is only made of cotton.#*It has no desire#for revenge...$*Nevermind.#*Stay close to me and#I will keep you safe.";
         tipechat = 0;
         action = true;
         hom = 2;
-        TEvent = 10;
+        TEvent = 7;
     }
     if (event == 7)
     {   
-        TL_Dummy = 1;
-        str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
+        str = "...";
         tipechat = 0;
         action = true;
-        hom = 2;
-        TEvent = 10;
+        hom = 0;
+        TEvent = 8;
     }
-    if (event == 8)
-    {   
-        TL_Dummy = 2;
-        str = "*...$*...$*The next room awaits.";
-        tipechat = 0;
-        action = true;
-        hom = 2;
-        TEvent = 10;
-    }
-    if (event == 9)
-    {   
-        TL_Dummy = 2;
-        str = "*...$*... you ran away...$*Truthfully, that was not#a poor choice.$*It is better to#avoid conflict#whenever possible.$*That... however, is#only a dummy.#*It cannot harm you,$*It is only made of cotton.#*It has no desire#for revenge...$*Nevermind.#*Stay close to me and#I will keep you safe.";
-        tipechat = 0;
-        action = true;
-        hom = 2;
-        TEvent = 10;
-    }
+    
 
 }
 }

@@ -425,7 +425,7 @@ void tale::drawtext()
         }
             if (len == chatnumb && padpress.Cross)
             {
-                if (Enemy.specialcontition == 0){BattleMenuState = 10; TEvent = 6;}
+                if (Enemy.specialcontition == 0){BattleMenuState = 10; TL_Dummy = 0;}
                 else {skipturn();}
             }
         
@@ -539,8 +539,9 @@ void tale::drawtext()
     if (sontiming == true) 
     {
         chatnumb++;
-        engine->audio.adpcm.setVolume(30,getavailablechanel());
-        engine->audio.adpcm.tryPlay(texnoise);
+        u8 ch = getavailablechanel();
+        engine->audio.adpcm.setVolume(50, ch);
+        engine->audio.adpcm.tryPlay(texnoise, ch);
         sontiming = false;
     }
     else {sontiming = true;}

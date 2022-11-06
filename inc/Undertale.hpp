@@ -5,6 +5,21 @@
 namespace tale {
   using namespace Tyra;
 
+class Instance
+{
+public:
+  Vec2 Pos;
+  int id, dir = 0, dircons = 0;
+  bool direnable = false;
+  Sprite ins_sprite;
+  Texture* texture;
+  Texture* texture1;
+  Texture* texture2;
+  Texture* texture3;
+};
+
+
+
 class Enemyinfo
 {
 public:
@@ -51,7 +66,7 @@ class tale : public Game {
   Vec2 Pposcons = Vec2(0,0);
   float  vel = 4, anm = 0;
   int TEvent = 0;
-  int direction = 1, dircons = 1, mapid = 3, chatnumb = 0, mapcons = 0, mapspawn = 0;
+  int direction = 1, dircons = 1, mapid = 0, chatnumb = 0, mapcons = 0, mapspawn = 0;
   bool moving, texset = false, anmt = false, standing = true , Tbool = false;
   bool mapdone = false, action = false;
   Vec4 camborder = Vec4(-9999, -9999, 9999, 9999);
@@ -137,6 +152,22 @@ Texture* enm_body1;
 Texture* enm_bodydmg;
 Texture* chatbubble;
 Texture* facetexture1; Texture* facetexture2;
+
+//instances
+Instance instances[100];
+int InstanceCount = 0;
+Vec2 insttexmap;
+void setinstance(Vec2, int id);
+void removeinstances();
+void drawinstances();
+void draw_instance(int ID);
+
+//instance animation
+
+int mapcuranm = 0;
+int instancepath = 0;
+int instmaxpath = 0;
+void instmove(int, int, int);
 
 //Status
 

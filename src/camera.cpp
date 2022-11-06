@@ -7,6 +7,8 @@ using namespace Tyra;
 void tale::camupdate()
 {
      auto& ren = engine->renderer.renderer2D;
+     player.position.x =  256;
+     player.position.y =  256;
      if (Ppos.x < camborder.x)
      {
           map1.position.x = -camborder.x;

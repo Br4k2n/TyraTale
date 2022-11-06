@@ -16,9 +16,9 @@ void tale::init()
 
 void tale::loop() 
 { 
+    
     auto& ren = engine->renderer;
-    if (engine->pad.getClicked().R1)
-    {TYRA_LOG(" " ,engine->info.getAvailableRAM()); mapid++;}
+    if (engine->pad.getClicked().R1){mapid++;}
     if (engine->pad.getClicked().L1){mapid--;}
     if (GameState == 0)
     {
@@ -27,12 +27,15 @@ void tale::loop()
     reloadplayer();
     colcheck();
     mapchange();
+
     ren.beginFrame();
     camupdate();
-    ren.renderer2D.render(player);
+    drawinstances();
     ren.renderer2D.render(trans);
     if(action){drawtext();}
     ren.endFrame();
+    
+
     }
 
     if (GameState == 1)

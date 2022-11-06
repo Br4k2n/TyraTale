@@ -204,8 +204,9 @@ void tale::Battle()
     {
         if (BattleMenuState != 11)
         {
-        engine->audio.adpcm.setVolume(10 ,getavailablechanel());
-        engine->audio.adpcm.tryPlay(menuoptionoise);
+        int ch = getavailablechanel();
+        engine->audio.adpcm.setVolume(30, ch);
+        engine->audio.adpcm.tryPlay(menuoptionoise, ch);
         }
         if (BattleMenuState == -1 && !battlestatechanged)
         {
@@ -415,8 +416,9 @@ void tale::Battle()
         if (Ppad.Cross)
         { 
             attacked = true; 
-            engine->audio.adpcm.setVolume(60, getavailablechanel());
-            engine->audio.adpcm.tryPlay(attacknoise);
+            int ch = getavailablechanel();
+        engine->audio.adpcm.setVolume(60, ch);
+        engine->audio.adpcm.tryPlay(attacknoise, ch);
         }
         }
         else
@@ -554,8 +556,9 @@ void tale::Battle()
 
             if (attanm2 == 60)
             {
-                engine->audio.adpcm.setVolume(60, getavailablechanel());
-                engine->audio.adpcm.tryPlay(hitnoise);
+                int ch = getavailablechanel();
+                engine->audio.adpcm.setVolume(60, ch);
+                engine->audio.adpcm.tryPlay(hitnoise, ch);
                 enm_body1->removeLinkById(UI_FaceboxSprite.id);
                 enm_bodydmg->addLink(UI_FaceboxSprite.id);
                 if (Enemy.currhp <= dmggiven){Enemy.currhp = 0;}
@@ -588,13 +591,14 @@ void tale::Battle()
                 if (Enemy.currhp == 0)
                 {
                     BattleMenuState = 10; 
-                    engine->audio.adpcm.setVolume(100, getavailablechanel());
-                    engine->audio.adpcm.tryPlay(monsdiednoise);
+                    int ch = getavailablechanel();
+                    engine->audio.adpcm.setVolume(60, ch);
+                    engine->audio.adpcm.tryPlay(monsdiednoise, ch);
                     showenemy = false;
                     engine->audio.song.stop();
                     attanm1 = 0;
                     attanm2 = 0;
-                    if (Enemy.specialcontition == 0) TEvent = 7;
+                    if (Enemy.specialcontition == 0) TL_Dummy = 1;
                 }
                 else {skipturn();
                 enm_bodydmg->removeLinkById(UI_FaceboxSprite.id);
@@ -669,8 +673,9 @@ void tale::Battle()
     }
     if (PlayerHeart.position.x == 70)
     {
-    engine->audio.adpcm.setVolume(60, getavailablechanel());
-    engine->audio.adpcm.tryPlay(runawaynoise);
+        int ch = getavailablechanel();
+        engine->audio.adpcm.setVolume(60, ch);
+        engine->audio.adpcm.tryPlay(runawaynoise, ch);
     }
     ren.render(PlayerHeart);
     PlayerHeart.position.x--;
@@ -808,7 +813,7 @@ void tale::Battle()
                 if (Enemy.Epos.y < -150)
                 {
                     BattleMenuState = 10;
-                    TEvent = 8;
+                    TL_Dummy = 2;
                 }
             }
         }
@@ -916,9 +921,6 @@ void tale::battleexit()
     turns = 0;
     maptheme();
     event(6);
-    event(7);
-    event(8);
-    event(9);
     engine->audio.adpcm.reset();
 }
 }

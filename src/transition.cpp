@@ -21,6 +21,7 @@ namespace tale
         engine->renderer.getTextureRepository().freeBySprite(map4);
         engine->renderer.getTextureRepository().freeBySprite(map5);
         resetcolissioninmap();
+        removeinstances();
         mapcons = mapid;
         mapinit();
         mapdone = true;

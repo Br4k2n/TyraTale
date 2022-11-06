@@ -13,7 +13,7 @@ void tale::reloadplayer()
 
 
 
-    if (Presspad.Cross) {TYRA_LOG(Ppos.x, ", ", Ppos.y);}
+    if (Presspad.Cross) {TYRA_LOG("Player: ",Ppos.x, ", ", Ppos.y);}
     if (Presspad.Square) {TEvent++;TYRA_LOG(TEvent);}
     if (Presspad.Circle) {TEvent--;TYRA_LOG(TEvent);}
     if (Presspad.Triangle) {action = true;}
@@ -154,7 +154,6 @@ void tale::reloadplayer()
     else if(direction == 3){ptex3->addLink(player.id);}
     else if(direction == 4){ptex4->addLink(player.id);}
     }
-    player.position = Vec2(256,256);
     }
     dircons = direction;
     
@@ -232,6 +231,14 @@ void tale::startplayer()
     menuoptionoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_select.adpcm"));
     texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));
     
+    
+   for (int i = 0; i < 100; i++)
+    {
+        instances[i].ins_sprite.mode = MODE_STRETCH;
+        instances[i].id = -1;
+        if (widescreenmode) instances[i].ins_sprite.size = Vec2(24 * 2,32 * 2);
+        else instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
+    } 
 
     fontload(0);
 }
