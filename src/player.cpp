@@ -164,6 +164,7 @@ void tale::reloadplayer()
 void tale::startplayer()
 {
     auto PPath1 = FileUtils::fromCwd("sprites/transition.png");
+    TYRA_LOG("started");
     auto* transtexture = engine->renderer.getTextureRepository().add(PPath1);
     transtexture->addLink(trans.id);
     
@@ -236,8 +237,7 @@ void tale::startplayer()
     {
         instances[i].ins_sprite.mode = MODE_STRETCH;
         instances[i].id = -1;
-        if (widescreenmode) instances[i].ins_sprite.size = Vec2(24 * 2,32 * 2);
-        else instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
+        instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
     } 
 
     fontload(0);

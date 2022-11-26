@@ -12,38 +12,44 @@ void tale::drawtext()
     float border;
     int len = str.length();
     const auto& padpress = engine->pad.getClicked();
-    int curhom = hom;
+    string curhom = hom;
     int letterspace = 0;
+    bool skiped = false;
+
+    if (padpress.Square)
+    {
+    for (int i = lbp; i < len && !skiped; i++)
+        {
+            if (str.at(i) == str2.at(1))
+            {
+                chatnumb = i + 1;
+                skiped = true;
+            }
+        };
+        if (!skiped)
+        chatnumb = len;
+    }
+
     if (tipechat == 0)
     {
-        if (!widescreenmode)
-        {
+        
         UI_ChatboxSprite.size = Vec2(800, 200);
         UI_ChatboxSprite.position = Vec2(30, 10);
         UI_FaceboxSprite.size = Vec2(100, 100);
         UI_FaceboxSprite.position = Vec2(50, 30);
         UI_LetterSprite.size = Vec2(24,24);
         letterspace = 10;
-        if (hom == 0) { border = 80; } 
+        if (hom == "") { border = 80; } 
         else{border = 160;}
-        }
-        if (widescreenmode)
-        {
-        UI_ChatboxSprite.size = Vec2(600, 200);
-        UI_ChatboxSprite.position = Vec2(200, 10);
-        UI_FaceboxSprite.size = Vec2(75, 100);
-        UI_FaceboxSprite.position = Vec2(50, 30);
-        UI_LetterSprite.size = Vec2(18,24);
-        letterspace = 7;
-        if (hom == 0) { border = 220; } 
-        else{border = 300;}
-        }
+        
         ren.render(UI_ChatboxSprite);
         
         if (curtalk){
         curtalk = false;
         
-        if (hom == 1)
+        //FLOWEY
+
+        if (hom == "flowey_neutral")
         {
         auto patha = FileUtils::fromCwd("sprites/Characters/Flowey/neutral1.png");
         auto pathb = FileUtils::fromCwd("sprites/Characters/Flowey/neutral2.png");
@@ -52,7 +58,37 @@ void tale::drawtext()
         facetexture1->addLink(UI_FaceboxSprite.id);
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_flowey1.adpcm"));
         }
-        if (hom == 2)
+        if (hom == "flowey_disapoint")
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Flowey/disapointed1.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Flowey/disapointed2.png");
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_flowey1.adpcm"));
+        }
+        if (hom == "flowey_side1")
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Flowey/side1.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Flowey/side2.png");
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_flowey1.adpcm"));
+        }
+        if (hom == "flowey_side2")
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Flowey/side3.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Flowey/side4.png");
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_flowey1.adpcm"));
+        }
+
+        //TORIEL
+
+        if (hom == "toriel_neutral")
         {
         auto patha = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_0.png");
         auto pathb = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalk_1.png");
@@ -63,9 +99,33 @@ void tale::drawtext()
         facetexture1->addLink(UI_FaceboxSprite.id);
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
         }
-        if (hom == 0){texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));}
+        if (hom == "toriel_happy")
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torielhappytalk_0.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torielhappytalk_1.png");
+        UI_FaceboxSprite.position = Vec2(20, 20);
+        UI_LetterSprite.size = Vec2(18 * 1.5f,24 * 1.5f);
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
         }
-        if (hom != 0) {ren.render(UI_FaceboxSprite);}
+        if (hom == "toriel_side")
+        {
+        auto patha = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalkside_0.png");
+        auto pathb = FileUtils::fromCwd("sprites/Characters/Toriel/spr_face_torieltalkside_1.png");
+        UI_FaceboxSprite.position = Vec2(20, 20);
+        UI_LetterSprite.size = Vec2(18 * 1.5f,24 * 1.5f);
+        facetexture1 = engine->renderer.getTextureRepository().add(patha);
+        facetexture2 = engine->renderer.getTextureRepository().add(pathb);
+        facetexture1->addLink(UI_FaceboxSprite.id);
+        texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_torieltalk.adpcm"));
+        }
+
+
+        if (hom == ""){texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT1.adpcm"));}
+        }
+        if (hom != "") {ren.render(UI_FaceboxSprite);}
         
 
 
@@ -159,7 +219,7 @@ void tale::drawtext()
                 chatnumb = 0;
                 curtalk = true;
                 talkanm = 0;
-                if (hom != 0)
+                if (hom != "")
                 {engine->renderer.getTextureRepository().free(facetexture1);
                 engine->renderer.getTextureRepository().free(facetexture2);}
                 
@@ -516,7 +576,7 @@ void tale::drawtext()
 
     if (len > chatnumb && !breakdialoge){
     
-    if (hom != 0 && tipechat == 0 && curhom == hom && action)
+    if (hom != "" && tipechat == 0 && curhom == hom && action)
     {
         if (talkanm == 0)
         {
@@ -759,11 +819,11 @@ void tale::fontload(int num)
 
 Texture* tale::getletter(string str, int wich)
 {
-string str2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?abcdefghijklmnopqrstuvwxyz *1234567890/'-#$";
-for (int i = 0; i < 73; i++){
-if (str.at(wich) == str2.at(i)) {return(letters[i]);}
-}
-return(0);
+    string str2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ.,!?abcdefghijklmnopqrstuvwxyz *1234567890/'-#$";
+    for (int i = 0; i < 73; i++){
+    if (str.at(wich) == str2.at(i)) {return(letters[i]);}
+    }
+    return letters[71];
 }
 
 int tale::getavailablechanel()
@@ -779,7 +839,7 @@ int tale::getavailablechanel()
 
 void tale::chatstart(int chatid)
 {
-    hom = 0;
+    hom = "";
     tipechat = 0;
     str = "Error!";
     if (chatid == 0)

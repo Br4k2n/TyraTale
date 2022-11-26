@@ -20,6 +20,14 @@ namespace tale
         engine->renderer.getTextureRepository().freeBySprite(map3);
         engine->renderer.getTextureRepository().freeBySprite(map4);
         engine->renderer.getTextureRepository().freeBySprite(map5);
+        mapanmcount = 0;
+        for (int i = 0; i < 100; i++)
+        {
+        instances[i].ins_sprite.mode = MODE_STRETCH;
+        instances[i].id = -1;
+        instances[i].ins_sprite.color.a = 128;
+        instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
+        } 
         resetcolissioninmap();
         removeinstances();
         mapcons = mapid;

@@ -11,24 +11,14 @@ void tale::mapinit()
     map3.mode = SpriteMode::MODE_STRETCH;
     map4.mode = SpriteMode::MODE_STRETCH;
     map5.mode = SpriteMode::MODE_STRETCH;
-    if (widescreenmode)
-    {
-    map1.size = Vec2(384 * 2, 512 * 2);
-    map2.size = Vec2(384 * 2, 512 * 2);
-    map3.size = Vec2(384 * 2, 512 * 2);
-    map4.size = Vec2(384 * 2, 512 * 2);
-    map5.size = Vec2(384 * 2, 512 * 2);
-    player.size = Vec2(24 * 2, 32 * 2);
-    }
-    else
-    {
+    
     map1.size = Vec2(512 * 2, 512 * 2);
     map2.size = Vec2(512 * 2, 512 * 2);
     map3.size = Vec2(512 * 2, 512 * 2);
     map4.size = Vec2(512 * 2, 512 * 2);
     map5.size = Vec2(512 * 2, 512 * 2);
     player.size = Vec2(32 * 2, 32 * 2);
-    }
+    
     camborder = Vec4(-9999, -9999, 9999, 9999);
         if (mapid == 0)
         {
@@ -38,7 +28,6 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
 
-        if (!widescreenmode){
         camborder = Vec4(12, 60, 828, 60);
         setcolissioninmap(-300, -212, -140, -144);//0
         setcolissioninmap(-188, -216,340, -184);//1
@@ -61,33 +50,6 @@ void tale::mapinit()
 
         if (mapspawn == 0){ Ppos = Vec2(28, -28); }
         if (mapspawn == 1){ Ppos = Vec2(968, 24); }
-        }
-
-        if (widescreenmode){
-
-        setcolissioninmap(-252, -238, -168, -144);//0
-        setcolissioninmap(-210, -218, 130, -180);//1
-        setcolissioninmap(76, -216, 180, -140);//2
-        setcolissioninmap(136, -178, 638, 16);//3
-        setcolissioninmap(674, -28, 734, 20);//4
-        setcolissioninmap(706, -80, 744, 120);//5
-        setcolissioninmap(78, 80, 762, 150);//6
-        setcolissioninmap(44, 122, 112, 182);//7
-        setcolissioninmap(-190, 158, 94, 192);//8
-        setcolissioninmap(-202, 118, -136, 190);//9
-        setcolissioninmap(-224, 80, -164, 118);//10
-        setcolissioninmap(-258, 38, -196, 82);//11
-        setcolissioninmap(-266, -156, -224, 40);//12
-        setcolissioninmap(156, 162, 76, 90);//13
-        setcolissioninmap(584, -180, 746, -12);//14
-        
-        colact[14].x = 1;
-        colact[14].y = 1;
-        colact[14].z = 0;
-
-        if (mapspawn == 0){ Ppos = Vec2(-42, -28); }
-        if (mapspawn == 1){ Ppos = Vec2(656, 14); }
-        }
     
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
@@ -110,15 +72,13 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_2.png");
 
-        if (!widescreenmode)
-        {
-            camborder = Vec4(46, -9999, 46, 9999);
+        camborder = Vec4(46, -9999, 46, 9999);
         setcolissioninmap(-78, 612, 186, 640);//0
         setcolissioninmap(-34, -32, 178, 8);//1
         setcolissioninmap(70, -16, 126, 756);//2
         setcolissioninmap(-70, -24, 26, 768);//3
         setcolissioninmap(-110, 400, 270, 420);
-        setinstance(Vec2(42, 315), 0);   
+        if (TEvent == 0) setinstance(Vec2(42, 315), 0);   
         
         colact[0].x = 1;
         colact[0].y = 0;
@@ -135,33 +95,6 @@ void tale::mapinit()
         
         if (mapspawn == 0){Ppos = Vec2(46, 584);}
         if (mapspawn == 1){Ppos = Vec2(46, 28);}
-        }
-        if (widescreenmode)
-        {
-        setcolissioninmap(-182, 568, 146, 606);//0
-        setcolissioninmap(-170, -74,286, 30);//1
-        setcolissioninmap(-12, -84, 282, 792);//2
-        setcolissioninmap(-166, -104, -72, 660);//3
-        setcolissioninmap(-212, 410, 222, 420);//4
-        
-        
-        
-        
-        colact[0].x = 1;
-        colact[0].y = 0;
-        colact[0].z = 1;
-        
-        colact[1].x = 1;
-        colact[1].y = 2;
-        colact[1].z = 0;
-
-        colact[4].x = 2;
-        colact[4].y = 0;
-        colact[4].z = 0;
-        
-        if (mapspawn == 0){Ppos = Vec2(-26, 554);}
-        if (mapspawn == 1){Ppos = Vec2(-32, 42);}
-        }
     
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
@@ -185,9 +118,8 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_3.png");
 
-        if (!widescreenmode)
-        {
-            camborder = Vec4(38, 40, 90, 504);
+        
+        camborder = Vec4(38, 40, 90, 504);
         setcolissioninmap(-10, 580, 118, 640);//0
         setcolissioninmap(-6, -112, 102, -72);//1
 
@@ -201,8 +133,31 @@ void tale::mapinit()
         setcolissioninmap(70, 524, 200, 700);//8
         setcolissioninmap(270, -148, 374, 524);//9
         setcolissioninmap(-170, -112, 314, -72);//10
-        setcolissioninmap(-126, -32, 218, 8);//10
+        setcolissioninmap(-126, -32, 218, 8);//11
 
+        setcolissioninmap(-18, 500, 102, 516);//12
+        setcolissioninmap(-134, 348, 226, 404);//13
+        setcolissioninmap(-134, 120, 226, 216);//14
+
+        setcolissioninmap(-170, 12, 266, 28);//15
+
+        colact[12].x = 2;
+        colact[12].y = 2;
+
+        colact[13].x = 2;
+        colact[13].y = 3;
+
+        colact[14].x = 2;
+        colact[14].y = 4;
+        
+        colact[15].x = 2;
+        colact[15].y = 5;
+        
+        if (TEvent == 2) setinstance(Vec2(26, 384), 1);   
+        if (TEvent == 3) setinstance(Vec2(26, 284), 1);   
+        if (TEvent == 4) setinstance(Vec2(150, 76), 1);  
+        if (TEvent == 5) setinstance(Vec2(234, -68), 1);  
+    
         colact[0].x = 1;
         colact[0].y = 1;
         colact[0].z = 1;
@@ -213,34 +168,7 @@ void tale::mapinit()
 
         if (mapspawn == 0){Ppos = Vec2(42, 552);}
         if (mapspawn == 1){Ppos = Vec2(46, -60);}
-        }
-        if (widescreenmode)
-        {
-        setcolissioninmap(-78, 582, 50, 674);//0
-        setcolissioninmap(-54, -84, -10, -68);//1
-        setcolissioninmap(-14, 518, 198, 654);//2
-        setcolissioninmap(-274, 518, -46, 654);//3
-        setcolissioninmap(-254, 442, -78, 606);//4
-        setcolissioninmap(14, 442, 206, 606);//5
-        setcolissioninmap(106, 90, 190, 574);//6
-        setcolissioninmap(-258, 90, -166, 574);//7
-        setcolissioninmap(-262, -282,-198, 122);//8
-        setcolissioninmap(134, -282, 214, 122);//9
-        setcolissioninmap(-200, -148, 137, -68);//10
         
-        colact[0].x = 1;
-        colact[0].y = 1;
-        colact[0].z = 1;
-
-        colact[1].x = 1;
-        colact[1].y = 3;
-        colact[1].z = 0;
-
-        if (mapspawn == 0){Ppos = Vec2(-106, 148);}
-        if (mapspawn == 1){Ppos = Vec2(-104, -156);}
-        }
-    
-    
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
         auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
@@ -261,9 +189,8 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_4.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_4.png");
 
-        if (!widescreenmode)
-        {
-            camborder = Vec4(66, 24, 66, 24);
+        
+        camborder = Vec4(66, 24, 66, 24);
         setcolissioninmap(-10, 124, 102, 164);//0
         setcolissioninmap(-34, -184, 54, -156);//1
         setcolissioninmap(-266, 48, 378, 84);//2
@@ -281,6 +208,9 @@ void tale::mapinit()
         setcolissioninmap(-174, 84, -58, 120);//13
         setcolissioninmap(-110, -152, -74, -152);//14
 
+        if (TEvent == 6) setinstance(22, -52, 1);
+
+
         colact[0].x = 1;
         colact[0].y = 2;
         colact[0].z = 1;
@@ -289,7 +219,7 @@ void tale::mapinit()
         colact[1].y = 4;
 
         colact[2].x = 2;
-        colact[2].y = 2;
+        colact[2].y = 6;
 
         colact[14].x = 4;
         colact[14].y = 0;
@@ -297,30 +227,6 @@ void tale::mapinit()
         if (mapspawn == 0){Ppos = Vec2(42, 116);}
         if (mapspawn == 1){Ppos = Vec2(6, -140);}
 
-        }
-        if (widescreenmode)
-        {
-        setcolissioninmap(-58, 140, 18, 176);//0
-        setcolissioninmap(-90, -184, -22, -160);//1
-        setcolissioninmap(-234, 32, 194, 84);//2
-        
-        colact[0].x = 1;
-        colact[0].y = 2;
-        colact[0].z = 1;
-
-        colact[1].x = 1;
-        colact[1].y = 4;
-        colact[1].z = 0;
-
-        colact[2].x = 2;
-        colact[2].y = 2;
-        colact[2].z = 0;
-
-        if (mapspawn == 0){Ppos = Vec2(-106, -72);}
-        if (mapspawn == 1){Ppos = Vec2(-126, -194);}
-
-        }
-    
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
         auto* texture3 = engine->renderer.getTextureRepository().add(PPath3);
@@ -339,9 +245,8 @@ void tale::mapinit()
         auto PPath3 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
-        if (!widescreenmode)
-        {
-            camborder = Vec4(70, 24, 962, 24);
+
+        camborder = Vec4(70, 24, 962, 24);
         setcolissioninmap(-58, 144, 62, 176);//0
         setcolissioninmap(1174, -52, 1214, 80);//1
 
@@ -376,7 +281,7 @@ void tale::mapinit()
 
         if (mapspawn == 0){Ppos = Vec2(6, 96);}
         if (mapspawn == 1){Ppos = Vec2 (1150, -4);}
-        }
+        
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
@@ -398,9 +303,8 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
 
-        if (!widescreenmode)
-        {
-            camborder = Vec4(6, 14, 62, 14);
+        
+        camborder = Vec4(6, 14, 62, 14);
         setcolissioninmap(-298, -54, -234, 90);//0
         setcolissioninmap(-22, -198, 106, -158);//1
         setcolissioninmap(106, -106, 178, -62);//2
@@ -420,8 +324,6 @@ void tale::mapinit()
 
         if (mapspawn == 0){Ppos = Vec2(-210, -10);}
         if (mapspawn == 1){Ppos = Vec2(46, -138);}
-
-        }
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
@@ -442,8 +344,6 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_1b.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_1a.png");
 
-        if (!widescreenmode)
-        {
         camborder = Vec4(-4032, 22, -2212, 22);
         setcolissioninmap(-4176, 126, -3964, 174);//0
         setcolissioninmap(-2020, -138, -1952, 50);//1
@@ -479,7 +379,6 @@ void tale::mapinit()
 
         if (mapspawn == 0){Ppos = Vec2(-4052, 98);}
         if (mapspawn == 1){Ppos = Vec2(-2032, -86);}
-        }
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
@@ -500,8 +399,6 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_8d.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_8e.png");
 
-        if (!widescreenmode)
-        {
         camborder = Vec4(0, -26, 4472, -26);
         setcolissioninmap(4674, -154, 4762, 66);//0
         setcolissioninmap(4618, -190, 4800, -106);//1
@@ -523,7 +420,7 @@ void tale::mapinit()
 
         if (mapspawn == 0){Ppos = Vec2(-200, -90);}
         if (mapspawn == 1){Ppos = Vec2(4646, -86);}
-        }
+        
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
@@ -545,8 +442,6 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_9.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_9.png");
 
-        if (!widescreenmode)
-        {
         camborder = Vec4(6, 10, 122, 418);
         setcolissioninmap(-322, -294, -134, -106);//0
         setcolissioninmap(-186, -278, 26, -142);//1
@@ -579,7 +474,6 @@ void tale::mapinit()
         if (mapspawn == 1){Ppos = Vec2(46, -134);}
         if (mapspawn == 2){Ppos = Vec2(310, 394);}
 
-        }
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
         auto* texture2 = engine->renderer.getTextureRepository().add(PPath2);
@@ -600,9 +494,7 @@ void tale::mapinit()
         auto PPath4 = FileUtils::fromCwd("sprites/maps/ruin_8d.png");
         auto PPath5 = FileUtils::fromCwd("sprites/maps/ruin_8e.png");
 
-        if (!widescreenmode)
-        {
-            camborder = Vec4(46, 22, 46, 22);
+        camborder = Vec4(46, 22, 46, 22);
         setcolissioninmap(-10, 126, 114, 194);//0
         setcolissioninmap(-166, -190, 262, -134);//1
         setcolissioninmap(110, -178, 214, 130);//2
@@ -616,7 +508,6 @@ void tale::mapinit()
 
 
         if (mapspawn == 0){Ppos = Vec2(42, 118);}
-        }
     
     
         auto* texture1 = engine->renderer.getTextureRepository().add(PPath1);
@@ -702,19 +593,26 @@ if (mapid != mapcons && !mapdone)
 
 void tale::maptheme()
 {
-        if (mapid >= 2 && music != 0)
-        {
+    if (mapid >= 2 && music != 0)
+    {
         music = 0;
         engine->audio.song.load(FileUtils::fromCwd("Sounds/Ruins.wav"));
         engine->audio.song.inLoop = true;
         engine->audio.song.setVolume(60);
         engine->audio.song.play();
-        }
-        if (mapid == 0 || mapid == 1)
-        {
+    }
+    if (mapid == 0 || mapid == 1)
+    {
         engine->audio.song.stop();
         music = 99999;
-        }
+    }       
+}
+
+void tale::mapshake()
+{
+    if (mapshakeanm == 0)
+    {
         
     }
+}
 }

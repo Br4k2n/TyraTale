@@ -8,12 +8,13 @@ void tale::event(int event)
 {
 if (TEvent == event)
 {
+    TYRA_LOG("Event EXECUTED.");
     if (event == 0)
     {   
         str = "*Howdy!$*I'm FLOWEY.#*FLOWEY the FLOWER!$*Hm...$*You're new to the#UNDERGROUND, aren'tcha?$*Golly, you must be#so confused.$*Someone ought to teach#you how things work#around here!$*I guess little old me#have to do.$*Ready?#*Here we go!";
         tipechat = 0;
         action = true;
-        hom = 1;
+        hom = "flowey_neutral";
         engine->audio.song.load(FileUtils::fromCwd("Sounds/Your-Best-Friend.wav"));
         engine->audio.song.inLoop = true;
         engine->audio.song.setVolume(60);
@@ -22,11 +23,11 @@ if (TEvent == event)
     }
     if (event == 1)
     {   
-        str = "*What a terrible creature#torturing such a poor, #inocent youth...$*Ah, do not be afraid,#my child.$*I am TORIEL,#caretaker of the RUINS.$*I pass through here everyday#to see if anyone has fallen down.$*You are the first human#to come here in a#long time.$*Come!#I will guide you through the#catacombs.$*This way.";
+        str = "*What a terrible creature#torturing such a poor, #inocent youth...$*Ah, do not be afraid,#my child.$*I am TORIEL,#caretaker of the RUINS.$*I pass through here everyday#to see if anyone has fallen#down.$*You are the first human#to come here in a#long time.$*Come!#I will guide you through the#catacombs.$*This way.";
         setinstance(Vec2(46, 300), 1);
         tipechat = 0;
         action = true;
-        hom = 2;
+        hom = "toriel_neutral";
         TEvent = 2;
         engine->audio.song.stop();
         engine->audio.song.load(FileUtils::fromCwd("Sounds/Fallen-Down.wav"));
@@ -34,36 +35,48 @@ if (TEvent == event)
         engine->audio.song.setVolume(60);
         engine->audio.song.play();
     }
-    if (event == 2)
+    if (event == 2 || event == 3 || event == 4 || event == 5)
     {   
-        str = "*Welcome to your new#home, innocent one.$*Allow me to educate you#in the operation of the#RUINS.$*The RUINS are full of#puzzles.$*Ancient fusions bettwen#diversions and door keys.$*One must solve them#to move from room to#room$*Please adjust yourself#to the sight of them.";
+        TEvent++;
+    }
+    if (event == 6)
+    {   
+        str = "*Welcome to your new#home, innocent one.$*Allow me to educate you#in the operation of the#RUINS.";
         tipechat = 0;
         action = true;
-        hom = 2;
-        TEvent = 3;
+        hom = "toriel_neutral";
+        TEvent = 7;
     }
-    if (event == 3)
+    if (event == 8)
+    {   
+        str = "*The RUINS are full of#puzzles.$*Ancient fusions bettwen#diversions and door keys.$*One must solve them#to move from room to#room$*Please adjust yourself#to the sight of them.";
+        tipechat = 0;
+        action = true;
+        hom = "toriel_neutral";
+        TEvent = 9;
+    }
+    if (event == 99)
     {   
         str = "*To make progress here,#you will need to trigger#several switches.$*Do not worry, I have#labelled the ones that#you need to flip.";
         tipechat = 0;
         action = true;
-        hom = 2;
-        TEvent = 4;
+        hom = "toriel_neutral";
+        TEvent = 10;
     }
-    if (event == 4)
+    if (event == 99)
     {   
         str = "*As a human living in#the UNDERGROUND,#monsters may attack you.$*You will need to be#prepared for this#situation.$*However, worry not!#*The process is simple.$*When you encounter a#monster, you will enter#a FIGHT.$*While you are in a#FIGHT, strike up a#friendly conversation.$*Stall for time.#I will come to resolve#the conflict.$*Practice talking to#the dummy.";
         tipechat = 0;
         action = true;
-        hom = 2;
-        TEvent = 5;
+        hom = "toriel_neutral";
+        TEvent = 11;
     }
-    if (event == 5)
+    if (event == 99)
     {   
         battlestart(0);
         TEvent = 6;
     }
-    if (event == 6)
+    if (event == 99)
     {   
         if (TL_Dummy == 0) str = "*Ah, very good!#*You are very good.";
         if (TL_Dummy == 1) str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
@@ -71,15 +84,15 @@ if (TEvent == event)
         if (TL_Dummy == 3) str = "*...$*... you ran away...$*Truthfully, that was not#a poor choice.$*It is better to#avoid conflict#whenever possible.$*That... however, is#only a dummy.#*It cannot harm you,$*It is only made of cotton.#*It has no desire#for revenge...$*Nevermind.#*Stay close to me and#I will keep you safe.";
         tipechat = 0;
         action = true;
-        hom = 2;
+        hom = "toriel_neutral";
         TEvent = 7;
     }
-    if (event == 7)
+    if (event == 99)
     {   
         str = "...";
         tipechat = 0;
         action = true;
-        hom = 0;
+        hom = "";
         TEvent = 8;
     }
     

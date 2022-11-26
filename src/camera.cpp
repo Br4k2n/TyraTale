@@ -7,6 +7,8 @@ using namespace Tyra;
 void tale::camupdate()
 {
      auto& ren = engine->renderer.renderer2D;
+     if (!camstatic)
+     {
      player.position.x =  256;
      player.position.y =  256;
      if (Ppos.x < camborder.x)
@@ -37,7 +39,7 @@ void tale::camupdate()
      {
           map1.position.y = -Ppos.y;
      }
-
+     }
      
      map2.position = map1.position;
      map3.position = map1.position;
@@ -49,17 +51,13 @@ void tale::camupdate()
 
          map2.position = map1.position;
          map2.position += Vec2(mapsize.x * 1, mapsize.y * 0);
-         if (widescreenmode){
-         ren.render(map1);
-         ren.render(map2);
-         }
-         else{
+         
           ren.render(map1);
           if (Ppos.x > 500)
          {
           ren.render(map2);
          }
-         }
+         
     }
     if (mapid == 1 && mapcons == mapid)
     {
@@ -76,17 +74,12 @@ void tale::camupdate()
     if (mapid == 4 && mapcons == mapid)
     {
           map2.position += Vec2(mapsize.x * 1, mapsize.y * 0);
-          if (widescreenmode){
-         ren.render(map1);
-         ren.render(map2);
-         }
-         else{
           ren.render(map1);
           if (Ppos.x > 250)
          {
           ren.render(map2);
          }
-         }
+         
          
     }
     if (mapid == 5 && mapcons == mapid)
@@ -97,20 +90,13 @@ void tale::camupdate()
     {
          map2.position += Vec2(mapsize.x * 1, mapsize.y * 0);
          map3.position += Vec2(mapsize.x * 2, mapsize.y * 0);
-         if (widescreenmode){
+         
          ren.render(map1);
          ren.render(map2);
          if (Ppos.x > -3000){
          ren.render(map3);
          }
-         }
-         if (!widescreenmode){
-         ren.render(map1);
-         ren.render(map2);
-         if (Ppos.x > -3000){
-         ren.render(map3);
-         }
-         }
+
     }
     if (mapid == 7 && mapcons == mapid)
     {
@@ -118,20 +104,14 @@ void tale::camupdate()
          map3.position += Vec2(mapsize.x * 2, mapsize.y * 0);
          map4.position += Vec2(mapsize.x * 3, mapsize.y * 0);
          map5.position += Vec2(mapsize.x * 4, mapsize.y * 0);
-          if (widescreenmode){
-         ren.render(map1);
-         ren.render(map2);
-         ren.render(map3);
-         ren.render(map4);
-         ren.render(map5);
-         }
-         else{
+         
+         
           if (Ppos.x < 1032) ren.render(map1);
           if (Ppos.x > 508 && Ppos.x < 2060) ren.render(map2);
           if (Ppos.x > 1528) ren.render(map3);
           if (Ppos.x > 2060 && Ppos.x < 4112) ren.render(map4);
           if (Ppos.x > 3576) ren.render(map5);
-         }
+         
     }
     if (mapid == 8 && mapcons == mapid)
     {

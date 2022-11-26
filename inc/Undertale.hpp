@@ -9,16 +9,28 @@ class Instance
 {
 public:
   Vec2 Pos;
-  int id, dir = 0, dircons = 0;
+  int id, dir = 0, dircons = 0, anmcount = 0;
   bool direnable = false;
+  bool walkanm = false;
+  bool movingX = false, movingY = false;
+  bool movingcons = false;
+  bool fadeout = false;
   Sprite ins_sprite;
   Texture* texture;
   Texture* texture1;
   Texture* texture2;
   Texture* texture3;
+
+  Texture* MoveR1;
+  Texture* MoveL1;
+  Texture* MoveU1;
+  Texture* MoveD1;
+
+  Texture* MoveR2;
+  Texture* MoveL2;
+  Texture* MoveU2;
+  Texture* MoveD2;
 };
-
-
 
 class Enemyinfo
 {
@@ -71,7 +83,6 @@ class tale : public Game {
   bool mapdone = false, action = false;
   Vec4 camborder = Vec4(-9999, -9999, 9999, 9999);
   bool placeholderfixtape1 = false;
-  bool widescreenmode = false;
   
   void loadsprites();
   void loadtextures();
@@ -111,14 +122,16 @@ Texture* getletter(std::string, int);
 Texture* getdmgletter(std::string, int);
 void fontunload();
 void fontload(int);
-std::string str;
+std::string str, hom = "";
 Vec2 texformat[200] = {};
-int hom = 0, tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
+int tipechat = 0,blt1 = 9999, blt2 = 9999, lbp = 0, bdp = 0;
 void drawtext();
 bool breakdialoge = false, sontiming = false, curtalk = true;
 int music = 99999;
 int getavailablechanel();
 int currentchannel = 0;
+
+
 
 //Battle system
 
@@ -156,18 +169,25 @@ Texture* facetexture1; Texture* facetexture2;
 //instances
 Instance instances[100];
 int InstanceCount = 0;
-Vec2 insttexmap;
-void setinstance(Vec2, int id);
+void setinstance(Vec2 pos, int id);
+void setinstance(int posX, int posY, int id);
 void removeinstances();
 void drawinstances();
 void draw_instance(int ID);
+void inst_conditionmove();
 
 //instance animation
 
-int mapcuranm = 0;
+int mapanmcount = 0;
 int instancepath = 0;
 int instmaxpath = 0;
-void instmove(int, int, int);
+bool instmoveX(int id, int X1, int X2);
+bool instmoveY(int id, int Y1, int Y2);
+void instmove(int id, int Direction);
+void instfadeout(int id);
+void mapshake();
+int mapshakeanm = 0;
+bool camstatic = false;
 
 //Status
 

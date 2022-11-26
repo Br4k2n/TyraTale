@@ -27,6 +27,7 @@ void tale::loop()
     reloadplayer();
     colcheck();
     mapchange();
+    inst_conditionmove();
 
     ren.beginFrame();
     camupdate();
@@ -35,7 +36,6 @@ void tale::loop()
     if(action){drawtext();}
     ren.endFrame();
     
-
     }
 
     if (GameState == 1)
