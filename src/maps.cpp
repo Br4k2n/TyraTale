@@ -608,11 +608,37 @@ void tale::maptheme()
     }       
 }
 
-void tale::mapshake()
+bool tale::mapshake()
 {
+    camstatic = true;
+    mapShaking = true;
     if (mapshakeanm == 0)
     {
-        
+        map1.position.x += 30;
     }
+    if (mapshakeanm == 10)
+    {
+        map1.position.x -= 60;
+    }
+    if (mapshakeanm == 20)
+    {
+        map1.position.x += 60;
+    }
+    if (mapshakeanm == 30)
+    {
+        map1.position.x -= 60;
+    }
+    if (mapshakeanm == 40)
+    {
+        map1.position.x += 30;
+    }
+    mapshakeanm++;
+    if (mapshakeanm >= 60)
+    {
+        camstatic = false;
+        return false;
+        mapshakeanm = 0;
+    }
+    return true;
 }
 }

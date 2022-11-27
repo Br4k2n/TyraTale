@@ -396,7 +396,8 @@ void tale::inst_conditionmove()
             }
             if (mapanmcount == 5)
             {
-            
+            bool shakin = mapshake();
+            if (!shakin)
             mapanmcount = 6;
             }
 

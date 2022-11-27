@@ -185,9 +185,11 @@ bool instmoveX(int id, int X1, int X2);
 bool instmoveY(int id, int Y1, int Y2);
 void instmove(int id, int Direction);
 void instfadeout(int id);
-void mapshake();
+bool mapshake();
 int mapshakeanm = 0;
+bool mapShaking = false;
 bool camstatic = false;
+
 
 //Status
 
