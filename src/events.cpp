@@ -47,37 +47,56 @@ if (TEvent == event)
         hom = "toriel_neutral";
         TEvent = 7;
     }
-    if (event == 8)
+    if (event == 7)
     {   
         str = "*The RUINS are full of#puzzles.$*Ancient fusions bettwen#diversions and door keys.$*One must solve them#to move from room to#room$*Please adjust yourself#to the sight of them.";
         tipechat = 0;
         action = true;
         hom = "toriel_neutral";
-        TEvent = 9;
+        TEvent = 8;
     }
-    if (event == 99)
+    if (event == 8)
     {   
         str = "*To make progress here,#you will need to trigger#several switches.$*Do not worry, I have#labelled the ones that#you need to flip.";
         tipechat = 0;
         action = true;
         hom = "toriel_neutral";
-        TEvent = 10;
+        TEvent = 9;
+        setcolissioninmap(618, -36, 790, 52);//19
     }
-    if (event == 99)
+    if (event == 9)
+    {   
+        
+        TEvent = 10;
+        instances[0].dir = 1;
+        NumOfCol--;
+        setcolissioninmap(1058, -32, 1200, 52);//19
+    }
+    if (event == 10)
+    {   
+        TEvent = 11;
+        instances[1].dir = 1;
+        NumOfCol--;
+    }
+    if (event == 11)
+    {   
+        str = "*Explendid!#*I am proud of you,#little one.$Let us move to the#next room.";
+        tipechat = 0;
+        action = true;
+        hom = "toriel_happy";
+        TEvent = 12;
+    }
+    if (event == 12)
     {   
         str = "*As a human living in#the UNDERGROUND,#monsters may attack you.$*You will need to be#prepared for this#situation.$*However, worry not!#*The process is simple.$*When you encounter a#monster, you will enter#a FIGHT.$*While you are in a#FIGHT, strike up a#friendly conversation.$*Stall for time.#I will come to resolve#the conflict.$*Practice talking to#the dummy.";
         tipechat = 0;
         action = true;
         hom = "toriel_neutral";
-        TEvent = 11;
+        TEvent = 13;
     }
-    if (event == 99)
+    if (event == 13)
     {   
-        battlestart(0);
-        TEvent = 6;
-    }
-    if (event == 99)
-    {   
+        TYRA_LOG("final");
         if (TL_Dummy == 0) str = "*Ah, very good!#*You are very good.";
         if (TL_Dummy == 1) str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
         if (TL_Dummy == 2) str = "*...$*...$*The next room awaits.";
@@ -85,7 +104,7 @@ if (TEvent == event)
         tipechat = 0;
         action = true;
         hom = "toriel_neutral";
-        TEvent = 7;
+        TEvent = 14;
     }
     if (event == 99)
     {   

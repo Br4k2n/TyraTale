@@ -4,8 +4,8 @@
 int main() {
   Tyra::EngineOptions options;
 
-  // options.writeLogsToFile = true;
-  // options.loadUsbDriver = true;
+  options.writeLogsToFile = true;
+  options.loadUsbDriver = true;
   
 
   Tyra::Engine engine(options);

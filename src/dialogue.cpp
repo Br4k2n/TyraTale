@@ -866,6 +866,36 @@ void tale::chatstart(int chatid)
     {
         str = "*The western room is the#eastern room's blueprint.";
     }
+    if (chatid == 6)
+    {
+        event(9);
+    }
+    if (chatid == 7)
+    {
+        event(10);
+    }
+    if (chatid == 8)
+    {
+        str = "*Please press this switch.#              #         -TORIEL";
+    }
+    if (chatid == 9)
+    {
+        str = "*Please press this switch#too.              #         -TORIEL";
+    }
+    if (chatid == 10)
+    {
+        str = "*This lever doesn't even work.";
+        if (TEvent == 10)
+        {
+        hom = "toriel_side";
+        str = "*No no no!$*You want to press the#other switch.$*I even labelled it for#you...";
+        }
+    }
+    if (chatid == 11)
+    {
+        if (TEvent == 13) {battlestart(0); NumOfCol--;}
+    }
+    if (chatid != 6 && chatid != 7 && chatid != 11)
     action = true;
 
 }

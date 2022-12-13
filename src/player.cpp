@@ -7,16 +7,9 @@ using namespace Tyra;
 
 void tale::reloadplayer()
 {
-    if (!Tbool && !mapdone && !action){
+    if (!Tbool && !mapdone && !action && !Pstop){
     const auto pad = engine->pad.getPressed();
-    const auto Presspad = engine->pad.getClicked();
 
-
-
-    if (Presspad.Cross) {TYRA_LOG("Player: ",Ppos.x, ", ", Ppos.y);}
-    if (Presspad.Square) {TEvent++;TYRA_LOG(TEvent);}
-    if (Presspad.Circle) {TEvent--;TYRA_LOG(TEvent);}
-    if (Presspad.Triangle) {action = true;}
     if (pad.DpadRight)
     {
          
@@ -236,6 +229,8 @@ void tale::startplayer()
    for (int i = 0; i < 100; i++)
     {
         instances[i].ins_sprite.mode = MODE_STRETCH;
+        instances[i].direnable = false;
+        instances[i].walkanm = false;
         instances[i].id = -1;
         instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
     } 

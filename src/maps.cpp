@@ -207,8 +207,16 @@ void tale::mapinit()
         setcolissioninmap(190, 84, 298, 120);//12
         setcolissioninmap(-174, 84, -58, 120);//13
         setcolissioninmap(-110, -152, -74, -152);//14
-
-        if (TEvent == 6) setinstance(22, -52, 1);
+        
+        setinstance(-15, -220, 3);//0
+        
+        setinstance(110, -48, 2);//1
+        setinstance(186, -48, 2);//2
+        setinstance(150, -8, 2);//3
+        setinstance(110, 32, 2);//4
+        setinstance(186, 32, 2);//5
+        setinstance(150, 72, 2);//6
+        if (TEvent == 6) setinstance(22, -52, 1);//7
 
 
         colact[0].x = 1;
@@ -263,8 +271,39 @@ void tale::mapinit()
         setcolissioninmap(-70, -144, -26, -144);//12
         setcolissioninmap(-262, 120, -18, 120);//13
         setcolissioninmap(-270, -256, -174, 116);//14
+
+        setinstance(534, -136, 4);
+        if (TEvent > 9) instances[0].dir = 1; 
+        setinstance(942, -136, 4);
+        if (TEvent > 10) instances[1].dir = 1; 
+
+        setinstance(1014, -136, 4);
+
+        setcolissioninmap(510, -144, 550, -144);//15
+        colact[15].x = 4;
+        colact[15].y = 6;
+
+        setcolissioninmap(918, -144, 960, -144);//16
+        colact[16].x = 4;
+        colact[16].y = 7;
+
+        setcolissioninmap(830, -144, 882, -144);//17
+        colact[17].x = 4;
+        colact[17].y = 9;
+        setcolissioninmap(434, -144, 482, -144);//18
+        colact[18].x = 4;
+        colact[18].y = 8;
+        setcolissioninmap(982, -144, 1030, -144);//19
+        colact[19].x = 4;
+        colact[19].y = 10;
+
+        if (TEvent == 8 ) {setinstance(58, -32, 1); instmove(1, 0);}
+        if (TEvent == 9 ) {setinstance(654, -32, 1);  instmove(1, 3);}
+        if (TEvent == 10 ) {setinstance(1094, -32, 1);  instmove(1, 3);}
         
-        event(3);
+        if (TEvent == 9) {setcolissioninmap(618, -36, 790, 52);}
+        if (TEvent == 10) {setcolissioninmap(1058, -32, 1200, 52);}
+        event(8);
         
         colact[0].x = 1;
         colact[0].y = 3;
@@ -308,7 +347,28 @@ void tale::mapinit()
         setcolissioninmap(-298, -54, -234, 90);//0
         setcolissioninmap(-22, -198, 106, -158);//1
         setcolissioninmap(106, -106, 178, -62);//2
-        event(4);
+        setcolissioninmap(-318, -78, -174, -30);//3
+        setcolissioninmap(-214, -142, -138, -66);//4
+        setcolissioninmap(-186, -166, -98, -106);//5
+        setcolissioninmap(-174, -194, 26, -150);//6
+        setcolissioninmap(66, -194, 282, -150);//7
+        setcolissioninmap(186, -182, 314, -110);//8
+        setcolissioninmap(258, -114, 334, 158);//9
+        setcolissioninmap(226, 42, 346, 162);//10
+        setcolissioninmap(190, 82, 330, 202);//11
+        setcolissioninmap(-226, 122, 318, 166);//12
+        setcolissioninmap(-210, 82, -94, 170);//13
+        setcolissioninmap(-300, 42, -138, 78);//14
+        setcolissioninmap(230, -106, 254, -66);//15
+
+        setcolissioninmap(110, -130, 178, -66);//16
+        if (TL_Dummy != 1) setcolissioninmap(100, -140, 188, -56);//17
+        else setcolissioninmap(0, 0, 0, 0);//17
+        colact[17].x = 4;
+        colact[17].y = 11;
+        setinstance(146, -70, 5);
+        event(12);
+        
         
         colact[0].x = 1;
         colact[0].y = 4;
@@ -611,33 +671,41 @@ void tale::maptheme()
 bool tale::mapshake()
 {
     camstatic = true;
-    mapShaking = true;
     if (mapshakeanm == 0)
     {
         map1.position.x += 30;
+        player.position.x += 30;
     }
     if (mapshakeanm == 10)
     {
         map1.position.x -= 60;
+        player.position.x -= 60;
+
     }
     if (mapshakeanm == 20)
     {
         map1.position.x += 60;
+        player.position.x += 60;
+
     }
     if (mapshakeanm == 30)
     {
         map1.position.x -= 60;
+        player.position.x -= 60;
+
     }
     if (mapshakeanm == 40)
     {
         map1.position.x += 30;
+        player.position.x += 30;
+
     }
     mapshakeanm++;
     if (mapshakeanm >= 60)
     {
         camstatic = false;
-        return false;
         mapshakeanm = 0;
+        return false;
     }
     return true;
 }

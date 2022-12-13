@@ -76,10 +76,10 @@ class tale : public Game {
   Sprite player, map1, map2, map3, map4, map5, trans;
   Vec2 Ppos = Vec2(0,0);
   Vec2 Pposcons = Vec2(0,0);
-  float  vel = 4, anm = 0;
+  int  vel = 4, anm = 0;
   int TEvent = 0;
   int direction = 1, dircons = 1, mapid = 0, chatnumb = 0, mapcons = 0, mapspawn = 0;
-  bool moving, texset = false, anmt = false, standing = true , Tbool = false;
+  bool moving = false, texset = false, anmt = false, standing = true , Tbool = false;
   bool mapdone = false, action = false;
   Vec4 camborder = Vec4(-9999, -9999, 9999, 9999);
   bool placeholderfixtape1 = false;
@@ -187,7 +187,7 @@ void instmove(int id, int Direction);
 void instfadeout(int id);
 bool mapshake();
 int mapshakeanm = 0;
-bool mapShaking = false;
+bool Pstop = false;
 bool camstatic = false;
 
 

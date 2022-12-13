@@ -94,9 +94,33 @@ void tale::setinstance(int posX, int posY, int id)
     if (id == 2)
     {  
         path1 = FileUtils::fromCwd("sprites/instances/inst_button0.png");
+        path2 = FileUtils::fromCwd("sprites/instances/inst_button1.png");
+        path3 = FileUtils::fromCwd("sprites/instances/inst_button0.png");
+        path4 = FileUtils::fromCwd("sprites/instances/inst_button1.png");
+        instances[InstanceCount].direnable = true;
+    }
+    if (id == 3)
+    {  
+        path1 = FileUtils::fromCwd("sprites/instances/RuinsDoor.png");
+        instances[InstanceCount].ins_sprite.size *= 2; 
+        
+    }
+    if (id == 4)
+    {  
+        path1 = FileUtils::fromCwd("sprites/instances/switch0.png");
+        path2 = FileUtils::fromCwd("sprites/instances/switch1.png");
+        path3 = FileUtils::fromCwd("sprites/instances/switch0.png");
+        path4 = FileUtils::fromCwd("sprites/instances/switch1.png");
+        instances[InstanceCount].direnable = true;
+        instances[InstanceCount].ins_sprite.size /= 2; 
+    }
+    if (id == 5)
+    {  
+        path1 = FileUtils::fromCwd("sprites/Characters/dummy/dummy_ins.png");
     }
     instances[InstanceCount].id = id;
     instances[InstanceCount].texture = repo.add(path1);
+    instances[InstanceCount].dir = 0;
     if (instances[InstanceCount].direnable)
     {
         instances[InstanceCount].texture1 = repo.add(path2);
@@ -124,6 +148,9 @@ void tale::removeinstances()
     {
         instances[i].Pos = Vec2(0,0);
         instances[i].id = -1;
+        auto* rem = engine->renderer.getTextureRepository().getBySpriteId(instances[i].ins_sprite.id);
+        rem->removeLinkById(instances[i].ins_sprite.id);
+        instances[i].texture->addLink(instances[i].ins_sprite.id);
         engine->renderer.getTextureRepository().free(instances[i].texture);
         if (instances[InstanceCount].direnable)
         {
@@ -131,7 +158,19 @@ void tale::removeinstances()
             engine->renderer.getTextureRepository().free(instances[i].texture2);
             engine->renderer.getTextureRepository().free(instances[i].texture3);
         }
+        if (instances[InstanceCount].walkanm)
+        {
+            engine->renderer.getTextureRepository().free(instances[i].MoveR1);
+            engine->renderer.getTextureRepository().free(instances[i].MoveL1);
+            engine->renderer.getTextureRepository().free(instances[i].MoveU1);
+            engine->renderer.getTextureRepository().free(instances[i].MoveD1);
+            engine->renderer.getTextureRepository().free(instances[i].MoveR2);
+            engine->renderer.getTextureRepository().free(instances[i].MoveL2);
+            engine->renderer.getTextureRepository().free(instances[i].MoveU2);
+            engine->renderer.getTextureRepository().free(instances[i].MoveD2);
+        }
         instances[i].direnable = false;
+        instances[i].walkanm = false;
         instances[i].dir = 0;
         instances[i].ins_sprite.size = Vec2(32 * 2,32 * 2);
     }
@@ -141,7 +180,6 @@ void tale::drawinstances()
 {
     if (mapid == mapcons){
     auto& ren = engine->renderer.renderer2D;
-    auto& pad = engine->pad.getClicked();
     for (int i = 0; i < InstanceCount; i++)
     {
         if (instances[i].dir != instances[i].dircons && !instances[i].movingX && !instances[i].movingY)
@@ -163,7 +201,7 @@ void tale::drawinstances()
             instances[i].movingcons = false;
             instances[i].anmcount = 0;
         }
-        else if (instances[i].movingX || instances[i].movingY)
+        else if ((instances[i].movingX || instances[i].movingY) && instances[i].walkanm)
         {
             if (instances[i].dir != instances[i].dircons)
             {
@@ -211,7 +249,6 @@ void tale::drawinstances()
         }
         instances[i].ins_sprite.position.x = map1.position.x + (instances[i].Pos.x + 256);
         instances[i].ins_sprite.position.y = map1.position.y + (instances[i].Pos.y + 256);
-        if(pad.Cross) TYRA_LOG("Intance ", i,":",instances[i].ins_sprite.position.x, ", ", instances[i].ins_sprite.position.y);
         
         if (instances[i].id == 0)
         {
@@ -220,6 +257,14 @@ void tale::drawinstances()
         else if (instances[i].id == 1 && mapid == 1)
         {
             draw_instance(i);
+        }
+        else if (instances[i].id == 3 && mapid == 3)
+        {
+            if (TEvent < 8 && mapanmcount < 5) draw_instance(i);
+        }
+        else if (instances[i].id == 5 && mapid == 5)
+        {
+            if (TL_Dummy != 1) draw_instance(i);
         }
         else draw_instance(i);
     }
@@ -365,10 +410,15 @@ void tale::inst_conditionmove()
     {
         if (TEvent == 7 ) 
         {
+            
             if (mapanmcount == 0)
             {
-            bool Xt = instmoveX(1, 4, 178);
+            bool Xt = instmoveX(1, 4, 178); 
+            if (instances[7].Pos.x > 70) instances[4].dir = 1;
+            if (instances[7].Pos.x > 140) instances[5].dir = 1;
+            Pstop = true;
             if (Xt) mapanmcount = 1;
+
             }
             if (mapanmcount == 1)
             {
@@ -378,6 +428,8 @@ void tale::inst_conditionmove()
             if (mapanmcount == 2)
             {
             bool Xt = instmoveX(1, -4, 92);
+            if (instances[7].Pos.x < 110) instances[1].dir = 1;
+            if (instances[7].Pos.x < 186) instances[2].dir = 1;
             if (Xt) mapanmcount = 3;
             }
             if (mapanmcount == 3)
@@ -387,12 +439,12 @@ void tale::inst_conditionmove()
             }
             if (mapanmcount == 4)
             {
-            bool Xt = instmoveX(1, 4, 368);
-            if (Xt) 
-            {
-                mapanmcount = 5;
-                instmove(1, 2);
-            }
+            bool Xt = instmoveX(1, 4, 150);
+                if (Xt) 
+                {
+                    mapanmcount = 5;
+                    instmove(1, 2);
+                }
             }
             if (mapanmcount == 5)
             {
@@ -400,10 +452,66 @@ void tale::inst_conditionmove()
             if (!shakin)
             mapanmcount = 6;
             }
-
-            
+            if (mapanmcount == 6)
+            {
+            bool Xt = instmoveX(1, -4, 0);
+                if (Xt) 
+                {
+                    mapanmcount = 7;
+                }
+            }
+            if (mapanmcount == 7)
+            {
+            bool Yt = instmoveY(1, 4, -88);
+                if (Yt) 
+                {
+                    mapanmcount = 0;
+                    event(7);
+                    Pstop = false;
+                }
+            }
         }
-        
+        if (TEvent == 8 ) 
+        {
+            bool Yt = instmoveY(1, -4, -200);
+            if (Yt) 
+            {
+                instfadeout(1);
+            }
+        }
+    }
+    if (mapid == 4)
+    {
+        if (TEvent == 9)
+            {
+            bool Xt = instmoveX(1, 4, 654);
+                if (Xt) 
+                {
+                    instmove(1, 3);
+                }
+            }
+        if (TEvent == 10 ) 
+        {
+            bool Xt = instmoveX(1, 4, 1094);
+            if (Xt) 
+            {
+                instmove(1, 3);
+            }
+        }
+        if (TEvent == 11 )
+        {
+                Pstop = true;
+                bool shakin = mapshake();
+                if (!shakin) 
+                {
+                    event(11);
+                }
+        }
+        if (TEvent == 12 ) 
+        {
+            Pstop = false;
+            instmoveX(1, 4, 1500);
+        }
     }
 }
 void tale::instfadeout(int id)

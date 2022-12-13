@@ -920,7 +920,7 @@ void tale::battleexit()
     showenemy = true;
     turns = 0;
     maptheme();
-    event(6);
+    event(13);
     engine->audio.adpcm.reset();
 }
 }
