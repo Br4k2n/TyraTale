@@ -11,6 +11,7 @@ void tale::Battle()
     auto& ren = engine->renderer.renderer2D;
     if (GameStatecons != 1)
     {
+        battlestatechanged = true;
         auto Path1 = FileUtils::fromCwd("sprites/fight1.png");
         auto Path2 = FileUtils::fromCwd("sprites/fight2.png");
 
@@ -98,6 +99,7 @@ void tale::Battle()
         texnoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_TXT2.adpcm"));
         monsdiednoise = engine->audio.adpcm.load(FileUtils::fromCwd("Sounds/adpcm/snd_Mdeath.adpcm"));
         anm_attack1->addLink(attanm_sprite.id);
+        BattleMenuState = 0;
         GameStatecons = 1;
     }
     if (showenemy)
@@ -486,25 +488,29 @@ void tale::Battle()
             if (attanm2 == 10)
             {
                 attanm_sprite.position.y = Enemy.Epos.y - 25;
-                anm_attack1->removeLinkById(attanm_sprite.id);
+                auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
+                remtex->removeLinkById(attanm_sprite.id);
                 anm_attack2->addLink(attanm_sprite.id);
             }
             if (attanm2 == 20)
             {
                 attanm_sprite.position.y = Enemy.Epos.y;
-                anm_attack2->removeLinkById(attanm_sprite.id);
+                auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
+                remtex->removeLinkById(attanm_sprite.id);
                 anm_attack3->addLink(attanm_sprite.id);
             }
             if (attanm2 == 30)
             {
                 attanm_sprite.position.y = Enemy.Epos.y + 25;
-                anm_attack3->removeLinkById(attanm_sprite.id);
+                auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
+                remtex->removeLinkById(attanm_sprite.id);
                 anm_attack4->addLink(attanm_sprite.id);
             }
             if (attanm2 == 40)
             {
                 attanm_sprite.position.y = Enemy.Epos.y + 40;
-                anm_attack4->removeLinkById(attanm_sprite.id);
+                auto* remtex = engine->renderer.getTextureRepository().getBySpriteId(attanm_sprite.id);
+                remtex->removeLinkById(attanm_sprite.id);
                 anm_attack5->addLink(attanm_sprite.id);
             }
             
@@ -524,6 +530,7 @@ void tale::Battle()
                 {
                     hdisplay--;
                 }
+                TYRA_LOG(hdisplay);
             }
             UI_HealthBar.size = Vec2(100,18);
             UI_HealthBar.position = Vec2(Enemy.Epos.x, Enemy.Epos.y - 50);
@@ -660,6 +667,7 @@ void tale::Battle()
     {
     std::string op1;
     op1 = "* Escaped...";
+    TL_Dummy = 3;
     int len1 = op1.length();
 
     for (int i = 0; i < len1; i++)

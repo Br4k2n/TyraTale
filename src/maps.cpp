@@ -216,7 +216,9 @@ void tale::mapinit()
         setinstance(110, 32, 2);//4
         setinstance(186, 32, 2);//5
         setinstance(150, 72, 2);//6
-        if (TEvent == 6) setinstance(22, -52, 1);//7
+        setinstance(174, -128, 4);//7
+        if (TEvent > 6) { instances[7].dir = 1; }
+        if (TEvent == 6) setinstance(22, -52, 1);//8
 
 
         colact[0].x = 1;
@@ -364,9 +366,17 @@ void tale::mapinit()
         setcolissioninmap(110, -130, 178, -66);//16
         if (TL_Dummy != 1) setcolissioninmap(100, -140, 188, -56);//17
         else setcolissioninmap(0, 0, 0, 0);//17
+        if (TEvent < 14) {setcolissioninmap(-22, -146, 90, -114); setcolissioninmap(-26, -146, 94, -110);
+        colact[19].x = 4;
+        colact[19].y = 11;
+        }//18 19
+        else {setcolissioninmap(0, 0, 0, 0); setcolissioninmap(0, 0, 0, 0);}//18 19
         colact[17].x = 4;
         colact[17].y = 11;
-        setinstance(146, -70, 5);
+
+        setinstance(146, -70, 5);//0
+        if (TEvent == 12){setinstance(38, -26, 1); instmove(1, 3);}
+        if (TEvent == 13){setinstance(38, -170, 1); instmove(1, 0);}
         event(12);
         
         

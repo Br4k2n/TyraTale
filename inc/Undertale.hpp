@@ -1,6 +1,6 @@
 #pragma once
-
 #include <tyra>
+#define debugmode true
 
 namespace tale {
   using namespace Tyra;

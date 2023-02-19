@@ -94,9 +94,8 @@ if (TEvent == event)
         hom = "toriel_neutral";
         TEvent = 13;
     }
-    if (event == 13)
+    if (event == 14)
     {   
-        TYRA_LOG("final");
         if (TL_Dummy == 0) str = "*Ah, very good!#*You are very good.";
         if (TL_Dummy == 1) str = "*Ahh.. the dummies are#not for fighting!#*They are for talking!$*We do not want to hurt#anybody, do we...?#*Come now.";
         if (TL_Dummy == 2) str = "*...$*...$*The next room awaits.";
@@ -104,7 +103,7 @@ if (TEvent == event)
         tipechat = 0;
         action = true;
         hom = "toriel_neutral";
-        TEvent = 14;
+        TEvent = 15;
     }
     if (event == 99)
     {   

@@ -16,10 +16,7 @@ void tale::init()
 
 void tale::loop() 
 { 
-    
     auto& ren = engine->renderer;
-    if (engine->pad.getClicked().R1){mapid++;}
-    if (engine->pad.getClicked().L1){mapid--;}
     if (GameState == 0)
     {
     GameStatecons = 0;

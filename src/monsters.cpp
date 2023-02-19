@@ -36,7 +36,7 @@ if (monsid == 1)
     enf.maxhp = 20;
     enf.currhp = 20;
     enf.encountertex = "*Froggit attacks you!";
-    enf.neutral1 = "*You are intimidated by#Froggit's raw strength.#Only kidding.";
+    enf.neutral1 = "*You are intimidated by#Froggit's raw strength.                             #Only kidding.";
     enf.neutral2 = "*Froggit hops to and fro.";
     enf.textpath = FileUtils::fromCwd("sprites/Characters/Froggit/spr_placeholder.png");
     enf.dmgtextpath = FileUtils::fromCwd("sprites/Characters/Froggit/spr_froggit_1.png");
@@ -54,7 +54,7 @@ if (monsid == 2)
     enf.maxhp = 40;
     enf.currhp = 40;
     enf.encountertex = "*Froggit hopped close!";
-    enf.neutral1 = "*You are intimidated by#Froggit's raw strength.#Only kidding.";
+    enf.neutral1 = "*You are intimidated by#Froggit's raw strength.                             #Only kidding.";
     enf.neutral2 = "*Froggit hops to and fro.";
     enf.textpath = FileUtils::fromCwd("sprites/Characters/Froggit/spr_placeholder.png");
     enf.dmgtextpath = FileUtils::fromCwd("sprites/Characters/Froggit/spr_froggit_1.png");

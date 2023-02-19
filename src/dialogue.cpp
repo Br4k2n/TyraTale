@@ -8,9 +8,11 @@ using namespace std;
 void tale::drawtext()
 {
     string str2 = "#$*";
+    string str3 = "";
     auto& ren = engine->renderer.renderer2D;
     float border;
-    int len = str.length();
+    int len;
+    if (tipechat != 11) len = str.length(); else len = str3.length();
     const auto& padpress = engine->pad.getClicked();
     string curhom = hom;
     int letterspace = 0;
@@ -306,8 +308,7 @@ void tale::drawtext()
     }
     if (tipechat == 11)
         {
-            string str3 = "* " + Enemy.name + " - ATK " + to_string(Enemy.att) + " DEF " + to_string(Enemy.def) + "#" + str;
-            len = str3.length();
+            str3 = "* " + Enemy.name + " - ATK " + to_string(Enemy.att) + " DEF " + to_string(Enemy.def) + "#" + str;
             for (int i = lbp; i < chatnumb; i++)
         {
             if (str3.at(i) != str2.at(0) && str3.at(i) != str2.at(1) && str3.at(i) != str2.at(2)){
@@ -893,7 +894,7 @@ void tale::chatstart(int chatid)
     }
     if (chatid == 11)
     {
-        if (TEvent == 13) {battlestart(0); NumOfCol--;}
+        if (TEvent == 13) {battlestart(0); NumOfCol--; TEvent = 14;}
     }
     if (chatid != 6 && chatid != 7 && chatid != 11)
     action = true;

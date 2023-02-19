@@ -9,6 +9,16 @@ void tale::reloadplayer()
 {
     if (!Tbool && !mapdone && !action && !Pstop){
     const auto pad = engine->pad.getPressed();
+    const auto ppad = engine->pad.getClicked();
+
+
+    #if debugmode
+    if (ppad.Cross) {TYRA_LOG(Ppos.x); TYRA_LOG(Ppos.y); TYRA_LOG(TL_Dummy); TYRA_LOG(TEvent); TYRA_LOG("-------------------------");}
+    if (ppad.R1) { mapid++; }
+    if (ppad.L1) { mapid--; }
+    if (ppad.Triangle) { TEvent++;TYRA_LOG(TEvent); }
+    if (ppad.Circle) { TEvent--;TYRA_LOG(TEvent); }
+    #endif
 
     if (pad.DpadRight)
     {

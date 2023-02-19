@@ -118,6 +118,10 @@ void tale::setinstance(int posX, int posY, int id)
     {  
         path1 = FileUtils::fromCwd("sprites/Characters/dummy/dummy_ins.png");
     }
+    if (id == 6)
+    {  
+        path1 = FileUtils::fromCwd("sprites/instances/sign.png");
+    }
     instances[InstanceCount].id = id;
     instances[InstanceCount].texture = repo.add(path1);
     instances[InstanceCount].dir = 0;
@@ -414,8 +418,8 @@ void tale::inst_conditionmove()
             if (mapanmcount == 0)
             {
             bool Xt = instmoveX(1, 4, 178); 
-            if (instances[7].Pos.x > 70) instances[4].dir = 1;
-            if (instances[7].Pos.x > 140) instances[5].dir = 1;
+            if (instances[8].Pos.x > 70) instances[4].dir = 1;
+            if (instances[8].Pos.x > 140) instances[5].dir = 1;
             Pstop = true;
             if (Xt) mapanmcount = 1;
 
@@ -428,8 +432,8 @@ void tale::inst_conditionmove()
             if (mapanmcount == 2)
             {
             bool Xt = instmoveX(1, -4, 92);
-            if (instances[7].Pos.x < 110) instances[1].dir = 1;
-            if (instances[7].Pos.x < 186) instances[2].dir = 1;
+            if (instances[8].Pos.x < 110) instances[1].dir = 1;
+            if (instances[8].Pos.x < 186) instances[2].dir = 1;
             if (Xt) mapanmcount = 3;
             }
             if (mapanmcount == 3)
@@ -449,6 +453,8 @@ void tale::inst_conditionmove()
             if (mapanmcount == 5)
             {
             bool shakin = mapshake();
+            instances[7].dir = 1;
+
             if (!shakin)
             mapanmcount = 6;
             }
@@ -509,8 +515,31 @@ void tale::inst_conditionmove()
         }
         if (TEvent == 12 ) 
         {
+            mapanmcount = 0;
             Pstop = false;
             instmoveX(1, 4, 1500);
+
+        }
+    }
+    if (mapid == 5)
+    {
+        if (TEvent == 13 ) 
+        {
+            if (mapanmcount == 0)
+            {
+            bool check = instmoveY(1, -4, -170);
+            if (check) {mapanmcount = 1; instmove(1, 0);}
+            }
+
+        }
+        if (TEvent == 14 && GameState == 0)
+        {
+            event(14);
+        }
+        if (TEvent == 15)
+        {
+            bool check = instmoveY(1, -4, -200);
+            if (check) { instfadeout(1); }
         }
     }
 }
